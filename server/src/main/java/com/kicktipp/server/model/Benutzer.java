@@ -16,7 +16,7 @@ public class Benutzer {
     @JsonFormat(pattern = "yyyy-MM-dd")
     public LocalDate geburtsdatum;
     public String passwort;
-    public String auth_token;
+    public String authtoken;
     public String role;
     public String email;
     @OneToOne(cascade = CascadeType.ALL)
@@ -63,12 +63,12 @@ public class Benutzer {
         this.passwort = passwort;
     }
 
-    public String getAuth_token() {
-        return auth_token;
+    public String getAuthtoken() {
+        return authtoken;
     }
 
-    public void setAuth_token(String auth_token) {
-        this.auth_token = auth_token;
+    public void setAuthtoken(String auth_token) {
+        this.authtoken = auth_token;
     }
 
     public String getRole() {
