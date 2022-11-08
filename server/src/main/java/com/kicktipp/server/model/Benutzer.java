@@ -19,9 +19,7 @@ public class Benutzer {
     public String authtoken;
     public String role;
     public String email;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profilbildId", referencedColumnName = "ID")
-    public Profilbild profilbildId;
+    public String profilepicturedata;
 
     public Long getId() {
         return id;
@@ -87,11 +85,11 @@ public class Benutzer {
         this.email = email;
     }
 
-    public Profilbild getProfilbildId() {
-        return profilbildId;
+    public String getProfilepicturedata() {
+        return profilepicturedata;
     }
 
-    public void setProfilbildId(Profilbild profilbildId) {
-        this.profilbildId = profilbildId;
+    public void setProfilepicturedata(String profilbildId) {
+        this.profilepicturedata = profilbildId;
     }
 }

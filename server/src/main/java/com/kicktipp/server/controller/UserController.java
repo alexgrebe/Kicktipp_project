@@ -12,16 +12,6 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @GetMapping("/userById")
-    public String userById() {
-        return "jssjjs";
-    }
-
-    @GetMapping("/")
-    public String hallo() {
-        return "asssass";
-    }
-
     @PostMapping("/addUser")
     public String addUserController(@RequestBody Benutzer benutzer) {
         try{
