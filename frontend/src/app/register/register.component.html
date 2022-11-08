@@ -1,0 +1,29 @@
+<p>register works!</p>
+<form #registerForm = 'ngForm' (ngSubmit)="onSubmit(registerForm)">
+    <div>
+        <label>Vorname</label>
+        <input type="text" class="form-control" id="vorname"
+                [(ngModel)]="benutzer.vorname" name="vorname">
+    </div>
+    <div>
+        <label>Nachname</label>
+        <input type="text" class="form-control" id="nachname"
+                [(ngModel)]="benutzer.nachname" name="nachname">
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="email" class="form-control" id="email"
+                [(ngModel)]="benutzer.email" name="email">
+    </div>
+    <div>
+        <label>Passwort</label>
+        <input type="password" class="form-control" id="passwort"
+                [(ngModel)]="benutzer.passwort" name="passwort">
+    </div>
+    <div>
+        <label>Profilbild</label>
+        <input type="file" (change)="dataConvert($event)" id="profildata">
+    </div>
+    <button type="submit">Registrieren</button>
+</form>
+{{benutzer.vorname}}
