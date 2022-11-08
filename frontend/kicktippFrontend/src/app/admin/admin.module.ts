@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-
     AdminComponent
   ],
   imports: [
