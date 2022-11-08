@@ -19,6 +19,7 @@ public class Benutzer {
     public String authtoken;
     public String role;
     public String email;
+    @Lob
     public String profilepicturedata;
 
     public Long getId() {

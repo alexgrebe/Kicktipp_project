@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Benutzer } from '../Models/Benutzer';
+import { RegisterService } from './register.service';
 
 @Component({
   selector: 'app-register',
@@ -13,13 +14,13 @@ export class RegisterComponent implements OnInit {
   reader: FileReader = new FileReader();
   profiledatafile: File|undefined;
 
-  constructor() {this.benutzer=new Benutzer() }
+  constructor(private service: RegisterService) {this.benutzer=new Benutzer() }
 
   ngOnInit(): void {
   }
 
   async dataConvert(event: any) {
-    this.reader.onloadend = () => {console.log(this.reader.result); this.benutzer.profilpicturedata = this.reader.result+"";}
+    this.reader.onloadend = () => {console.log(this.reader.result); this.benutzer.profilepicturedata = this.reader.result+"";}
     this.profiledatafile = event.target.files[0];
     this.reader.readAsDataURL(event.target.files[0]);
   }
@@ -27,6 +28,7 @@ export class RegisterComponent implements OnInit {
   async onSubmit(benutzerForm: NgForm) {
     console.log(this.benutzer)
     console.log(benutzerForm.value)
+    this.service.callAddUser(this.benutzer).subscribe(data => {console.log(data)})
   }
 
 }
