@@ -9,23 +9,23 @@ public class Configuration {
     public Long id;
 
     @Column(unique = true)
-    public String attribute;
+    public String attributeConfig;
 
-    public String value;
+    public String valueConfig;
 
     public String getAttribute() {
-        return attribute;
+        return attributeConfig;
     }
 
     public void setAttribute(String attribute) {
-        this.attribute = attribute;
+        this.attributeConfig = attribute;
     }
 
     public String getValue() {
-        return value;
+        return valueConfig;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.valueConfig = value;
     }
 }

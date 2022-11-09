@@ -14,7 +14,7 @@ public class ConfigService {
         return repo.findAll();
     }
 
-    public Configuration addAttribure(Configuration configuration) {
+    public Configuration addAttribute(Configuration configuration) {
         return repo.save(configuration);
     }
 

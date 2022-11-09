@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public interface ConfigRepository extends CrudRepository<Configuration, Long> {
-    public Configuration findByAttribute(String attribute);
+    public Configuration findByAttributeConfig(String attribute);
 
     @Transactional
     @Modifying
-    @Query("update Configuration c set c.value = :value where c.attribute = :attribute")
+    @Query("update Configuration c set c.valueConfig = :value where c.attributeConfig = :attribute")
     public void updateConfig_Value(@Param("attribute") String attribute, @Param("value") String value);
 }
