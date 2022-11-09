@@ -25,7 +25,7 @@ public class LigaService {
     }
 
     public Iterable<Spiel> getGamesByDate(Date date) {
-        return spielRepository.findAllByDate(date);
+        return spielRepository.findAllByDatum(date);
     }
 
     public void updateLeaguePicture() {
