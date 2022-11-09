@@ -6,6 +6,7 @@ export class Benutzer {
     passwort: string|undefined;
     profilepicturedata: string|undefined;
     role: string|undefined;
+    geburtsdatum: string|undefined;
     
     constructor() {}
 }

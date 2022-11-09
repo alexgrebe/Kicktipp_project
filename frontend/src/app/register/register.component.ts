@@ -26,8 +26,7 @@ export class RegisterComponent implements OnInit {
   }
 
   async onSubmit(benutzerForm: NgForm) {
-    console.log(this.benutzer)
-    console.log(benutzerForm.value)
+    this.benutzer.role = "nutzer";
     this.service.callAddUser(this.benutzer).subscribe(data => {console.log(data)})
   }
 

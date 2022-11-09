@@ -1,4 +1,3 @@
-<p>register works!</p>
 <form #registerForm = 'ngForm' (ngSubmit)="onSubmit(registerForm)">
     <div>
         <label>Vorname</label>
@@ -23,6 +22,10 @@
     <div>
         <label>Profilbild</label>
         <input type="file" (change)="dataConvert($event)" id="profildata">
+    </div>
+    <div>
+        <label>Geburtsdatum</label>
+        <input type="date" [(ngModel)]="benutzer.geburtsdatum" class="form-control" id="geburtsdatum" name="geburtsdatum">
     </div>
     <button type="submit">Registrieren</button>
 </form>
