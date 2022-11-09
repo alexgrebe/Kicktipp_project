@@ -1,13 +1,14 @@
 package com.kicktipp.server.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
-public class Config {
+public class Configuration {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Long id;
+
+    @Column(unique = true)
     public String attribute;
 
     public String value;

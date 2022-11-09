@@ -18,7 +18,6 @@ public class Liga {
     public Long logoID;
 
     @OneToMany(mappedBy = "liga", fetch = FetchType.LAZY, orphanRemoval = false)
-    @JoinColumn(name = "liga")
     public List<Spiel> spieleList = new ArrayList<>();
 
     public Long getId() {
