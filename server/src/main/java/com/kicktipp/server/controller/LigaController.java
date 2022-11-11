@@ -6,6 +6,8 @@ import com.kicktipp.server.service.LigaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class LigaController {
 
@@ -23,10 +25,14 @@ public class LigaController {
         return "success";
     }
 
-    @PostMapping("/addGame/{ligaID}")
-    public String addGame(@RequestBody Spiel spiel, @PathVariable Long ligaID) {
-        //spiel.setLiga();
+    @PostMapping("/addGame")
+    public String addGame(@RequestBody Spiel spiel) {
         service.addGame(spiel);
         return "success";
+    }
+
+    @GetMapping("/getAllGamesByLeague/{id}")
+    public List<Spiel> spieleListe(@PathVariable Long id) {
+        return service.getAllGamesByLeague(id);
     }
 }

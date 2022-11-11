@@ -16,7 +16,7 @@ import java.util.List;
 public interface SpielRepository extends CrudRepository<Spiel, Long> {
     public List<Spiel> findAllByDatum(Date datum);
 
-    public List<Spiel> findAllByLiga(Liga liga);
+    public List<Spiel> findAllByLigaFremdschlussel(Long schlussel);
 
     @Transactional
     @Modifying

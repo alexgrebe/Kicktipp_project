@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LigaService {
@@ -20,8 +22,8 @@ public class LigaService {
         return ligaRepository.findAll();
     }
 
-    public Iterable<Spiel> getGamesInLeague(Liga league) {
-        return spielRepository.findAllByLiga(league);
+    public List<Spiel> getGamesInLeague(Long id) {
+        return spielRepository.findAllByLigaFremdschlussel(id);
     }
 
     public Iterable<Spiel> getGamesByDate(Date date) {
@@ -40,5 +42,7 @@ public class LigaService {
         return spielRepository.save(game);
     }
 
-    //public Liga getLigaById(Long id) { return ligaRepository.findById(id); }
+    public Optional<Liga> getLigaById(Long id) { return ligaRepository.findById(id); }
+
+    public List<Spiel> getAllGamesByLeague(Long id) { return spielRepository.findAllByLigaFremdschlussel(id); }
 }

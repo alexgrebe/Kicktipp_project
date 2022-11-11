@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface LigaRepository extends CrudRepository<Liga, Long> {
     public Liga findByName(String name);
@@ -19,5 +20,6 @@ public interface LigaRepository extends CrudRepository<Liga, Long> {
     @Query("update Liga l set l.logoID = :logoID where l.id = :identifiyer")
     public void updateLogoID(@Param("logoID") Long logoID, @Param("identifiyer") Long id);
 
+    public Optional<Liga> findById(Long Id);
 
 }

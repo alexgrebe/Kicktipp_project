@@ -17,9 +17,6 @@ public class Liga {
 
     public Long logoID;
 
-    @OneToMany(mappedBy = "liga", fetch = FetchType.EAGER, orphanRemoval = false)
-    public List<Spiel> spieleList = new ArrayList<>();
-
     public Long getId() {
         return id;
     }
@@ -44,9 +41,4 @@ public class Liga {
         this.logoID = logoID;
     }
 
-    public List<Spiel> getSpieleList() {
-        return spieleList;
-    }
-
-    public void setSpieleList(List<Spiel> spieleList) {this.spieleList=spieleList;}
 }

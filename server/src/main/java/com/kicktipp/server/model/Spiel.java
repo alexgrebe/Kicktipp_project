@@ -1,10 +1,9 @@
 package com.kicktipp.server.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
+
 
 @Entity
 public class Spiel {
@@ -12,9 +11,9 @@ public class Spiel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
-    public Integer Spieltag;
+    public Integer spieltag;
 
-    public Date datum;
+    public LocalDate datum;
 
     public Integer heimtore;
 
@@ -23,10 +22,16 @@ public class Spiel {
     public String heimteam;
 
     public String auswaertsteam;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "liga")
-    public Liga liga;
 
+    public Long ligaFremdschlussel;
+
+    public Long getLigaFremdschlussel() {
+        return ligaFremdschlussel;
+    }
+
+    public void setLigaFremdschlussel(Long ligaFremdschlussel) {
+        this.ligaFremdschlussel = ligaFremdschlussel;
+    }
 
     public Long getId() {
         return id;
@@ -53,18 +58,18 @@ public class Spiel {
     }
 
     public Integer getSpieltag() {
-        return Spieltag;
+        return spieltag;
     }
 
     public void setSpieltag(Integer spieltag) {
-        Spieltag = spieltag;
+        spieltag = spieltag;
     }
 
-    public Date getDatum() {
+    public LocalDate getDatum() {
         return datum;
     }
 
-    public void setDatum(Date datum) {
+    public void setDatum(LocalDate datum) {
         this.datum = datum;
     }
 
@@ -82,14 +87,6 @@ public class Spiel {
 
     public void setAuswaertstore(Integer auswaertstore) {
         this.auswaertstore = auswaertstore;
-    }
-
-    public Liga getLiga() {
-        return liga;
-    }
-
-    public void setLiga(Liga liga) {
-        this.liga = liga;
     }
 
 }
