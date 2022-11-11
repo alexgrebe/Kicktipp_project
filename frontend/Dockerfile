@@ -9,4 +9,6 @@ RUN npm ci && npm run build
 
 FROM nginx:alpine
 COPY --from=build /dist/out /usr/share/nginx/html
+COPY ./nginx-custom.conf /etc/nginx/conf.d/default.conf
 EXPOSE 4200
+EXPOSE 80
