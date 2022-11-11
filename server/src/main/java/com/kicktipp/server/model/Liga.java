@@ -17,7 +17,7 @@ public class Liga {
 
     public Long logoID;
 
-    @OneToMany(mappedBy = "liga", fetch = FetchType.LAZY, orphanRemoval = false)
+    @OneToMany(mappedBy = "liga", fetch = FetchType.EAGER, orphanRemoval = false)
     public List<Spiel> spieleList = new ArrayList<>();
 
     public Long getId() {
