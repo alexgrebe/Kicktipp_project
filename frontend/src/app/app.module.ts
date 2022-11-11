@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { AdminRegisterComponent } from './admin-register/admin-register.component';
 import { LoginComponent } from './login/login.component';
+import { LigaComponent } from './liga/liga.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     AdminRegisterComponent,
-    LoginComponent
+    LoginComponent,
+    LigaComponent
   ],
   imports: [
     BrowserModule,
