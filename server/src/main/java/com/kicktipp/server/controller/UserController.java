@@ -16,6 +16,7 @@ public class UserController {
     public String addUserController(@RequestBody Benutzer benutzer) {
         try{
         Benutzer ret = service.addUser(benutzer);
+        if(!service.validateEmail(benutzer.email)) { return "failure"; }
         System.out.println(ret.getId());
         return "success";}
         catch(Exception e) {return e.getMessage();}

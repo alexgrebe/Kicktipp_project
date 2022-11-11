@@ -2,6 +2,7 @@ package com.kicktipp.server.service;
 
 import com.kicktipp.server.model.Benutzer;
 import com.kicktipp.server.repository.UserRepository;
+import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,4 +23,7 @@ public class UserService {
     public Iterable<Benutzer> getAllUsers() {
         return repo.findAll();
     }
+
+    public boolean validateEmail(String email) {
+        return EmailValidator.getInstance().isValid(email); }
 }
