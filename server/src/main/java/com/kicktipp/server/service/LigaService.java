@@ -40,4 +40,5 @@ public class LigaService {
         return spielRepository.save(game);
     }
 
+    //public Liga getLigaById(Long id) { return ligaRepository.findById(id); }
 }

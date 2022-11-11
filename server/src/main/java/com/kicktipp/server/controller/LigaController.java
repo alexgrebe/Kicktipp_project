@@ -4,10 +4,7 @@ import com.kicktipp.server.model.Liga;
 import com.kicktipp.server.model.Spiel;
 import com.kicktipp.server.service.LigaService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class LigaController {
@@ -17,7 +14,7 @@ public class LigaController {
 
     @GetMapping("/getAllLeagues")
     public Iterable<Liga> getAllLigen() {
-        return service.getAllLeagues();
+    return service.getAllLeagues();
     }
 
     @PostMapping("/addLiga")
@@ -26,8 +23,9 @@ public class LigaController {
         return "success";
     }
 
-    @PostMapping("/addGame")
-    public String addGame(@RequestBody Spiel spiel) {
+    @PostMapping("/addGame/{ligaID}")
+    public String addGame(@RequestBody Spiel spiel, @PathVariable Long ligaID) {
+        //spiel.setLiga();
         service.addGame(spiel);
         return "success";
     }

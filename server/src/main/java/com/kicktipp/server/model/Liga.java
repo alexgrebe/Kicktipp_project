@@ -47,4 +47,6 @@ public class Liga {
     public List<Spiel> getSpieleList() {
         return spieleList;
     }
+
+    public void setSpieleList(List<Spiel> spieleList) {this.spieleList=spieleList;}
 }
