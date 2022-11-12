@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { AdminRegisterComponent } from './admin-register/admin-register.component';
 import { LigaComponent } from './liga/liga.component';
+import { SpieleComponent } from './spiele/spiele.component';
 
-const routes: Routes = [{path: 'register', component: RegisterComponent}, {path: 'adminRegister', component: AdminRegisterComponent}, {path: 'liga', component: LigaComponent}];
+const routes: Routes = [{path: 'register', component: RegisterComponent}, {path: 'adminRegister', component: AdminRegisterComponent}, 
+{path: 'liga', component: LigaComponent}, {path: 'spiele/:id', component: SpieleComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
