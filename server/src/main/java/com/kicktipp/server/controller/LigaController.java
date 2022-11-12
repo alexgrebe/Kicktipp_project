@@ -5,6 +5,7 @@ import com.kicktipp.server.model.Spiel;
 import com.kicktipp.server.service.LigaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,5 +36,10 @@ public class LigaController {
     @GetMapping("/getAllGamesByLeague/{id}")
     public List<Spiel> spieleListe(@PathVariable Long id) {
         return service.getAllGamesByLeague(id);
+    }
+
+    @PostMapping("/readInCSV/{id}")
+    public String csvController(@PathVariable Long id, @RequestBody MultipartFile file) {
+        return "success";
     }
 }

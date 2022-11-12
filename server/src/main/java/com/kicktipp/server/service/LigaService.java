@@ -24,7 +24,7 @@ public class LigaService {
     @Autowired
     SpielRepository spielRepository;
 
-    public void readCSV(BufferedReader input) throws IOException, CsvException {
+    public void readCSV(BufferedReader input, Long id) throws IOException, CsvException {
         CSVReader reader = new CSVReader(input);
         List<String[]> parsedLines;
         parsedLines = reader.readAll();
@@ -34,12 +34,14 @@ public class LigaService {
         }
         for (String[] parsedLine : parsedLines) {
             Spiel spiel = new Spiel();
+            spiel.setLigaFremdschlussel(id);
             spiel.setSpieltag(Integer.getInteger(parsedLine[0]));
             // todo ich hab keine Ahnung warum das Format nicht passt, in groovy mit dem gleichen code funktioniert das
-            spiel.setDatum(LocalDate.parse(parsedLine[1], DateTimeFormatter.ofPattern("EEE LLL d uuuu")));
+            //spiel.setDatum(LocalDate.parse(parsedLine[1], DateTimeFormatter.ofPattern("EEE LLL d uuuu")));
             spiel.setHeimteam(parsedLine[2]);
-            spiel.setHeimtore(Integer.parseInt(parsedLine[3].split("-")[0]));
-            spiel.setAuswaertstore(Integer.parseInt(parsedLine[3].split("-")[1]));
+            //spiel.setHeimtore(Integer.parseInt(parsedLine[3].split("-")[0]));
+            //spiel.setAuswaertstore(Integer.parseInt(parsedLine[3].split("-")[1]));
+            spiel.setLigaFremdschlussel(1L);
             spiel.setAuswaertsteam(parsedLine[4]);
 
             spielRepository.save(spiel);

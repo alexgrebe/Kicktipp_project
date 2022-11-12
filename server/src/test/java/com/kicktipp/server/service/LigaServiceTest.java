@@ -23,6 +23,6 @@ public class LigaServiceTest {
     @Test
     public void testReadCSV() throws IOException, CsvException {
         Path path = Paths.get("src/test/resources/deutschland-master/2020s/2020-21/de.1.csv").toAbsolutePath();
-        service.readCSV(Files.newBufferedReader(path));
+        service.readCSV(Files.newBufferedReader(path), 1L);
     }
 }
