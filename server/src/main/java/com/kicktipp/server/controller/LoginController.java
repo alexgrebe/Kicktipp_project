@@ -23,4 +23,12 @@ public class LoginController {
         return "success";
     }
 
+    @GetMapping("/getRole")
+    public String getRole(@CookieValue("auth_token") String token) {
+        try{
+            if(token==null) throw new Exception();
+        return service.RoleByToken(token); }
+        catch(Exception e) { return ""; }
+    }
+
 }
