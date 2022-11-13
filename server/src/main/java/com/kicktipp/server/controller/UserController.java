@@ -17,7 +17,6 @@ public class UserController {
         try{
         Benutzer ret = service.addUser(benutzer);
         if(!service.validateEmail(benutzer.email)) { throw new Exception("Email not valid"); }
-        System.out.println(ret.getId());
         return "success";}
         catch(Exception e) {return e.getMessage();}
     }

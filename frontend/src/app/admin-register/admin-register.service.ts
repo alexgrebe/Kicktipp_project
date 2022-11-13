@@ -11,5 +11,5 @@ export class AdminRegisterService {
   url: string;
   constructor(private http: HttpClient) { this.url = "http://localhost:8080/addUser"}
 
-  register(benutzer: Benutzer): Observable<any> { return this.http.post(this.url, benutzer)}
+  register(benutzer: Benutzer): Observable<any> { return this.http.post(this.url, benutzer, {responseType: 'text'})}
 }

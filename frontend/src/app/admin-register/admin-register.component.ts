@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Benutzer } from '../Models/Benutzer';
 import { AdminRegisterService } from './admin-register.service';
 
@@ -10,7 +11,7 @@ import { AdminRegisterService } from './admin-register.service';
 export class AdminRegisterComponent implements OnInit {
 
   benutzer: Benutzer;
-  constructor(private service: AdminRegisterService) { this.benutzer = new Benutzer();}
+  constructor(private service: AdminRegisterService, private router: Router) { this.benutzer = new Benutzer();}
 
   ngOnInit(): void {
   }
@@ -18,7 +19,10 @@ export class AdminRegisterComponent implements OnInit {
   onSubmit() {
     this.benutzer.role = "admin";
     console.log(this.benutzer)
-    this.service.register(this.benutzer).subscribe(data => {console.log(data)});
+    this.service.register(this.benutzer).subscribe(data => {console.log(data);
+    if(data === "success") { this.router.navigateByUrl("/")}
+    else {alert(data)}
+    });
   }
 
 }

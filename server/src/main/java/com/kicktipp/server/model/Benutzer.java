@@ -18,6 +18,7 @@ public class Benutzer {
     public String passwort;
     public String authtoken;
     public String role;
+    @Column(unique = true)
     public String email;
     @Lob
     public String profilepicturedata;

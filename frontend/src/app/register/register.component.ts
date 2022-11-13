@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Benutzer } from '../Models/Benutzer';
 import { RegisterService } from './register.service';
 
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   reader: FileReader = new FileReader();
   profiledatafile: File|undefined;
 
-  constructor(private service: RegisterService) {this.benutzer=new Benutzer() }
+  constructor(private service: RegisterService, private router: Router) {this.benutzer=new Benutzer() }
 
   ngOnInit(): void {
   }
@@ -25,9 +26,11 @@ export class RegisterComponent implements OnInit {
     this.reader.readAsDataURL(event.target.files[0]);
   }
 
-  async onSubmit(benutzerForm: NgForm) {
+  onSubmit(benutzerForm: NgForm) {
     this.benutzer.role = "nutzer";
-    this.service.callAddUser(this.benutzer).subscribe(data => {console.log(data)})
+    this.service.callAddUser(this.benutzer).subscribe(data => {console.log(data); 
+    if(data==="success") { this.router.navigateByUrl('/')} 
+    else {alert(data)}})
   }
 
 }
