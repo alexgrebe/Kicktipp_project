@@ -20,4 +20,8 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
     public Benutzer findByAuthtoken(String auth_token);
 
     public Benutzer findByEmailAndPasswort(String email, String passwort);
+
+    public boolean existsBenutzerByAuthtoken(String token);
+
+    public String findRoleByAuthtoken(String token);
 }

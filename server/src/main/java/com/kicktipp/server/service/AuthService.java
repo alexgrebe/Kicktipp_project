@@ -23,6 +23,8 @@ public class AuthService {
         repo.updateAuth_token(token, be.getId());
         return token; }
 
-    public Benutzer verifyToken(String token) { return repo.findByAuthtoken(token); }
+    public boolean verifyToken(String token) { return repo.existsBenutzerByAuthtoken(token); }
+
+    public String RoleByToken(String token) { return repo.findRoleByAuthtoken(token); }
 
 }
