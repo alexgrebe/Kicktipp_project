@@ -10,6 +10,7 @@ import { AdminRegisterComponent } from './admin-register/admin-register.componen
 import { LoginComponent } from './login/login.component';
 import { LigaComponent } from './liga/liga.component';
 import { SpieleComponent } from './spiele/spiele.component';
+import { AdminligaComponent } from './adminliga/adminliga.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { SpieleComponent } from './spiele/spiele.component';
     AdminRegisterComponent,
     LoginComponent,
     LigaComponent,
-    SpieleComponent
+    SpieleComponent,
+    AdminligaComponent
   ],
   imports: [
     BrowserModule,

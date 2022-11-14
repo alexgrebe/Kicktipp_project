@@ -1,7 +1,7 @@
 export class Liga {
 
     id:number|undefined;
-    logoID: number|undefined;
+    logoID: string|undefined;
     name: string|undefined;
 
     constructor() {}

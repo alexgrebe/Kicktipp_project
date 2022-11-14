@@ -1,0 +1,54 @@
+<p>Liga hinzufügen</p>
+<form #addLigaForm='ngForm' (ngSubmit)="addLigaSubmit()">
+    <div>
+        <label>Name</label>
+        <input type="text" class="form-control" [(ngModel)]="liga.name" name="liganame">
+    </div>
+    <div>
+        <label>Logo</label>
+        <input type="file" (change)="logoLigaChange($event)">
+    </div>
+    <button type="submit">Hinzufügen</button>
+</form>
+<p>Spiel hinzufügen</p>
+<form #addGameForm='ngForm' (ngSubmit)="addGameSubmit()">
+    <div>
+        <label>Spieltag</label>
+        <input type="text" class="form-control" [(ngModel)]="spiel.spieltag" name="spielspieltag">
+    </div>
+    <div>
+        <label>Datum</label>
+        <input type="date" class="form-control" [(ngModel)]="spiel.datum" name="spieldatum">
+    </div>
+    <div>
+        <label>Heimtore</label>
+        <input type="number" class="form-control" [(ngModel)]="spiel.heimtore" name="spielheimtore">
+    </div>
+    <div>
+        <label>Auswärtstore</label>
+        <input type="number" class="form-control" [(ngModel)]="spiel.auswaertstore" name="spielauswaertstore">
+    </div>
+    <div>
+        <label>Heimteam</label>
+        <input type="text" class="form-control" [(ngModel)]="spiel.heimteam" name="spielheimteam">
+    </div>
+    <div>
+        <label>Auswärtsteam</label>
+        <input type="text" class="form-control" [(ngModel)]="spiel.auswaertsteam" name="spielauswaertsteam">
+    </div>
+    <button type="submit">Hinzufügen</button>
+</form>
+<p>CSV einlesen</p>
+<form #readInCSVForm = 'ngForm' (ngSubmit) = "readInCSVSubmit()">
+<div>
+    <label>CSV-Datei</label>
+    <input type="file" [(ngModel)]="CSVFile" name="CSVFile">
+</div>
+<div>
+    <label>Liga auswählen</label>
+    <select class="form-control" name="csvLiga" [(ngModel)]="ligaId">
+        <option></option>
+    </select>
+</div>
+<button type="submit">Hinzufügen</button>
+</form>
