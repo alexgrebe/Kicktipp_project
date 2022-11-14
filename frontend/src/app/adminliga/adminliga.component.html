@@ -42,12 +42,12 @@
 <form #readInCSVForm = 'ngForm' (ngSubmit) = "readInCSVSubmit()">
 <div>
     <label>CSV-Datei</label>
-    <input type="file" [(ngModel)]="CSVFile" name="CSVFile">
+    <input type="file" (change)="setCSVFile($event)">
 </div>
 <div>
     <label>Liga auswählen</label>
     <select class="form-control" name="csvLiga" [(ngModel)]="ligaId">
-        <option></option>
+        <option *ngFor="let liga of ligen" [ngValue]="liga.id">{{liga.name}}</option>
     </select>
 </div>
 <button type="submit">Hinzufügen</button>

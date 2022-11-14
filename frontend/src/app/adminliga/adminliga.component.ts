@@ -13,13 +13,13 @@ export class AdminligaComponent implements OnInit {
   liga: Liga;
   spiel: Spiel;
   reader: FileReader;
-  ligaId: number|undefined;
+  ligaId: number;
   ligen: Liga[];
-  CSVFile: File|undefined;
+  CSVFile: File;
 
   constructor(private service: AdminligaService) { 
   this.liga = new Liga(); this.reader = new FileReader(); this.reader.onloadend = () => {this.liga.logoID = this.reader.result+""};
-  this.spiel = new Spiel(); this.ligaId=0; this.ligen = []; 
+  this.spiel = new Spiel(); this.ligaId=0; this.ligen = []; this.CSVFile = new File([""], "csvname")
   }
 
   ngOnInit(): void {
@@ -31,10 +31,14 @@ export class AdminligaComponent implements OnInit {
 
   addGameSubmit() { console.log(this.spiel); this.service.addGame(this.spiel).subscribe(data => {console.log(data)})}
 
-  readInCSVSubmit() { console.log(this.CSVFile) }
+  readInCSVSubmit() { console.log(this.CSVFile?.size); this.service.readInCSV(this.CSVFile, this.ligaId)}
 
   async logoLigaChange(e: any) {
     this.reader.readAsDataURL(e.target.files[0]);
+  }
+
+  setCSVFile(e: any) {
+    this.CSVFile = e.target.files[0];
   }
 
 }
