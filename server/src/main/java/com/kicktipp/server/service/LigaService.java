@@ -51,7 +51,7 @@ public class LigaService {
                 spiel.setHeimtore(null);
                 spiel.setAuswaertstore(null);
             }
-            spiel.setLigaFremdschlussel(1L);
+            spiel.setLigaFremdschlussel(id);
             spiel.setAuswaertsteam(parsedLine[4]);
 
             spielRepository.save(spiel);

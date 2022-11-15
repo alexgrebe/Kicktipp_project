@@ -29,7 +29,7 @@ export class AdminligaComponent implements OnInit {
 
   addLigaSubmit() { console.log(this.liga); this.service.addLiga(this.liga).subscribe(data => { console.log(data) }) }
 
-  addGameSubmit() { console.log(this.spiel); this.spiel.ligaFremdschlussel = 2; this.service.addGame(this.spiel).subscribe(data => { console.log(data) }) }
+  addGameSubmit() { console.log(this.spiel); this.service.addGame(this.spiel).subscribe(data => { console.log(data) }) }
 
   readInCSVSubmit() { console.log(this.CSVFile?.size); console.log(this.ligaId); this.service.readInCSV(this.CSVFile, this.ligaId).subscribe(data => { console.log(data) }) }
 
