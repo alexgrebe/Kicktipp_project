@@ -8,9 +8,12 @@ import { NutzerguardService } from './authguards/nutzerguard.service';
 import { LoginComponent } from './login/login.component';
 import { AdminligaComponent } from './adminliga/adminliga.component';
 
-const routes: Routes = [{path: 'register', component: RegisterComponent}, {path: 'adminRegister', component: AdminRegisterComponent}, 
-{path: 'liga', component: LigaComponent}, {path: 'spiele/:id', component: SpieleComponent}, 
-{path:'login', component: LoginComponent}, {path: 'adminliga', component: AdminligaComponent}];
+const routes: Routes = [{path: 'register', component: RegisterComponent},
+  {path: 'adminRegister', component: AdminRegisterComponent},
+  {path: 'liga', component: LigaComponent},
+  {path: 'spiele/:id', component: SpieleComponent},
+  {path:'login', component: LoginComponent},
+  {path: 'adminliga', component: AdminligaComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

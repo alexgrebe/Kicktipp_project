@@ -1,1 +1,13 @@
-<p>login works!</p>
+<form #loginForm = 'ngForm' (ngSubmit)="onSubmit()">
+  <div>
+    <label>Email</label>
+    <input type="email" class="form-control" id="email"
+           [(ngModel)]="benutzer.email" name="email">
+  </div>
+  <div>
+    <label>Passwort</label>
+    <input type="password" class="form-control" id="passwort"
+           [(ngModel)]="benutzer.passwort" name="passwort">
+  </div>
+  <button type="submit">Login</button>
+</form>
