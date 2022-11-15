@@ -52,6 +52,7 @@ public class LigaController {
 
     @PostMapping("/readInCSV/{id}")
     public String csvController(@PathVariable Long id, @RequestBody MultipartFile file, @CookieValue("auth_token") String token) {
+        System.out.println(file.getSize());
         if(token==null) return "Missing Token";
         if(authService.RoleByToken(token).equals("admin")) {
         try{
