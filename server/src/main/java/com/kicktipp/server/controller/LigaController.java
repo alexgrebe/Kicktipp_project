@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 public class LigaController {
 
     @Autowired

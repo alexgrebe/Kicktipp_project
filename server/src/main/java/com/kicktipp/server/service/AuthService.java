@@ -25,6 +25,6 @@ public class AuthService {
 
     public boolean verifyToken(String token) { return repo.existsBenutzerByAuthtoken(token); }
 
-    public String RoleByToken(String token) { return repo.findRoleByAuthtoken(token); }
+    public String RoleByToken(String token) { return repo.findByAuthtoken(token).getRole(); }
 
 }
