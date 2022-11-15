@@ -37,7 +37,7 @@ public class LigaService {
         for (String[] parsedLine : parsedLines) {
             Spiel spiel = new Spiel();
             spiel.setLigaFremdschlussel(id);
-            spiel.setSpieltag(Integer.getInteger(parsedLine[0]));
+            spiel.setSpieltag(Integer.parseInt(parsedLine[0]));
             DateTimeFormatter df = new DateTimeFormatterBuilder()
                     .parseCaseInsensitive()
                     .appendPattern("EEE MMM d yyyy")
