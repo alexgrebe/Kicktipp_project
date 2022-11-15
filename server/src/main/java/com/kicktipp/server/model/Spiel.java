@@ -61,7 +61,7 @@ public class Spiel {
     }
 
     public void setSpieltag(Integer spieltag) {
-        spieltag = spieltag;
+        this.spieltag = spieltag;
     }
 
     public LocalDate getDatum() {

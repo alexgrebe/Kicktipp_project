@@ -12,8 +12,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -35,12 +37,20 @@ public class LigaService {
         for (String[] parsedLine : parsedLines) {
             Spiel spiel = new Spiel();
             spiel.setLigaFremdschlussel(id);
-            spiel.setSpieltag(Integer.getInteger(parsedLine[0]));
-            // todo ich hab keine Ahnung warum das Format nicht passt, in groovy mit dem gleichen code funktioniert das
-            //spiel.setDatum(LocalDate.parse(parsedLine[1], DateTimeFormatter.ofPattern("EEE LLL d uuuu")));
+            spiel.setSpieltag(Integer.parseInt(parsedLine[0]));
+            DateTimeFormatter df = new DateTimeFormatterBuilder()
+                    .parseCaseInsensitive()
+                    .appendPattern("EEE MMM d yyyy")
+                    .toFormatter(Locale.ENGLISH);
+            spiel.setDatum(LocalDate.parse(parsedLine[1], df));
             spiel.setHeimteam(parsedLine[2]);
-            //spiel.setHeimtore(Integer.parseInt(parsedLine[3].split("-")[0]));
-            //spiel.setAuswaertstore(Integer.parseInt(parsedLine[3].split("-")[1]));
+            if (parsedLine[3] != "") {
+                spiel.setHeimtore(Integer.parseInt(parsedLine[3].split("-")[0]));
+                spiel.setAuswaertstore(Integer.parseInt(parsedLine[3].split("-")[1]));
+            } else {
+                spiel.setHeimtore(null);
+                spiel.setAuswaertstore(null);
+            }
             spiel.setLigaFremdschlussel(1L);
             spiel.setAuswaertsteam(parsedLine[4]);
 
