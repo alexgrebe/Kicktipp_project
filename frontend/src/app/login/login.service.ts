@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Benutzer } from '../Models/Benutzer';
@@ -15,3 +16,4 @@ export class LoginService {
       { responseType: 'text', withCredentials: true })
   }
 }
+

@@ -10,10 +10,11 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent implements OnInit {
 
-
   benutzer: Benutzer;
 
-  constructor(private service: LoginService, private router: Router) { this.benutzer = new Benutzer(); }
+  constructor(private service: LoginService) {
+    this.benutzer=new Benutzer()
+  }
 
   ngOnInit(): void {
   }
