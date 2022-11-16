@@ -17,21 +17,21 @@ export class AdminligaComponent implements OnInit {
   ligen: Liga[];
   CSVFile: File;
 
-  constructor(private service: AdminligaService) { 
-  this.liga = new Liga(); this.reader = new FileReader(); this.reader.onloadend = () => {this.liga.logoID = this.reader.result+""};
-  this.spiel = new Spiel(); this.ligaId=0; this.ligen = []; this.CSVFile = new File([""], "csvname")
+  constructor(private service: AdminligaService) {
+    this.liga = new Liga(); this.reader = new FileReader(); this.reader.onloadend = () => { this.liga.logoID = this.reader.result + "" };
+    this.spiel = new Spiel(); this.ligaId = 0; this.ligen = []; this.CSVFile = new File([""], "csvname")
   }
 
   ngOnInit(): void {
-    this.service.getLigen().subscribe(data => {this.ligen = data})
+    this.service.getLigen().subscribe(data => { this.ligen = data })
     console.log(this.ligen);
   }
 
-  addLigaSubmit() { console.log(this.liga); this.service.addLiga(this.liga).subscribe(data => {console.log(data)})}
+  addLigaSubmit() { console.log(this.liga); this.service.addLiga(this.liga).subscribe(data => { console.log(data) }) }
 
-  addGameSubmit() { console.log(this.spiel); this.service.addGame(this.spiel).subscribe(data => {console.log(data)})}
+  addGameSubmit() { console.log(this.spiel); this.service.addGame(this.spiel).subscribe(data => { console.log(data) }) }
 
-  readInCSVSubmit() { console.log(this.CSVFile?.size); this.service.readInCSV(this.CSVFile, this.ligaId)}
+  readInCSVSubmit() { console.log(this.CSVFile?.size); console.log(this.ligaId); this.service.readInCSV(this.CSVFile, this.ligaId).subscribe(data => { console.log(data) }) }
 
   async logoLigaChange(e: any) {
     this.reader.readAsDataURL(e.target.files[0]);

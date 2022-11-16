@@ -36,19 +36,25 @@
         <label>Auswärtsteam</label>
         <input type="text" class="form-control" [(ngModel)]="spiel.auswaertsteam" name="spielauswaertsteam">
     </div>
+    <div>
+        <label>Liga auswählen</label>
+        <select class="form-control" name="Ligafremd" [(ngModel)]="spiel.ligaFremdschlussel">
+            <option *ngFor="let liga of ligen" [ngValue]="liga.id">{{liga.name}}</option>
+        </select>
+    </div>
     <button type="submit">Hinzufügen</button>
 </form>
 <p>CSV einlesen</p>
-<form #readInCSVForm = 'ngForm' (ngSubmit) = "readInCSVSubmit()">
-<div>
-    <label>CSV-Datei</label>
-    <input type="file" (change)="setCSVFile($event)">
-</div>
-<div>
-    <label>Liga auswählen</label>
-    <select class="form-control" name="csvLiga" [(ngModel)]="ligaId">
-        <option *ngFor="let liga of ligen" [ngValue]="liga.id">{{liga.name}}</option>
-    </select>
-</div>
-<button type="submit">Hinzufügen</button>
+<form #readInCSVForm='ngForm' (ngSubmit)="readInCSVSubmit()">
+    <div>
+        <label>CSV-Datei</label>
+        <input type="file" (change)="setCSVFile($event)">
+    </div>
+    <div>
+        <label>Liga auswählen</label>
+        <select class="form-control" name="csvLiga" [(ngModel)]="ligaId">
+            <option *ngFor="let liga of ligen" [ngValue]="liga.id">{{liga.name}}</option>
+        </select>
+    </div>
+    <button type="submit">Hinzufügen</button>
 </form>

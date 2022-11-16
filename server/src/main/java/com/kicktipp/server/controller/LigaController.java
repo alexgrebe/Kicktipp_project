@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = {"http://localhost:4200", "http://localhost:80"}, allowCredentials = "true")
 public class LigaController {
 
     @Autowired
@@ -52,6 +52,7 @@ public class LigaController {
 
     @PostMapping("/readInCSV/{id}")
     public String csvController(@PathVariable Long id, @RequestBody MultipartFile file, @CookieValue("auth_token") String token) {
+        System.out.println(file.getSize());
         if(token==null) return "Missing Token";
         if(authService.RoleByToken(token).equals("admin")) {
         try{

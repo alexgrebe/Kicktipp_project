@@ -15,7 +15,8 @@ public class Liga {
 
     public String name;
 
-    public Long logoID;
+    @Lob
+    public String logoID;
 
     public Long getId() {
         return id;
@@ -33,11 +34,11 @@ public class Liga {
         this.name = name;
     }
 
-    public Long getLogoID() {
+    public String getLogoID() {
         return logoID;
     }
 
-    public void setLogoID(Long logoID) {
+    public void setLogoID(String logoID) {
         this.logoID = logoID;
     }
 

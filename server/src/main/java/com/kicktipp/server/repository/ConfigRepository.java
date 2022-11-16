@@ -14,6 +14,6 @@ public interface ConfigRepository extends CrudRepository<Configuration, Long> {
 
     @Transactional
     @Modifying
-    @Query("update Configuration c set c.valueConfig = :value where c.attributeConfig = :attribute")
-    public void updateConfig_Value(@Param("attribute") String attribute, @Param("value") String value);
+    @Query("update Configuration c set c.valueConfig = :value where c.id = :attribute")
+    public void updateConfig_Value(@Param("attribute") Long attribute, @Param("value") String value);
 }

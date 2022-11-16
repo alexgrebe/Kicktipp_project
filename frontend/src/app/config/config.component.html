@@ -1,0 +1,26 @@
+<p>Config hinzufügen</p>
+<form #configForm="ngForm" (submit)="addSubmit()">
+    <div>
+        <label>Name</label>
+    <input type="text" [(ngModel)]="config.attributeConfig" name="configattributeconfig">
+    </div>
+    <div>
+        <label>Wert</label>
+        <input type="text" [(ngModel)]="config.valueConfig" name="configvalueconfig">
+    </div>
+    <button type="submit">Hinzufügen</button>
+</form>
+<p>Update Config</p>
+<form #updateForm="ngForm" (submit)="updateSubmit()">
+    <div>
+        <label>Config auswählen</label>
+        <select name="updateid" [(ngModel)]="updateId">
+            <option *ngFor="let conf of existingConfig" [ngValue]="conf.id">{{conf.attributeConfig}}</option>
+        </select>
+    </div>
+    <div>
+        <label>Wert</label>
+        <input type="text" [(ngModel)]="updateValue" name="updatevalue">
+    </div>
+    <button type="submit">Updaten</button>
+</form>

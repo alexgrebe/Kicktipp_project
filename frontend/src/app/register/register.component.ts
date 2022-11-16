@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
   onSubmit(benutzerForm: NgForm) {
     this.benutzer.role = "nutzer";
     this.service.callAddUser(this.benutzer).subscribe(data => {console.log(data); 
-    if(data==="success") { this.router.navigateByUrl('/')} 
+    if(data==="success") { this.router.navigateByUrl('/login')} 
     else {alert(data)}})
   }
 
