@@ -12,7 +12,10 @@ export class LoginComponent implements OnInit {
 
   benutzer: Benutzer;
 
-  constructor(private service: LoginService) {
+  constructor(
+    private service: LoginService,
+    private router: Router
+  ) {
     this.benutzer=new Benutzer()
   }
 
@@ -20,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.service.login(this.benutzer).subscribe(data => { console.log(data); this.router.navigate([data]) }, 
+    this.service.login(this.benutzer).subscribe(data => { console.log(data); this.router.navigate([data]) },
       err => {console.log(err); alert("Login fehlgeschlagen!")});
   }
 
