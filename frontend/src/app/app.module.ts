@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { LigaComponent } from './liga/liga.component';
 import { SpieleComponent } from './spiele/spiele.component';
 import { AdminligaComponent } from './adminliga/adminliga.component';
+import { ConfigComponent } from './config/config.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AdminligaComponent } from './adminliga/adminliga.component';
     LoginComponent,
     LigaComponent,
     SpieleComponent,
-    AdminligaComponent
+    AdminligaComponent,
+    ConfigComponent
   ],
   imports: [
     BrowserModule,

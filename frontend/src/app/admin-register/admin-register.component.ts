@@ -20,7 +20,7 @@ export class AdminRegisterComponent implements OnInit {
     this.benutzer.role = "admin";
     console.log(this.benutzer)
     this.service.register(this.benutzer).subscribe(data => {console.log(data);
-    if(data === "success") { this.router.navigateByUrl("/")}
+    if(data === "success") { this.router.navigateByUrl("/login")}
     else {alert(data)}
     });
   }

@@ -30,4 +30,10 @@ public class ConfigController {
         return "";
     }
 
+    @PostMapping("/updateConfig/{id}")
+    public String updateConfig(@PathVariable Long id, @RequestBody String value, @CookieValue("auth_token") String token) {
+        if(authService.RoleByToken(token).equals("admin")) { service.updateValueByAttribute(id, value); return "success";}
+        return "";
+    }
+
 }

@@ -18,7 +18,7 @@ public class ConfigService {
         return repo.save(configuration);
     }
 
-    public void updateValueByAttribute(String attribute, String value) {
+    public void updateValueByAttribute(Long attribute, String value) {
         repo.updateConfig_Value(attribute,value);
     }
 
