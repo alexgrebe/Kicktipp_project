@@ -8,7 +8,7 @@ services:
     ports:
       - 4200:4200
       - 80:80
-    image: test/docker-spring-angular:frontend
+    image: tippspiel/frontend:tippspiel
     restart: unless-stopped
 
   server:
@@ -16,5 +16,5 @@ services:
     build: ./server
     ports:
       - 8080:8080
-    image: test/docker-spring-angular:server
+    image: tippspiel/server:tippspiel
     restart: unless-stopped
