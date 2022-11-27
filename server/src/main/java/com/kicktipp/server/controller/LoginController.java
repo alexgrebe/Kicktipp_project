@@ -19,19 +19,23 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginControll(HttpServletResponse HttpRes, @RequestBody Login body) {
-        try{
-        String token = service.login(body.getEmail(), body.getPasswort());
-        if(token==null) throw new Exception("Not valid");
-        HttpRes.addCookie(new Cookie("auth_token", token));
-        return new ResponseEntity<>(service.RoleByToken(token), HttpStatus.ACCEPTED);}
-        catch(Exception e) { return new ResponseEntity<>("failure", HttpStatus.BAD_REQUEST);}
+        try {
+            String token = service.login(body.getEmail(), body.getPasswort());
+            if (token == null) throw new Exception("Not valid");
+            HttpRes.addCookie(new Cookie("auth_token", token));
+            return new ResponseEntity<>(service.RoleByToken(token), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("failure", HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/getRole")
     public ResponseEntity<String> getRole(@CookieValue("auth_token") String token) {
-        try{
-        return new ResponseEntity<>(service.RoleByToken(token), HttpStatus.ACCEPTED); }
-        catch(Exception e) { return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST); }
+        try {
+            return new ResponseEntity<>(service.RoleByToken(token), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

@@ -1,19 +1,23 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {CanActivate} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class NutzerguardService implements CanActivate{
+export class NutzerguardService implements CanActivate {
 
-  url:string;
+  url: string;
   loggedIn: boolean;
 
-  constructor(private http:HttpClient) { this.url = "http://localhost:8080/getRole",  this.loggedIn = false}
+  constructor(private http: HttpClient) {
+    this.url = "http://localhost:8080/getRole", this.loggedIn = false
+  }
 
   canActivate(): boolean {
-    this.http.get(this.url, {withCredentials: true, responseType: 'text'}).subscribe(data => {this.loggedIn = data==="nutzer"})
+    this.http.get(this.url, {withCredentials: true, responseType: 'text'}).subscribe(data => {
+      this.loggedIn = data === "nutzer"
+    })
     return this.loggedIn;
-  } 
+  }
 }

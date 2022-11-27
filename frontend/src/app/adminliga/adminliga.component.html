@@ -1,60 +1,60 @@
 <p>Liga hinzufügen</p>
 <form #addLigaForm='ngForm' (ngSubmit)="addLigaSubmit()">
-    <div>
-        <label>Name</label>
-        <input type="text" class="form-control" [(ngModel)]="liga.name" name="liganame">
-    </div>
-    <div>
-        <label>Logo</label>
-        <input type="file" (change)="logoLigaChange($event)">
-    </div>
-    <button type="submit">Hinzufügen</button>
+  <div>
+    <label>Name</label>
+    <input [(ngModel)]="liga.name" class="form-control" name="liganame" type="text">
+  </div>
+  <div>
+    <label>Logo</label>
+    <input (change)="logoLigaChange($event)" type="file">
+  </div>
+  <button type="submit">Hinzufügen</button>
 </form>
 <p>Spiel hinzufügen</p>
 <form #addGameForm='ngForm' (ngSubmit)="addGameSubmit()">
-    <div>
-        <label>Spieltag</label>
-        <input type="text" class="form-control" [(ngModel)]="spiel.spieltag" name="spielspieltag">
-    </div>
-    <div>
-        <label>Datum</label>
-        <input type="date" class="form-control" [(ngModel)]="spiel.datum" name="spieldatum">
-    </div>
-    <div>
-        <label>Heimtore</label>
-        <input type="number" class="form-control" [(ngModel)]="spiel.heimtore" name="spielheimtore">
-    </div>
-    <div>
-        <label>Auswärtstore</label>
-        <input type="number" class="form-control" [(ngModel)]="spiel.auswaertstore" name="spielauswaertstore">
-    </div>
-    <div>
-        <label>Heimteam</label>
-        <input type="text" class="form-control" [(ngModel)]="spiel.heimteam" name="spielheimteam">
-    </div>
-    <div>
-        <label>Auswärtsteam</label>
-        <input type="text" class="form-control" [(ngModel)]="spiel.auswaertsteam" name="spielauswaertsteam">
-    </div>
-    <div>
-        <label>Liga auswählen</label>
-        <select class="form-control" name="Ligafremd" [(ngModel)]="spiel.ligaFremdschlussel">
-            <option *ngFor="let liga of ligen" [ngValue]="liga.id">{{liga.name}}</option>
-        </select>
-    </div>
-    <button type="submit">Hinzufügen</button>
+  <div>
+    <label>Spieltag</label>
+    <input [(ngModel)]="spiel.spieltag" class="form-control" name="spielspieltag" type="text">
+  </div>
+  <div>
+    <label>Datum</label>
+    <input [(ngModel)]="spiel.datum" class="form-control" name="spieldatum" type="date">
+  </div>
+  <div>
+    <label>Heimtore</label>
+    <input [(ngModel)]="spiel.heimtore" class="form-control" name="spielheimtore" type="number">
+  </div>
+  <div>
+    <label>Auswärtstore</label>
+    <input [(ngModel)]="spiel.auswaertstore" class="form-control" name="spielauswaertstore" type="number">
+  </div>
+  <div>
+    <label>Heimteam</label>
+    <input [(ngModel)]="spiel.heimteam" class="form-control" name="spielheimteam" type="text">
+  </div>
+  <div>
+    <label>Auswärtsteam</label>
+    <input [(ngModel)]="spiel.auswaertsteam" class="form-control" name="spielauswaertsteam" type="text">
+  </div>
+  <div>
+    <label>Liga auswählen</label>
+    <select [(ngModel)]="spiel.ligaFremdschlussel" class="form-control" name="Ligafremd">
+      <option *ngFor="let liga of ligen" [ngValue]="liga.id">{{liga.name}}</option>
+    </select>
+  </div>
+  <button type="submit">Hinzufügen</button>
 </form>
 <p>CSV einlesen</p>
 <form #readInCSVForm='ngForm' (ngSubmit)="readInCSVSubmit()">
-    <div>
-        <label>CSV-Datei</label>
-        <input type="file" (change)="setCSVFile($event)">
-    </div>
-    <div>
-        <label>Liga auswählen</label>
-        <select class="form-control" name="csvLiga" [(ngModel)]="ligaId">
-            <option *ngFor="let liga of ligen" [ngValue]="liga.id">{{liga.name}}</option>
-        </select>
-    </div>
-    <button type="submit">Hinzufügen</button>
+  <div>
+    <label>CSV-Datei</label>
+    <input (change)="setCSVFile($event)" type="file">
+  </div>
+  <div>
+    <label>Liga auswählen</label>
+    <select [(ngModel)]="ligaId" class="form-control" name="csvLiga">
+      <option *ngFor="let liga of ligen" [ngValue]="liga.id">{{liga.name}}</option>
+    </select>
+  </div>
+  <button type="submit">Hinzufügen</button>
 </form>

@@ -8,8 +8,8 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @ConfigurationPropertiesScan("com.kicktipp.server.applicationProperties")
 public class ServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ServerApplication.class, args);
+    }
 
 }

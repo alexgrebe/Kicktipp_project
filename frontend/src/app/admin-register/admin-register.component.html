@@ -1,19 +1,19 @@
-<form #adminForm = 'ngForm' (ngSubmit)="onSubmit()">
-    <div>
-        <label>Vorname</label>
-        <input type="text" id="vorname" name="vorname" class="form-control" [(ngModel)]="benutzer.vorname">
-    </div>
-    <div>
-        <label>Nachname</label>
-        <input type="text" id="nachname" name="nachname" class="form-control" [(ngModel)]="benutzer.nachname">
-    </div>
-    <div>
-        <label>Email</label>
-        <input type="email" id="email" name="email" class="form-control" [(ngModel)]="benutzer.email">
-    </div>
-    <div>
-        <label>Passwort</label>
-        <input type="password" id="passwort" name="passwort" class="form-control" [(ngModel)]="benutzer.passwort">
-    </div>
-    <button type="submit">Registrieren</button>
+<form #adminForm='ngForm' (ngSubmit)="onSubmit()">
+  <div>
+    <label>Vorname</label>
+    <input [(ngModel)]="benutzer.vorname" class="form-control" id="vorname" name="vorname" type="text">
+  </div>
+  <div>
+    <label>Nachname</label>
+    <input [(ngModel)]="benutzer.nachname" class="form-control" id="nachname" name="nachname" type="text">
+  </div>
+  <div>
+    <label>Email</label>
+    <input [(ngModel)]="benutzer.email" class="form-control" id="email" name="email" type="email">
+  </div>
+  <div>
+    <label>Passwort</label>
+    <input [(ngModel)]="benutzer.passwort" class="form-control" id="passwort" name="passwort" type="password">
+  </div>
+  <button type="submit">Registrieren</button>
 </form>

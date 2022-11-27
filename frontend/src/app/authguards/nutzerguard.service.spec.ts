@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { NutzerguardService } from './nutzerguard.service';
+import {NutzerguardService} from './nutzerguard.service';
 
 describe('NutzerguardService', () => {
   let service: NutzerguardService;

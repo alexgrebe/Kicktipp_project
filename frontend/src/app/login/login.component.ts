@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Benutzer } from '../Models/Benutzer';
-import { LoginService } from './login.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {Benutzer} from '../Models/Benutzer';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -16,15 +16,21 @@ export class LoginComponent implements OnInit {
     private service: LoginService,
     private router: Router
   ) {
-    this.benutzer=new Benutzer()
+    this.benutzer = new Benutzer()
   }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
-    this.service.login(this.benutzer).subscribe(data => { console.log(data); this.router.navigate([data]) },
-      err => {console.log(err); alert("Login fehlgeschlagen!")});
+    this.service.login(this.benutzer).subscribe(data => {
+        console.log(data);
+        this.router.navigate([data])
+      },
+      err => {
+        console.log(err);
+        alert("Login fehlgeschlagen!")
+      });
   }
 
 }

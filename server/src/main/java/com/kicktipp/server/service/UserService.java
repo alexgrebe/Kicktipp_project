@@ -25,5 +25,6 @@ public class UserService {
     }
 
     public boolean validateEmail(String email) {
-        return EmailValidator.getInstance().isValid(email); }
+        return EmailValidator.getInstance().isValid(email);
+    }
 }

@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Benutzer } from '../Models/Benutzer';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Benutzer} from '../Models/Benutzer';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +8,14 @@ import { Benutzer } from '../Models/Benutzer';
 export class LoginService {
 
   url: string;
-  constructor(private http: HttpClient) { this.url = "http://localhost:8080/login" }
+
+  constructor(private http: HttpClient) {
+    this.url = "http://localhost:8080/login"
+  }
 
   login(benutzer: Benutzer) {
     return this.http.post(this.url, benutzer,
-      { responseType: 'text', withCredentials: true })
+      {responseType: 'text', withCredentials: true})
   }
 }
 

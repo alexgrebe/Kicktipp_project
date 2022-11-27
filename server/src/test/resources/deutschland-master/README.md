@@ -20,9 +20,7 @@ Matchday, Date,            Team 1,                 FT,  Team 2
 ...
 ```
 
-
 More [`football.csv` Project Site »](http://footballcsv.github.io)
-
 
 ## Intro
 
@@ -34,11 +32,10 @@ Football data for Deutschland (Germany) includes:
 |    II |  2. Bundesliga                |
 |   III |  3. Liga                      |
 
-
 ## Sources
 
-The datasets are a 1:1 mirror, that is, an export in the comma-separated values (CSV) format from the [open football.db /deutschland datasets](https://github.com/openfootball/deutschland).
-
+The datasets are a 1:1 mirror, that is, an export in the comma-separated values (CSV) format from
+the [open football.db /deutschland datasets](https://github.com/openfootball/deutschland).
 
 ## Questions? Comments?
 

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Spiel } from '../Models/Spiel';
-import { SpieleService } from './spiele.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Spiel} from '../Models/Spiel';
+import {SpieleService} from './spiele.service';
 
 @Component({
   selector: 'app-spiele',
@@ -9,15 +9,21 @@ import { SpieleService } from './spiele.service';
   styleUrls: ['./spiele.component.scss']
 })
 export class SpieleComponent implements OnInit {
-  
-  id: number;
-  games: Spiel[]|undefined;
 
-  constructor(private router: ActivatedRoute, private service: SpieleService) { this.id = 0; }
+  id: number;
+  games: Spiel[] | undefined;
+
+  constructor(private router: ActivatedRoute, private service: SpieleService) {
+    this.id = 0;
+  }
 
   ngOnInit(): void {
-    this.router.params.subscribe(params => {this.id = params['id']})
-    this.service.getAllGames(this.id).subscribe(data => {this.games = data})
+    this.router.params.subscribe(params => {
+      this.id = params['id']
+    })
+    this.service.getAllGames(this.id).subscribe(data => {
+      this.games = data
+    })
   }
 
 }

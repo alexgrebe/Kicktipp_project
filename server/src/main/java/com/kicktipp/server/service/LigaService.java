@@ -1,4 +1,5 @@
 package com.kicktipp.server.service;
+
 import com.kicktipp.server.model.Liga;
 import com.kicktipp.server.model.Spiel;
 import com.kicktipp.server.repository.LigaRepository;
@@ -83,7 +84,11 @@ public class LigaService {
         return spielRepository.save(game);
     }
 
-    public Optional<Liga> getLigaById(Long id) { return ligaRepository.findById(id); }
+    public Optional<Liga> getLigaById(Long id) {
+        return ligaRepository.findById(id);
+    }
 
-    public List<Spiel> getAllGamesByLeague(Long id) { return spielRepository.findAllByLigaFremdschlussel(id); }
+    public List<Spiel> getAllGamesByLeague(Long id) {
+        return spielRepository.findAllByLigaFremdschlussel(id);
+    }
 }

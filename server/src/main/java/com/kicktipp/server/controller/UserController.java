@@ -16,11 +16,15 @@ public class UserController {
 
     @PostMapping("/addUser")
     public ResponseEntity<String> addUserController(@RequestBody Benutzer benutzer) {
-        try{
-        Benutzer ret = service.addUser(benutzer);
-        if(!service.validateEmail(benutzer.email)) { throw new Exception("Email not valid"); }
-        return new ResponseEntity<>("success", HttpStatus.CREATED);}
-        catch(Exception e) {return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);}
+        try {
+            Benutzer ret = service.addUser(benutzer);
+            if (!service.validateEmail(benutzer.email)) {
+                throw new Exception("Email not valid");
+            }
+            return new ResponseEntity<>("success", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/getAllUsers")

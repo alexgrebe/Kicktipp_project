@@ -1,6 +1,5 @@
 package com.kicktipp.server.repository;
 
-import com.kicktipp.server.model.Liga;
 import com.kicktipp.server.model.Spiel;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

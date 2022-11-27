@@ -24,24 +24,26 @@ public class LigaController {
 
     @GetMapping("/getAllLeagues")
     public Iterable<Liga> getAllLigen() {
-    return service.getAllLeagues();
+        return service.getAllLeagues();
     }
 
     @PostMapping("/addLiga")
     public String addLiga(@RequestBody Liga liga, @CookieValue("auth_token") String token) {
-        if(token==null) return "Missing Token";
-        if(authService.RoleByToken(token).equals("admin")) {
-        service.addLeague(liga);
-        return "success"; }
+        if (token == null) return "Missing Token";
+        if (authService.RoleByToken(token).equals("admin")) {
+            service.addLeague(liga);
+            return "success";
+        }
         return "";
     }
 
     @PostMapping("/addGame")
     public String addGame(@RequestBody Spiel spiel, @CookieValue("auth_token") String token) {
-        if(token==null) return "Missing Token";
-        if(authService.RoleByToken(token).equals("admin")){
-        service.addGame(spiel);
-        return "success";}
+        if (token == null) return "Missing Token";
+        if (authService.RoleByToken(token).equals("admin")) {
+            service.addGame(spiel);
+            return "success";
+        }
         return "";
     }
 
@@ -53,14 +55,15 @@ public class LigaController {
     @PostMapping("/readInCSV/{id}")
     public String csvController(@PathVariable Long id, @RequestBody MultipartFile file, @CookieValue("auth_token") String token) {
         System.out.println(file.getSize());
-        if(token==null) return "Missing Token";
-        if(authService.RoleByToken(token).equals("admin")) {
-        try{
-        service.readCSV(new BufferedReader(new InputStreamReader(file.getInputStream())), id);
-        return "success";
+        if (token == null) return "Missing Token";
+        if (authService.RoleByToken(token).equals("admin")) {
+            try {
+                service.readCSV(new BufferedReader(new InputStreamReader(file.getInputStream())), id);
+                return "success";
+            } catch (Exception e) {
+                return e.getMessage();
+            }
         }
-        catch(Exception e) {
-        return e.getMessage();} }
         return "";
     }
 }

@@ -19,7 +19,7 @@ public class ConfigService {
     }
 
     public void updateValueByAttribute(Long attribute, String value) {
-        repo.updateConfig_Value(attribute,value);
+        repo.updateConfig_Value(attribute, value);
     }
 
 }

@@ -23,16 +23,20 @@ public class ConfigController {
 
     @PostMapping("/addConfigAttribute")
     public String addConfigAttribute(@RequestBody Configuration configuration, @CookieValue("auth_token") String token) {
-        if(token==null) return "Missing Token";
-        if(authService.RoleByToken(token).equals("admin")) {
+        if (token == null) return "Missing Token";
+        if (authService.RoleByToken(token).equals("admin")) {
             service.addAttribute(configuration);
-            return "success"; }
+            return "success";
+        }
         return "";
     }
 
     @PostMapping("/updateConfig/{id}")
     public String updateConfig(@PathVariable Long id, @RequestBody String value, @CookieValue("auth_token") String token) {
-        if(authService.RoleByToken(token).equals("admin")) { service.updateValueByAttribute(id, value); return "success";}
+        if (authService.RoleByToken(token).equals("admin")) {
+            service.updateValueByAttribute(id, value);
+            return "success";
+        }
         return "";
     }
 
