@@ -16,4 +16,8 @@ public class ConfigService {
         repo.updateSysTime(repo.findAll().iterator().next().getId(), date);
     }
 
+    public LocalDate getSysTime() {
+        return repo.findAll().iterator().next().getSysTime();
+    }
+
 }
