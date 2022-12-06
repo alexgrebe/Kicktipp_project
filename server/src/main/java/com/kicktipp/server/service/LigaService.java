@@ -27,6 +27,9 @@ public class LigaService {
     @Autowired
     SpielRepository spielRepository;
 
+    @Autowired
+    ConfigService configService;
+
     public void readCSV(BufferedReader input, Long id) throws IOException, CsvException {
         CSVReader reader = new CSVReader(input);
         List<String[]> parsedLines;
@@ -89,6 +92,13 @@ public class LigaService {
     }
 
     public List<Spiel> getAllGamesByLeague(Long id) {
+        List<Spiel> spieleListe = spielRepository.findAllByLigaFremdschlussel(id);
+        for(Spiel spiel : spieleListe) {
+            if(spiel.getDatum().isAfter(configService.getSysTime())) {
+                spiel.setHeimtore(null);
+                spiel.setAuswaertstore(null);
+            }
+        }
         return spielRepository.findAllByLigaFremdschlussel(id);
     }
 }

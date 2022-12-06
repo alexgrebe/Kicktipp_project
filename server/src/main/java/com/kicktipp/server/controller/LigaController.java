@@ -5,6 +5,8 @@ import com.kicktipp.server.model.Spiel;
 import com.kicktipp.server.service.AuthService;
 import com.kicktipp.server.service.LigaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,47 +25,56 @@ public class LigaController {
     AuthService authService;
 
     @GetMapping("/getAllLeagues")
-    public Iterable<Liga> getAllLigen() {
-        return service.getAllLeagues();
+    public ResponseEntity<Iterable<Liga>> getAllLigen(@CookieValue(value = "auth_token", required = false) String token) {
+        try{
+            if(token==null||!authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(service.getAllLeagues(), HttpStatus.ACCEPTED);}
+        catch(Exception e) { return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);}
     }
 
     @PostMapping("/addLiga")
-    public String addLiga(@RequestBody Liga liga, @CookieValue("auth_token") String token) {
-        if (token == null) return "Missing Token";
-        if (authService.RoleByToken(token).equals("admin")) {
+    public ResponseEntity<String> addLiga(@RequestBody Liga liga, @CookieValue(value = "auth_token", required = false) String token) {
+        try {
+            if (token == null || !authService.RoleByToken(token).equals("admin"))
+                return new ResponseEntity<>("Failed!", HttpStatus.UNAUTHORIZED);
             service.addLeague(liga);
-            return "success";
+            return new ResponseEntity<>("", HttpStatus.ACCEPTED);
         }
-        return "";
+        catch(Exception e) { return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);}
     }
 
     @PostMapping("/addGame")
-    public String addGame(@RequestBody Spiel spiel, @CookieValue("auth_token") String token) {
-        if (token == null) return "Missing Token";
-        if (authService.RoleByToken(token).equals("admin")) {
-            service.addGame(spiel);
-            return "success";
+    public ResponseEntity<String> addGame(@RequestBody Spiel spiel, @CookieValue(value = "auth_token", required = false) String token) {
+        try{
+        if (token == null || !authService.RoleByToken(token).equals("admin")) return new ResponseEntity<>("Failed!", HttpStatus.UNAUTHORIZED);
+        service.addGame(spiel);
+            return new ResponseEntity<>("", HttpStatus.ACCEPTED);}
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return "";
     }
 
     @GetMapping("/getAllGamesByLeague/{id}")
-    public List<Spiel> spieleListe(@PathVariable Long id) {
-        return service.getAllGamesByLeague(id);
-    }
+    public ResponseEntity<List<Spiel>> spieleListe(@PathVariable Long id, @CookieValue(value = "auth_token", required = false) String token) {
+        try {
+            if (token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(service.getAllGamesByLeague(id), HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);}
+        }
 
     @PostMapping("/readInCSV/{id}")
-    public String csvController(@PathVariable Long id, @RequestBody MultipartFile file, @CookieValue("auth_token") String token) {
-        System.out.println(file.getSize());
-        if (token == null) return "Missing Token";
-        if (authService.RoleByToken(token).equals("admin")) {
-            try {
-                service.readCSV(new BufferedReader(new InputStreamReader(file.getInputStream())), id);
-                return "success";
-            } catch (Exception e) {
-                return e.getMessage();
+    public ResponseEntity<String> csvController(@PathVariable Long id, @RequestBody MultipartFile file, @CookieValue(value = "auth_token", required = false) String token) {
+        try{
+        if (token == null || !authService.RoleByToken(token).equals("admin")) return new ResponseEntity<>("Failed!", HttpStatus.UNAUTHORIZED);
+        service.readCSV(new BufferedReader(new InputStreamReader(file.getInputStream())), id);
+                return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+                return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
             }
         }
-        return "";
+
     }
-}
+

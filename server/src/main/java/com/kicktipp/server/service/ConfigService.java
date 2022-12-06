@@ -5,21 +5,19 @@ import com.kicktipp.server.repository.ConfigRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class ConfigService {
     @Autowired
     ConfigRepository repo;
 
-    public Iterable<Configuration> getAllAttributes() {
-        return repo.findAll();
+    public void updateSysTime(LocalDate date) {
+        repo.updateSysTime(repo.findAll().iterator().next().getId(), date);
     }
 
-    public Configuration addAttribute(Configuration configuration) {
-        return repo.save(configuration);
-    }
-
-    public void updateValueByAttribute(Long attribute, String value) {
-        repo.updateConfig_Value(attribute, value);
+    public LocalDate getSysTime() {
+        return repo.findAll().iterator().next().getSysTime();
     }
 
 }

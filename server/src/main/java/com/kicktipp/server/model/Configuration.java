@@ -1,6 +1,9 @@
 package com.kicktipp.server.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 public class Configuration {
@@ -8,24 +11,22 @@ public class Configuration {
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
 
-    @Column(unique = true)
-    public String attributeConfig;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public LocalDate sysTime;
 
-    public String valueConfig;
-
-    public String getAttribute() {
-        return attributeConfig;
+    public Long getId() {
+        return id;
     }
 
-    public void setAttribute(String attribute) {
-        this.attributeConfig = attribute;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getValue() {
-        return valueConfig;
+    public LocalDate getSysTime() {
+        return sysTime;
     }
 
-    public void setValue(String value) {
-        this.valueConfig = value;
+    public void setSysTime(LocalDate sysTime) {
+        this.sysTime = sysTime;
     }
 }
