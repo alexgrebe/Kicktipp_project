@@ -15,6 +15,7 @@ import {ConfigComponent} from './config/config.component';
 import {AdminComponent} from './admin/admin.component';
 import {NutzerComponent} from './nutzer/nutzer.component';
 import {HomeComponent} from './home/home.component';
+import { TippspielFormComponent } from './tippspiel-form/tippspiel-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {HomeComponent} from './home/home.component';
     ConfigComponent,
     AdminComponent,
     NutzerComponent,
-    HomeComponent
+    HomeComponent,
+    TippspielFormComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,13 @@
+<app-tippspiel-form></app-tippspiel-form> 
+
 <form #loginForm='ngForm' (ngSubmit)="onSubmit()">
   <div>
     <label>Email</label>
-    <input [(ngModel)]="benutzer.email" name="email" type="text">
+    <input class="form-control"[(ngModel)]="benutzer.email" name="email" type="text">
   </div>
   <div>
     <label>Passwort</label>
-    <input [(ngModel)]="benutzer.passwort" name="passwort" type="password">
+    <input class="form-control"[(ngModel)]="benutzer.passwort" name="passwort" type="password">
   </div>
-  <button type="submit">Login</button>
+  <button type="submit" class="btn btn-primary">Login</button>
 </form>
