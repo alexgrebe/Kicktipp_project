@@ -13,7 +13,15 @@ export class AdminRegisterComponent implements OnInit {
   benutzer: Benutzer;
 
   constructor(private service: AdminRegisterService, private router: Router) {
-    this.benutzer = new Benutzer();
+    this.benutzer = new Benutzer(
+      "",
+      "",
+      "" ,
+      "",
+      "",
+      "admin",
+      "",
+    );
   }
 
   ngOnInit(): void {

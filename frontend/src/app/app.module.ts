@@ -16,6 +16,8 @@ import {AdminComponent} from './admin/admin.component';
 import {NutzerComponent} from './nutzer/nutzer.component';
 import {HomeComponent} from './home/home.component';
 import { TippspielFormComponent } from './tippspiel-form/tippspiel-form.component';
+import { FreundeComponent } from './freunde/freunde.component';
+import { FreundeslisteComponent } from './freundesliste/freundesliste.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { TippspielFormComponent } from './tippspiel-form/tippspiel-form.componen
     AdminComponent,
     NutzerComponent,
     HomeComponent,
-    TippspielFormComponent
+    TippspielFormComponent,
+    FreundeComponent,
+    FreundeslisteComponent
   ],
   imports: [
     BrowserModule,

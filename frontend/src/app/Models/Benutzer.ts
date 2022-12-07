@@ -1,13 +1,14 @@
 export class Benutzer {
 
-  vorname: string | undefined;
-  nachname: string | undefined;
-  email: string | undefined;
-  passwort: string | undefined;
-  profilepicturedata: string | undefined;
-  role: string | undefined;
-  geburtsdatum: string | undefined;
 
-  constructor() {
+  constructor(
+    public vorname: string,
+    public nachname: string,
+    public email: string,
+    public passwort: string,
+    public profilepicturedata: string,
+    public role: string,
+    public geburtsdatum: string,
+  ) {
   }
 }
