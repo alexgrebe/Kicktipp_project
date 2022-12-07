@@ -16,4 +16,5 @@ public interface TipprundeRepository extends CrudRepository<Tipprunde, Long> {
     @Query("SELECT t FROM Tipprunde t WHERE t.id IN (SELECT m.tipprundeID FROM Mitglied m WHERE m.benutzerID = :benutzerID)")
     public List<Tipprunde> findMyTipprunde(@Param("benutzerID") Long benutzerID);
 
+    public Tipprunde findTipprundeById(Long id);
 }

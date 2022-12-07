@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController("/tipprunden")
 @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:80", "http://localhost"}, allowCredentials = "true")
 public class TipprundeController {
@@ -32,7 +34,40 @@ public class TipprundeController {
     }
 
     @PostMapping("/beitreten/{tipprundenID}")
-    public ResponseEntity<String> addMitglied(@PathVariable("tipprundenID") Long tipprundenID, @RequestBody() String passwort) {
-        return null;
+    public ResponseEntity<String> addMitglied(@PathVariable("tipprundenID") Long tipprundenID, @RequestBody() String passwort, @CookieValue(value = "auth_token", required = false) String token) {
+        try{
+            if(token == null || !authService.verifyToken(token)) return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            tipprundeService.tipprundeBeitreten(authService.findIdByAuthtoken(token), tipprundenID, passwort);
+            return new ResponseEntity<>("", HttpStatus.CREATED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/tipprundenAnzeigen")
+    public ResponseEntity<List<Tipprunde>> getTipprunden(@CookieValue(value = "auth_token", required = false) String token) {
+        try {
+            if (token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            List<Tipprunde> runden = tipprundeService.getTipprunden(authService.findIdByAuthtoken(token));
+            return new ResponseEntity<>(runden, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/meineTipprunden")
+    public ResponseEntity<List<Tipprunde>> getMyTipprunden(@CookieValue(value = "auth_token", required = false) String token) {
+        try{
+            if (token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            List<Tipprunde> runden = tipprundeService.getMyTipprunden(authService.findIdByAuthtoken(token));
+            return new ResponseEntity<>(runden, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
     }
 }

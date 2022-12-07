@@ -66,4 +66,13 @@ public class TipprundeService {
         mitgliedRepo.changeMitgliedName(name, mitgliedID);
     }
 
+    public void tipprundeBeitreten(Long benutzerID, Long tipprundenID, String passwort) throws Exception{
+        if(!tipprundenRepo.findTipprundeById(tipprundenID).getPasswort().equals(passwort)) throw new Exception("Falsches Passwort!");
+        Mitglied mitglied = new Mitglied();
+        mitglied.setTipprundeID(tipprundenID);
+        mitglied.setBenutzerID(benutzerID);
+        mitglied.setName("Neues Mitglied " + Math.random() * 1000);
+        mitgliedRepo.save(mitglied);
+    }
+
 }

@@ -101,4 +101,8 @@ public class LigaService {
         }
         return spielRepository.findAllByLigaFremdschlussel(id);
     }
+
+    public void deleteGame(Long id) {
+        spielRepository.deleteById(id);
+    }
 }
