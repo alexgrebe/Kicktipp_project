@@ -24,4 +24,6 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
     public boolean existsBenutzerByAuthtoken(String token);
 
     public String findRoleByAuthtoken(String token);
+
+    public Long findIdByAuthtoken(String token);
 }
