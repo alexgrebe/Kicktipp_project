@@ -1,15 +1,16 @@
 package com.kicktipp.server.service;
 
 import com.kicktipp.server.model.Mitglied;
+import com.kicktipp.server.model.Spiel;
 import com.kicktipp.server.model.Tipp;
 import com.kicktipp.server.model.Tipprunde;
-import com.kicktipp.server.repository.MitgliedRepository;
-import com.kicktipp.server.repository.TippRepository;
-import com.kicktipp.server.repository.TipprundeRepository;
+import com.kicktipp.server.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TipprundeService {
@@ -22,6 +23,12 @@ public class TipprundeService {
 
     @Autowired
     MitgliedRepository mitgliedRepo;
+
+    @Autowired
+    ConfigRepository configRepo;
+
+    @Autowired
+    SpielRepository spielRepo;
 
     public void createTipprunde(Tipprunde tipprunde) {
         tipprunde.setId(null);
@@ -73,6 +80,34 @@ public class TipprundeService {
         mitglied.setBenutzerID(benutzerID);
         mitglied.setName("Neues Mitglied " + Math.random() * 1000);
         mitgliedRepo.save(mitglied);
+    }
+
+    public List<Mitglied> getTipprundenMitglieder(Long id) {
+        List<Mitglied> mitglieder = mitgliedRepo.getMitgliedByTipprundenID(id);
+        Tipprunde tipprunde = tipprundenRepo.findTipprundeById(id);
+        LocalDate sysDate = configRepo.findAll().iterator().next().getSysTime();
+
+        for(Mitglied mitglied : mitglieder) {
+            List<Tipp> tipps = tippRepo.findMyTippsByTipprunde(mitglied.getId());
+            for(Tipp tipp : tipps) {
+                Optional<Spiel> spiel = spielRepo.findById(tipp.getSpielID());
+                if(spiel.isEmpty()) continue;
+                //Tordiff
+                if(Math.abs(spiel.get().getAuswaertstore()-spiel.get().getHeimtore()) ==
+                        Math.abs(tipp.getToreAus()-tipp.getToreHeim()))
+                    mitglied.setPunkte(mitglied.getPunkte()+tipprunde.getTordiffgewicht());
+                //Sieger
+                if(
+                        (spiel.get().getAuswaertstore()-spiel.get().getHeimtore()>0 ==
+                        tipp.getToreAus()-tipp.getToreHeim()>0) ||
+                                (tipp.getToreAus()-tipp.getToreHeim()==0 && spiel.get().getAuswaertstore()-spiel.get().getHeimtore()==0))
+                    mitglied.setPunkte(mitglied.getPunkte()+tipprunde.getSiegergewicht());
+                //Ergebnis
+                if(spiel.get().getHeimtore()==tipp.getToreHeim() && spiel.get().getAuswaertstore()==tipp.getToreAus())
+                    mitglied.setPunkte(tipprunde.getErgebnisgewicht()+mitglied.getPunkte());
+            }
+        }
+        return mitgliedRepo.getMitgliedByTipprundenID(id);
     }
 
 }

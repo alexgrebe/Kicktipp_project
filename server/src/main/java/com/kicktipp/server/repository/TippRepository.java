@@ -14,4 +14,7 @@ public interface TippRepository extends CrudRepository<Tipp, Long> {
 
     @Query("SELECT t FROM Tipp t WHERE t.spielID = :gameID AND t.mitgliedID = :mitgliedID")
     public List<Tipp> findMyTippsByGame(@Param("mitgliedID") Long mitgliedID, @Param("gameID") Long gameID);
+
+    @Query("SELECT t FROM Tipp t WHERE t.mitgliedID = :mitgliedID")
+    public List<Tipp> findMyTippsByTipprunde(@Param("mitgliedID") Long mitgliedID);
 }

@@ -7,9 +7,15 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface MitgliedRepository extends CrudRepository<Mitglied, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE Mitglied m SET m.name = :name WHERE m.id = :mitgliedID")
     public void changeMitgliedName(@Param("name") String name, @Param("mitgliedID") Long mitgliedID);
+
+    @Query("SELECT m FROM Mitglied m WHERE m.tipprundeID = :tipprundenID")
+    public List<Mitglied> getMitgliedByTipprundenID(@Param("tipprundenID") Long tipprundenID);
+
 }
