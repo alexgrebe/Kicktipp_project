@@ -1,9 +1,6 @@
 package com.kicktipp.server.service;
 
-import com.kicktipp.server.model.Mitglied;
-import com.kicktipp.server.model.Spiel;
-import com.kicktipp.server.model.Tipp;
-import com.kicktipp.server.model.Tipprunde;
+import com.kicktipp.server.model.*;
 import com.kicktipp.server.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -108,6 +105,10 @@ public class TipprundeService {
             }
         }
         return mitgliedRepo.getMitgliedByTipprundenID(id);
+    }
+
+    public Long getBenutzerIDByMitgliedID(Long mitgliedID) {
+        return mitgliedRepo.findBenutzerIDById(mitgliedID);
     }
 
 }

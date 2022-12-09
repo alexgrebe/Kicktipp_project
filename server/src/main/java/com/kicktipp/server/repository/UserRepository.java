@@ -8,6 +8,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface UserRepository extends CrudRepository<Benutzer, Long> {
     public Benutzer findByEmail(String email);
@@ -26,4 +28,8 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
     public String findRoleByAuthtoken(String token);
 
     public Long findIdByAuthtoken(String token);
+
+    @Query("SELECT b FROM Benutzer b WHERE b.id IN (SELECT f1.sender FROM Freundschaftsanfragen f1 WHERE f1.sender = :id AND f1.bestatigt is true) " +
+            "OR b.id IN (SELECT f2.empfanger FROM Freundschaftsanfragen f2 WHERE f2.empfanger = :id AND f2.bestatigt is true)")
+    public List<Benutzer> getFreundeByID(@Param("id") Long id);
 }

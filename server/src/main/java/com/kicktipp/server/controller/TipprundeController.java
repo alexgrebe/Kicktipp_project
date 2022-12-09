@@ -2,6 +2,7 @@ package com.kicktipp.server.controller;
 
 import com.kicktipp.server.model.Benutzer;
 import com.kicktipp.server.model.Mitglied;
+import com.kicktipp.server.model.Tipp;
 import com.kicktipp.server.model.Tipprunde;
 import com.kicktipp.server.service.AuthService;
 import com.kicktipp.server.service.TipprundeService;
@@ -85,4 +86,20 @@ public class TipprundeController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
         }
+
+    @PostMapping("/tippErstellen/{tipprundenID}")
+    public ResponseEntity<String> createTipp(@CookieValue(value = "auth_token", required = false) String token, @RequestBody() Tipp tipp) {
+        try{
+            if (token == null || !authService.verifyToken(token) ||
+                    !(tipprundeService.getBenutzerIDByMitgliedID(tipp.getMitgliedID())==authService.findIdByAuthtoken(token)))
+                return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            tipprundeService.createTipp(tipp);
+                return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
 }

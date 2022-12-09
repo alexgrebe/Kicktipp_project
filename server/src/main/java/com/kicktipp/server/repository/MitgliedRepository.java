@@ -18,4 +18,6 @@ public interface MitgliedRepository extends CrudRepository<Mitglied, Long> {
     @Query("SELECT m FROM Mitglied m WHERE m.tipprundeID = :tipprundenID")
     public List<Mitglied> getMitgliedByTipprundenID(@Param("tipprundenID") Long tipprundenID);
 
+
+    public Long findBenutzerIDById(Long id);
 }
