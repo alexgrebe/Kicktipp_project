@@ -130,4 +130,46 @@ public class TipprundeController {
         }
     }
 
+    @PostMapping("/changeMitgliedName/{mitgliedID}")
+    public ResponseEntity<String> changeMitgliedName(@CookieValue(value = "auth_token", required = false) String token, @RequestBody String name, @PathVariable Long mitgliedID) {
+        try {
+            if (token == null || !authService.verifyToken(token) || !(authService.findIdByAuthtoken(token)==tipprundeService.getBenutzerIDByMitgliedID(mitgliedID)))
+                return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+           tipprundeService.changeMitgliedName(mitgliedID, name);
+            return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) { return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST); }
+    }
+
+    @GetMapping("/getOwnMitgliedDetails/{tipprundenID}")
+    public ResponseEntity<Mitglied> getOwnMitglied(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long tipprundenID) {
+        try {
+            if (token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(tipprundeService.getMitgliedByBenutzerIDAndTipprundenID(authService.findIdByAuthtoken(token), tipprundenID), HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getMyTippsForGame/{spielID}")
+    public ResponseEntity<List<Tipp>> getMyTippsForGame(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long spielID) {
+        try {
+            if (token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(tipprundeService.getMyTippsForGame(authService.findIdByAuthtoken(token), spielID), HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);}
+        }
+
+    @GetMapping("/getMyTipps/{mitgliedID}")
+    public ResponseEntity<List<Tipp>> getMyTipps(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long mitgliedID) {
+        try{
+            if(token==null || !authService.verifyToken(token) || !(authService.findIdByAuthtoken(token)==tipprundeService.getBenutzerIDByMitgliedID(mitgliedID)))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(tipprundeService.getMyTipps(mitgliedID), HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) { return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); }
+    }
 }

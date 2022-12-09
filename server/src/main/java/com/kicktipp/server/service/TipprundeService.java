@@ -59,13 +59,14 @@ public class TipprundeService {
         return tippRepo.findMyTipps(mitgliedID);
     }
 
-    public void createTipp(Tipp tipp) {
+    public void createTipp(Tipp tipp) throws Exception {
+        if(spielRepo.findById(tipp.getSpielID()).get().getDatum().isAfter(configRepo.findAll().iterator().next().getSysTime())) throw new Exception("Spiel bereits vorbei!");
         tipp.setId(null);
         tippRepo.save(tipp);
     }
 
-    public List<Tipp> getMyTippsForGame(Long mitgliedID, Long spielID) {
-        return tippRepo.findMyTippsByGame(mitgliedID, spielID);
+    public List<Tipp> getMyTippsForGame(Long benutzerID, Long spielID) {
+        return tippRepo.findMyTippsByGame(benutzerID, spielID);
     }
 
     public void sendInvite(Long tipprundenID, Long empfangerID) throws Exception {
@@ -121,7 +122,7 @@ public class TipprundeService {
             List<Tipp> tipps = tippRepo.findMyTippsByTipprunde(mitglied.getId());
             for(Tipp tipp : tipps) {
                 Optional<Spiel> spiel = spielRepo.findById(tipp.getSpielID());
-                if(spiel.isEmpty()) continue;
+                if(spiel.isEmpty() || spiel.get().getDatum().isAfter(sysDate)) continue;
                 //Tordiff
                 if(Math.abs(spiel.get().getAuswaertstore()-spiel.get().getHeimtore()) ==
                         Math.abs(tipp.getToreAus()-tipp.getToreHeim()))
@@ -148,4 +149,5 @@ public class TipprundeService {
         return tipprundenRepo.findTipprundeById(tipprundenID);
     }
 
+    public Mitglied getMitgliedByBenutzerIDAndTipprundenID(Long benutzerID, Long tipprundenID) { return mitgliedRepo.findMitgliedByTipprundenIDAndBenutzerID(benutzerID, tipprundenID);}
 }

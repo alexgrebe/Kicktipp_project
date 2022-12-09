@@ -105,4 +105,6 @@ public class LigaService {
     public void deleteGame(Long id) {
         spielRepository.deleteById(id);
     }
+
+    public void updateLiga(Liga liga) { ligaRepository.save(liga); }
 }
