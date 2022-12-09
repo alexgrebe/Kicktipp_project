@@ -46,6 +46,8 @@ public class TipprundeService {
     }
 
     public List<Tipprunde> getTipprunden(Long benutzerID) {
+
+        System.out.println(benutzerID);
         return tipprundenRepo.findTipprunde(benutzerID);
     }
 
@@ -106,7 +108,7 @@ public class TipprundeService {
         Mitglied mitglied = new Mitglied();
         mitglied.setTipprundeID(tipprundenID);
         mitglied.setBenutzerID(benutzerID);
-        mitglied.setName("Neues Mitglied " + Math.random() * 1000);
+        mitglied.setName("Neues Mitglied " + (int)(Math.random() * 1000));
         mitgliedRepo.save(mitglied);
     }
 

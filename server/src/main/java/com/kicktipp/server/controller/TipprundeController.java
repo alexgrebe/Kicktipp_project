@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/tipprunden")
+@RestController()
 @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:80", "http://localhost"}, allowCredentials = "true")
 public class TipprundeController {
 
@@ -23,10 +23,11 @@ public class TipprundeController {
     TipprundeService tipprundeService;
 
     @PostMapping("/createTipprunde")
-    public ResponseEntity<String> createTipprunde(@CookieValue(value = "auth_token", required = false) String token, Tipprunde tipprunde) {
+    public ResponseEntity<String> createTipprunde(@CookieValue(value = "auth_token", required = false) String token, @RequestBody Tipprunde tipprunde) {
         try{
             if(token==null || !authService.verifyToken(token)) { return new ResponseEntity<>("Unauth", HttpStatus.UNAUTHORIZED); }
             tipprunde.setBesitzerID(authService.findIdByAuthtoken(token));
+            System.out.println(tipprunde.getName());
             tipprundeService.createTipprunde(tipprunde);
             return new ResponseEntity<>("", HttpStatus.CREATED);
         }
@@ -56,6 +57,7 @@ public class TipprundeController {
             return new ResponseEntity<>(runden, HttpStatus.ACCEPTED);
         }
         catch(Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -73,7 +75,7 @@ public class TipprundeController {
         }
     }
 
-    @GetMapping("/{tipprundenID}")
+    @GetMapping("tipprunde/{tipprundenID}")
     public ResponseEntity<List<Mitglied>> getTipprundenMitglieder(@PathVariable("tipprundenID") Long tipprundenID, @CookieValue(value = "auth_token", required = false) String token) {
         try {
             if (token == null || !authService.verifyToken(token))

@@ -27,7 +27,8 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
 
     public String findRoleByAuthtoken(String token);
 
-    public Long findIdByAuthtoken(String token);
+    @Query("SELECT b.id FROM Benutzer b WHERE b.authtoken = :token")
+    public Long findIdByAuthtoken(@Param("token") String token);
 
     @Query("SELECT b FROM Benutzer b WHERE b.id IN (SELECT f1.sender FROM Freundschaftsanfragen f1 WHERE f1.sender = :id AND f1.bestatigt is true) " +
             "OR b.id IN (SELECT f2.empfanger FROM Freundschaftsanfragen f2 WHERE f2.empfanger = :id AND f2.bestatigt is true)")
