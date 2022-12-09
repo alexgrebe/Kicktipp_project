@@ -3,7 +3,9 @@ package com.kicktipp.server.service;
 import com.kicktipp.server.model.*;
 import com.kicktipp.server.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+import org.springframework.mail.SimpleMailMessage;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +28,12 @@ public class TipprundeService {
 
     @Autowired
     SpielRepository spielRepo;
+
+    @Autowired
+    UserRepository userRepo;
+
+    @Autowired
+    JavaMailSender mailSender;
 
     public void createTipprunde(Tipprunde tipprunde) {
         tipprunde.setId(null);
@@ -58,12 +66,35 @@ public class TipprundeService {
         return tippRepo.findMyTippsByGame(mitgliedID, spielID);
     }
 
-    public void sendInvite(Long tipprundenID, Long empfangerID) {
-        //TODO
+    public void sendInvite(Long tipprundenID, Long empfangerID) throws Exception {
+        Tipprunde runde = tipprundenRepo.findTipprundeById(tipprundenID);
+        Optional<Benutzer> empfanger = userRepo.findById(empfangerID);
+        if(runde == null || empfanger.isEmpty()) throw new Exception();
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("KicktippEmailGruppeG@gmail.com");
+        message.setSubject("Einladung zur Tipprunde");
+        message.setTo(empfanger.get().getEmail());
+        message.setText("Einladung zur Tipprunde: "+runde.getName()+" Link zum Beitreten: "+ "http://localhost/beitreten/"+runde.getId());
+        mailSender.send(message);
+
     }
 
-    public void shareTipp(Long tippID, Long benutzerID) {
-        //TODO
+    public void shareTipp(Long tippID, Long benutzerID) throws Exception {
+        List<String> emails = userRepo.findFreundeEmailsById(benutzerID);
+        Optional<Benutzer> benutzer = userRepo.findById(benutzerID);
+        Optional<Tipp> tipp = tippRepo.findById(tippID);
+        Optional<Spiel> spiel = spielRepo.findById(tipp.get().getSpielID());
+        if(benutzer.isEmpty() || tipp.isEmpty() || spiel.isEmpty()) throw new Exception();
+        for(String email : emails) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email);
+            message.setFrom("KicktippEmailGruppeG@gmail.com");
+            message.setSubject(benutzer.get().getVorname() + " hat einen Tipp mit dir geteilt");
+            message.setText(benutzer.get().getVorname() + " hat getippt, dass das Spiel "
+                    + spiel.get().getHeimteam() + " gegen " + spiel.get().getAuswaertsteam() + ", " + spiel.get().getHeimtore() + " zu " +
+                    spiel.get().getAuswaertsteam() + "endet.");
+            mailSender.send(message);
+        }
     }
 
     public void changeMitgliedName(Long mitgliedID, String name) {
@@ -109,6 +140,10 @@ public class TipprundeService {
 
     public Long getBenutzerIDByMitgliedID(Long mitgliedID) {
         return mitgliedRepo.findBenutzerIDById(mitgliedID);
+    }
+
+    public Tipprunde getTipprundeById(Long tipprundenID) {
+        return tipprundenRepo.findTipprundeById(tipprundenID);
     }
 
 }

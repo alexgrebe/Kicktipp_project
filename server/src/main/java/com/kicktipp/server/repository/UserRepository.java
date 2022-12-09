@@ -32,4 +32,8 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
     @Query("SELECT b FROM Benutzer b WHERE b.id IN (SELECT f1.sender FROM Freundschaftsanfragen f1 WHERE f1.sender = :id AND f1.bestatigt is true) " +
             "OR b.id IN (SELECT f2.empfanger FROM Freundschaftsanfragen f2 WHERE f2.empfanger = :id AND f2.bestatigt is true)")
     public List<Benutzer> getFreundeByID(@Param("id") Long id);
+
+    @Query("SELECT b.email FROM Benutzer b WHERE b.id IN (SELECT f1.sender FROM Freundschaftsanfragen f1 WHERE f1.empfanger = :benutzerID AND f1.bestatigt is true)" +
+            "OR b.id IN (SELECT f2.empfanger FROM Freundschaftsanfragen f2 WHERE f2.sender = :benutzerID AND f2.bestatigt is true)")
+    public List<String> findFreundeEmailsById(@Param("benutzerID") Long benutzerID);
 }

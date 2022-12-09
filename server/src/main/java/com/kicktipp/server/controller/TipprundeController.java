@@ -1,6 +1,5 @@
 package com.kicktipp.server.controller;
 
-import com.kicktipp.server.model.Benutzer;
 import com.kicktipp.server.model.Mitglied;
 import com.kicktipp.server.model.Tipp;
 import com.kicktipp.server.model.Tipprunde;
@@ -101,5 +100,32 @@ public class TipprundeController {
         }
     }
 
+    @GetMapping("/sendInvite/{tipprundenID}/{empfangerID}")
+    public ResponseEntity<String> inviteToTipprunde(@CookieValue(value = "auth_token", required = false) String token, @PathVariable("tipprundenID") Long tipprundenID, @PathVariable("empfangerID") Long empfangerID) {
+        try{
+            if(token == null || !authService.verifyToken(token) ||
+                    !(tipprundeService.getTipprundeById(tipprundenID).getBesitzerID()==authService.findIdByAuthtoken(token)))
+                return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            tipprundeService.sendInvite(tipprundenID, empfangerID);
+            return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/shareTipp/{tippID}")
+    public ResponseEntity<String> shareTipp(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long tippID) {
+        try{
+            if (token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            Long benutzerID = authService.findIdByAuthtoken(token);
+            tipprundeService.shareTipp(tippID, benutzerID);
+            return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
