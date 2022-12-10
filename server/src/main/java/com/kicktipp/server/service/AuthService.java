@@ -44,5 +44,9 @@ public class AuthService {
         }
     }
 
+    public Long findIdByAuthtoken(String token) {
+        return repo.findIdByAuthtoken(token);
+    }
+
 
 }

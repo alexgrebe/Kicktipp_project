@@ -17,5 +17,4 @@ public interface ConfigRepository extends CrudRepository<Configuration, Long> {
     @Modifying
     @Query("update Configuration c set c.sysTime = :value where c.id = :id")
     public void updateSysTime(@Param("id") Long id, @Param("value") LocalDate value);
-
 }

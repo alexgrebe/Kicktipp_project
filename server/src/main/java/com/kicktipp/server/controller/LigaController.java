@@ -76,5 +76,31 @@ public class LigaController {
             }
         }
 
+    @GetMapping("/deleteGame/{spielID}")
+    public ResponseEntity<String> deleteGame(@PathVariable("spielID") Long spielID, @CookieValue(value = "auth_token" ,required = false) String token) {
+        try{
+            if(token == null || !authService.RoleByToken(token).equals("admin")) return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            service.deleteGame(spielID);
+            return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
+
+    @PostMapping("/ligaUpdate")
+    public ResponseEntity<String> updateLiga(@CookieValue(value = "auth_token", required = false) String token, @RequestBody Liga liga) {
+        try {
+            if(token == null || !authService.RoleByToken(token).equals("admin"))
+                return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            service.updateLiga(liga);
+        return new ResponseEntity<>("", HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+        }
+    }
+
+
 
