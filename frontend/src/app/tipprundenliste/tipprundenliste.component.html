@@ -1,0 +1,19 @@
+<ul>
+  <li *ngFor="let tipprunde of tipprunden">
+    <div>
+      <p>
+
+        {{tipprunde.name}}
+      </p>
+
+      <button (click)="tipprundeBeitreten(tipprunde.id)">
+        <span>
+          beitreten
+        </span>
+        <span *ngIf="tipprunde.passwort" >
+        🔒
+        </span>
+      </button>
+    </div>
+  </li>
+</ul>

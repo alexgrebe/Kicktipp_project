@@ -14,6 +14,7 @@ export class TippspielFormService {
   }
 
   getLigen() {
-    return this.http.get<Liga[]>(this.url)
+    return this.http.get<Liga[]>(this.url,
+      {withCredentials: true})
   }
 }

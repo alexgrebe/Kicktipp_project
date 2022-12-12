@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FreundeslisteService} from "./freundesliste.service";
+import {BenutzerResponse, FreundeslisteService} from "./freundesliste.service";
 
 @Component({
   selector: 'app-freundesliste',
@@ -8,12 +8,12 @@ import {FreundeslisteService} from "./freundesliste.service";
 })
 export class FreundeslisteComponent implements OnInit {
 
- friendIds: number[] = []
+ freunde: BenutzerResponse[] = []
   constructor(private service: FreundeslisteService) { }
 
   ngOnInit(): void {
   this.service.getFreunde().subscribe((data)=>{
-    this.friendIds = data;
+    this.freunde = data;
   })
   }
 

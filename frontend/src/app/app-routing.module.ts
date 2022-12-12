@@ -11,6 +11,7 @@ import {AdminComponent} from './admin/admin.component';
 import {NutzerComponent} from './nutzer/nutzer.component';
 import {HomeComponent} from './home/home.component';
 import {FreundeslisteComponent} from "./freundesliste/freundesliste.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
@@ -21,10 +22,10 @@ const routes: Routes = [
   {path: 'adminliga', component: AdminligaComponent},
   {path: 'config', component: ConfigComponent},
   {path: 'admin', component: AdminComponent},
-  {path: 'nutzer', component: NutzerComponent},
+  {path: 'nutzer', component: DashboardComponent},
   {path: '', component: HomeComponent},
   {path: 'test', component: FreundeslisteComponent}
-];
+  ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

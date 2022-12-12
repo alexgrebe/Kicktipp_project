@@ -95,7 +95,7 @@ public class TipprundeService {
             message.setSubject(benutzer.get().getVorname() + " hat einen Tipp mit dir geteilt");
             message.setText(benutzer.get().getVorname() + " hat getippt, dass das Spiel "
                     + spiel.get().getHeimteam() + " gegen " + spiel.get().getAuswaertsteam() + ", " + spiel.get().getHeimtore() + " zu " +
-                    spiel.get().getAuswaertsteam() + "endet.");
+                    spiel.get().getAuswaertstore() + "endet.");
             mailSender.send(message);
         }
     }
@@ -149,5 +149,7 @@ public class TipprundeService {
         return tipprundenRepo.findTipprundeById(tipprundenID);
     }
 
-    public Mitglied getMitgliedByBenutzerIDAndTipprundenID(Long benutzerID, Long tipprundenID) { return mitgliedRepo.findMitgliedByTipprundenIDAndBenutzerID(benutzerID, tipprundenID);}
+    public Mitglied getMitgliedByBenutzerIDAndTipprundenID(Long benutzerID, Long tipprundenID) {
+        return mitgliedRepo.findMitgliedByTipprundenIDAndBenutzerID(benutzerID, tipprundenID);
+    }
 }
