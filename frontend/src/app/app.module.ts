@@ -16,6 +16,7 @@ import {AdminComponent} from './admin/admin.component';
 import {NutzerComponent} from './nutzer/nutzer.component';
 import {HomeComponent} from './home/home.component';
 import { TipprundecreateComponent } from './tipprundecreate/tipprundecreate.component';
+import { TipprundenlisteComponent } from './tipprundenliste/tipprundenliste.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { TipprundecreateComponent } from './tipprundecreate/tipprundecreate.comp
     NutzerComponent,
     HomeComponent,
     TipprundecreateComponent,
+    TipprundenlisteComponent,
   ],
   imports: [
     BrowserModule,

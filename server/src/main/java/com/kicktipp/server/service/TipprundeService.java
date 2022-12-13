@@ -152,4 +152,8 @@ public class TipprundeService {
     public Mitglied getMitgliedByBenutzerIDAndTipprundenID(Long benutzerID, Long tipprundenID) {
         return mitgliedRepo.findMitgliedByTipprundenIDAndBenutzerID(benutzerID, tipprundenID);
     }
+
+    public List<Tipprunde> getEigeneTipprunden(Long benutzerID) {
+        return tipprundenRepo.findTipprundeByBesitzerid(benutzerID);
+    }
 }

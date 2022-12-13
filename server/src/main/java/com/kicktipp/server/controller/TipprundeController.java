@@ -27,7 +27,6 @@ public class TipprundeController {
         try{
             if(token==null || !authService.verifyToken(token)) { return new ResponseEntity<>("Unauth", HttpStatus.UNAUTHORIZED); }
             tipprunde.setBesitzerID(authService.findIdByAuthtoken(token));
-            System.out.println(tipprunde.getName());
             tipprundeService.createTipprunde(tipprunde);
             return new ResponseEntity<>("", HttpStatus.CREATED);
         }
@@ -169,6 +168,15 @@ public class TipprundeController {
             if(token==null || !authService.verifyToken(token) || !(authService.findIdByAuthtoken(token)==tipprundeService.getBenutzerIDByMitgliedID(mitgliedID)))
                 return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
             return new ResponseEntity<>(tipprundeService.getMyTipps(mitgliedID), HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) { return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); }
+    }
+
+    @GetMapping("/eigeneTipprunden")
+    public ResponseEntity<List<Tipprunde>> getEigeneTipps(@CookieValue(value = "auth_token", required = false) String token) {
+        try{
+            if(token == null || !authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(tipprundeService.getEigeneTipprunden(authService.findIdByAuthtoken(token)), HttpStatus.ACCEPTED);
         }
         catch(Exception e) { return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); }
     }

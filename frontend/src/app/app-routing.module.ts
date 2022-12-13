@@ -11,6 +11,7 @@ import {AdminComponent} from './admin/admin.component';
 import {NutzerComponent} from './nutzer/nutzer.component';
 import {HomeComponent} from './home/home.component';
 import { TipprundecreateComponent } from './tipprundecreate/tipprundecreate.component';
+import { TipprundenlisteComponent } from './tipprundenliste/tipprundenliste.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'nutzer', component: NutzerComponent},
   {path: '', component: HomeComponent},
-  {path: 'tipprundeerstellen', component: TipprundecreateComponent}
+  {path: 'tipprundeerstellen', component: TipprundecreateComponent},
+  {path: 'tipprundenanzeigen', component: TipprundenlisteComponent}
   ];
 
 @NgModule({
