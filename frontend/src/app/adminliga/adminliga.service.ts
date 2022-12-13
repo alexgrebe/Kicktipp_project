@@ -29,6 +29,6 @@ export class AdminligaService {
   }
 
   getLigen() {
-    return this.http.get<Liga[]>(this.url + "getAllLeagues")
+    return this.http.get<Liga[]>(this.url + "getAllLeagues", {withCredentials: true})
   }
 }

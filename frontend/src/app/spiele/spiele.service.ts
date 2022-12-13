@@ -15,6 +15,6 @@ export class SpieleService {
   }
 
   getAllGames(id: number): Observable<Spiel[]> {
-    return this.http.get<Spiel[]>(this.url + id)
+    return this.http.get<Spiel[]>(this.url + id, {withCredentials: true})
   }
 }
