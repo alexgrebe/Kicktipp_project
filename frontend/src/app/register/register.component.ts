@@ -16,14 +16,7 @@ export class RegisterComponent implements OnInit {
   profiledatafile: File | undefined;
 
   constructor(private service: RegisterService, private router: Router) {
-    this.benutzer = new Benutzer(  "",
-      "",
-      "" ,
-      "",
-      "",
-      "admin",
-      "",
-    );
+    this.benutzer = new Benutzer();
   }
 
   ngOnInit(): void {

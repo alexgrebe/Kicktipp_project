@@ -1,6 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NutzerService} from "./nutzer.services";
-import {Benutzer} from "../Models/Benutzer";
+import {Component, OnInit} from '@angular/core';
+
 
 @Component({
   selector: 'app-nutzer',
@@ -9,19 +8,9 @@ import {Benutzer} from "../Models/Benutzer";
 })
 export class NutzerComponent implements OnInit {
 
-  @Input() friendId!: number;
-  vorname: string = "";
-  nachname: string = "";
-
-  constructor(private service :NutzerService) {
+  constructor() {
   }
 
-  ngOnInit()
-  : void {
-    this.service.getNutzer(this.friendId).subscribe((data: Benutzer)=>{
-      this.vorname = data.vorname;
-      this.nachname = data.nachname;
-    })
-  }
+  ngOnInit() {}
 
 }

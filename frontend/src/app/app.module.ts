@@ -15,11 +15,6 @@ import {ConfigComponent} from './config/config.component';
 import {AdminComponent} from './admin/admin.component';
 import {NutzerComponent} from './nutzer/nutzer.component';
 import {HomeComponent} from './home/home.component';
-import { TippspielFormComponent } from './tippspiel-form/tippspiel-form.component';
-import { FreundeComponent } from './freunde/freunde.component';
-import { FreundeslisteComponent } from './freundesliste/freundesliste.component';
-import { TipprundenlisteComponent } from './tipprundenliste/tipprundenliste.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -34,11 +29,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AdminComponent,
     NutzerComponent,
     HomeComponent,
-    TippspielFormComponent,
-    FreundeComponent,
-    FreundeslisteComponent,
-    TipprundenlisteComponent,
-    DashboardComponent
   ],
   imports: [
     BrowserModule,
