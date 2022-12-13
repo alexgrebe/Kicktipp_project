@@ -6,6 +6,7 @@ import com.kicktipp.server.repository.LigaRepository;
 import com.kicktipp.server.repository.SpielRepository;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -93,13 +94,14 @@ public class LigaService {
 
     public List<Spiel> getAllGamesByLeague(Long id) {
         List<Spiel> spieleListe = spielRepository.findAllByLigaFremdschlussel(id);
+        LocalDate sysTime = configService.getSysTime();
         for(Spiel spiel : spieleListe) {
-            if(spiel.getDatum().isAfter(configService.getSysTime())) {
+            if(spiel.getDatum().isAfter(sysTime)) {
                 spiel.setHeimtore(null);
                 spiel.setAuswaertstore(null);
-            }
+           }
         }
-        return spielRepository.findAllByLigaFremdschlussel(id);
+        return spieleListe;
     }
 
     public void deleteGame(Long id) {
