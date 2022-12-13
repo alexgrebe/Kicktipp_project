@@ -1,26 +1,8 @@
-<p>Config hinzufügen</p>
-<form #configForm="ngForm" (submit)="addSubmit()">
-  <div>
-    <label>Name</label>
-    <input [(ngModel)]="config.attributeConfig" name="configattributeconfig" type="text">
-  </div>
+<p>Update Systemzeit</p>
+<form #updateForm="ngForm" (submit)="setConfigSubmit()">
   <div>
     <label>Wert</label>
-    <input [(ngModel)]="config.valueConfig" name="configvalueconfig" type="text">
-  </div>
-  <button type="submit">Hinzufügen</button>
-</form>
-<p>Update Config</p>
-<form #updateForm="ngForm" (submit)="updateSubmit()">
-  <div>
-    <label>Config auswählen</label>
-    <select [(ngModel)]="updateId" name="updateid">
-      <option *ngFor="let conf of existingConfig" [ngValue]="conf.id">{{conf.attributeConfig}}</option>
-    </select>
-  </div>
-  <div>
-    <label>Wert</label>
-    <input [(ngModel)]="updateValue" name="updatevalue" type="text">
+    <input [(ngModel)]="config.sysTime" name="updatevalue" type="date">
   </div>
   <button type="submit">Updaten</button>
 </form>

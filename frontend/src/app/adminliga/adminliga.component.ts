@@ -40,6 +40,10 @@ export class AdminligaComponent implements OnInit {
     console.log(this.liga);
     this.service.addLiga(this.liga).subscribe(data => {
       console.log(data)
+      alert("Hinzugefügt!")
+    },
+    err => {
+      alert(err)
     })
   }
 
@@ -47,7 +51,9 @@ export class AdminligaComponent implements OnInit {
     console.log(this.spiel);
     this.service.addGame(this.spiel).subscribe(data => {
       console.log(data)
-    })
+      alert("Hinzugefügt!")
+    },
+    err => {alert(err)})
   }
 
   readInCSVSubmit() {
@@ -55,7 +61,9 @@ export class AdminligaComponent implements OnInit {
     console.log(this.ligaId);
     this.service.readInCSV(this.CSVFile, this.ligaId).subscribe(data => {
       console.log(data)
-    })
+      alert("Hinzugefügt!")
+    },
+    err => {alert(err)})
   }
 
   async logoLigaChange(e: any) {

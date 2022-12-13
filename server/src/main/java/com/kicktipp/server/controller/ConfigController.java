@@ -22,22 +22,7 @@ public class ConfigController {
 
     @Autowired
     AuthService authService;
-
-    @GetMapping("/getConfigAttributes")
-    public Iterable<Configuration> getConfigAttributes() {
-        return null;
-    }
-
-    @PostMapping("/addConfigAttribute")
-    public String addConfigAttribute(@RequestBody Configuration configuration, @CookieValue("auth_token") String token) {
-        return "";
-    }
-
-    @PostMapping("/updateConfig/{id}")
-    public String updateConfig(@PathVariable Long id, @RequestBody String value, @CookieValue("auth_token") String token) {
-        return "";
-    }
-
+    
     @PostMapping("/updateSysTime")
     public ResponseEntity<String> updateSysTime(@RequestBody Configuration config, @CookieValue(value = "auth_token", required = false) String token) {
         try {

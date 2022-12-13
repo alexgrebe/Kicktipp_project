@@ -1,8 +1,7 @@
 export class Config {
 
   id: number | undefined;
-  attributeConfig: string | undefined;
-  valueConfig: string | undefined;
+  sysTime: string | undefined;
 
   constructor() {
   }

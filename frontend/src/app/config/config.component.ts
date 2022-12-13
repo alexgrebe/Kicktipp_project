@@ -10,33 +10,16 @@ import {ConfigService} from './config.service';
 export class ConfigComponent implements OnInit {
 
   config: Config;
-  existingConfig: Config[];
-  updateId: number;
-  updateValue: string;
 
   constructor(private service: ConfigService) {
     this.config = new Config();
-    this.existingConfig = [];
-    this.updateId = 2;
-    this.updateValue = ""
   }
 
   ngOnInit(): void {
-    this.service.getConfig().subscribe(data => {
-      this.existingConfig = data
-    })
   }
 
-  addSubmit() {
-    this.service.addConfig(this.config).subscribe(data => {
-      console.log(data)
-    })
-  }
-
-  updateSubmit() {
-    this.service.updateConfig(this.updateId, this.updateValue).subscribe(data => {
-      console.log(data);
-    })
+  setConfigSubmit() {
+    this.service.setConfig(this.config).subscribe( data => { alert("Hat geklappt") }, err => { alert(err) }) 
   }
 
 }
