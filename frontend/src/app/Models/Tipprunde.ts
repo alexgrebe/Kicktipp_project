@@ -9,6 +9,7 @@ export class Tipprunde {
     siegergewicht: number | undefined;
     passwort: string | undefined;
     privat: boolean | undefined;
+    passwortVorhanden: boolean | undefined;
 
     constructor() {}
 }

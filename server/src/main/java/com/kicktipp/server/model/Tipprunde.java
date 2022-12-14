@@ -20,6 +20,16 @@ public class Tipprunde {
     public String passwort;
     public boolean privat;
 
+    public boolean passwortVorhanden;
+
+    public boolean isPasswortVorhanden() {
+        return passwortVorhanden;
+    }
+
+    public void setPasswortVorhanden(boolean passwortVorhanden) {
+        this.passwortVorhanden = passwortVorhanden;
+    }
+
     public Long getId() {
         return id;
     }

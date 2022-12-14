@@ -180,4 +180,15 @@ public class TipprundeController {
         }
         catch(Exception e) { return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST); }
     }
+
+    @GetMapping("/getTipprundenInfo/{id}")
+    public ResponseEntity<Tipprunde> getTipprundenInfo(@CookieValue(value = "auth_token", required = false)String token, @PathVariable Long id) {
+        try{
+            if(token == null || !authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(tipprundeService.getTipprundeById(id), HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }

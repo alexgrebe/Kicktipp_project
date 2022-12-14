@@ -37,6 +37,7 @@ public class TipprundeService {
 
     public void createTipprunde(Tipprunde tipprunde) {
         tipprunde.setId(null);
+        if(tipprunde.getPasswort()==null) tipprunde.passwortVorhanden = false;
         tipprundenRepo.save(tipprunde);
     }
 

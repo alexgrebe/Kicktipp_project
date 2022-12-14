@@ -1,0 +1,9 @@
+<h1>{{tipprunde.name}} beitreten</h1>
+<form #tipprundeBeitretenForm = 'ngForm' (ngSubmit)="beitretenSubmit()">
+    <div *ngIf="tipprunde.passwortVorhanden">
+        <label>Passwort</label>
+        <input type="password" class="form-control" name="passwortfeld" id="passwortFeldbeitreten" [(ngModel)]="passwort">
+    </div>
+
+    <button type="submit">Beitreten</button>
+</form>
