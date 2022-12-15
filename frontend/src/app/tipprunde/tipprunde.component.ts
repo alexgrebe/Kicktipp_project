@@ -26,10 +26,10 @@ export class TipprundeComponent implements OnInit {
   ngOnInit(): void {
     this.router.params.subscribe(data => { this.id = data['id']})
     if(this.id !== undefined) {
-    this.service.getTipprundenInfo(this.id).subscribe(data => {this.tipprunde = data})
+    this.service.getTipprundenInfo(this.id).subscribe(data => {this.tipprunde = data;})
     this.service.getMitgliederTabelle(this.id).subscribe(data => {this.mitglieder = data;
       if(this.tipprunde.id!==undefined && this.tipprunde.ligaID!==undefined) {
-      this.service.getOffeneSpiele(this.tipprunde.ligaID).subscribe( data => { this.nochZuSpielendeSpiele = data;}, err => {alert("Neu laden!")})
+        this.service.getOffeneSpiele(this.tipprunde.id).subscribe( data => { this.nochZuSpielendeSpiele = data; console.log(data)}, err => {alert("Neu laden!")})
       this.service.getOwnDetails(this.tipprunde.id).subscribe( data => { this.mitglied = data })}
       else{ alert(this.tipprunde.name)}
     }, err => {alert("Fehler!")}) }
@@ -38,7 +38,8 @@ export class TipprundeComponent implements OnInit {
 
   changeNameSubmit() {
     if(this.name!==undefined && this.mitglied.id!==undefined) {
-      this.service.changeMitgliedName(this.name, this.mitglied.id).subscribe(data => {alert("Name geändert!")}, err => {alert("Fehler!")})
+      this.service.changeMitgliedName(this.name, this.mitglied.id).subscribe(data => {this.service.getMitgliederTabelle(this.id ? this.id : 0).subscribe(data => this.mitglieder = data)}, 
+      err => {alert("Fehler!")})
     }
   }
 

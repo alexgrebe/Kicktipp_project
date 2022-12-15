@@ -1,10 +1,12 @@
 package com.kicktipp.server.controller;
 
 import com.kicktipp.server.model.Liga;
+import com.kicktipp.server.model.Mitglied;
 import com.kicktipp.server.model.Spiel;
 import com.kicktipp.server.service.AuthService;
 import com.kicktipp.server.service.ConfigService;
 import com.kicktipp.server.service.LigaService;
+import com.kicktipp.server.service.TipprundeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
@@ -28,6 +30,9 @@ public class LigaController {
 
     @Autowired
     ConfigService configService;
+
+    @Autowired
+    TipprundeService tipprundeService;
 
     @GetMapping("/getAllLeagues")
     public ResponseEntity<Iterable<Liga>> getAllLigen(@CookieValue(value = "auth_token", required = false) String token) {
@@ -111,9 +116,14 @@ public class LigaController {
         try{
             if(token==null || !authService.verifyToken(token))
                 return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-            return new ResponseEntity<>(service.getGamesByDate(configService.getSysTime(), tipprundenID), HttpStatus.ACCEPTED);
+            Mitglied mitgliedzws = tipprundeService.getMitgliedByBenutzerIDAndTipprundenID(authService.findIdByAuthtoken(token), tipprundenID);
+            List<Spiel> spiele = service.getGamesByDate(configService.getSysTime(), tipprundenID,
+                    mitgliedzws.getId());
+            return new ResponseEntity<>(spiele,
+                    HttpStatus.ACCEPTED);
         }
         catch(Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

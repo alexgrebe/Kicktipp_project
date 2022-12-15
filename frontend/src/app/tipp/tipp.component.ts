@@ -40,4 +40,10 @@ export class TippComponent implements OnInit {
     this.service.betOnGame(this.tipp).subscribe(data => {this.navigator.navigate(['tipprunde/'+this.tipprundenid])}, err => {alert(err)});
   }
 
+  ubernehmenSubmit(toreHeim:number, toreAus:number) {
+    this.tipp.toreAus = toreAus;
+    this.tipp.toreHeim = toreHeim;
+    this.tippErstellen();
+  }
+
 }

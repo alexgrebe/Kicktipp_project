@@ -37,13 +37,14 @@ public class TipprundeController {
     }
 
     @PostMapping("/beitreten/{tipprundenID}")
-    public ResponseEntity<String> addMitglied(@PathVariable("tipprundenID") Long tipprundenID, @RequestBody() String passwort, @CookieValue(value = "auth_token", required = false) String token) {
+    public ResponseEntity<String> addMitglied(@PathVariable("tipprundenID") Long tipprundenID, @RequestBody(required = false) String passwort, @CookieValue(value = "auth_token", required = false) String token) {
         try{
             if(token == null || !authService.verifyToken(token)) return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
             tipprundeService.tipprundeBeitreten(authService.findIdByAuthtoken(token), tipprundenID, passwort);
             return new ResponseEntity<>("", HttpStatus.CREATED);
         }
         catch(Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }

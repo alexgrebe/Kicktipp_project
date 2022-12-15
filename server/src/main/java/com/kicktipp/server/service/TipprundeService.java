@@ -106,7 +106,8 @@ public class TipprundeService {
     }
 
     public void tipprundeBeitreten(Long benutzerID, Long tipprundenID, String passwort) throws Exception{
-        if(!tipprundenRepo.findTipprundeById(tipprundenID).getPasswort().equals(passwort)) throw new Exception("Falsches Passwort!");
+        Tipprunde rundezws = tipprundenRepo.findTipprundeById(tipprundenID);
+        if(rundezws.getPasswort()!=null && !rundezws.getPasswort().equals(passwort)) throw new Exception("Falsches Passwort!");
         Mitglied mitglied = new Mitglied();
         mitglied.setTipprundeID(tipprundenID);
         mitglied.setBenutzerID(benutzerID);

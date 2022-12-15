@@ -10,6 +10,6 @@
     <button type="submit">Tippen</button>
 </form>
 <li *ngFor="let tipp of otherTipps">
-    Tore Heimteam: {{tipp.toreHeim}} : {{tipp.toreAus}} :Auswärtsteam Tore
-    <button>Übernehmen</button>
+    Tore Heimteam: {{tipp.toreHeim}} - {{tipp.toreAus}} :Auswärtsteam Tore
+    <button (click)="ubernehmenSubmit(tipp.toreHeim ? tipp.toreHeim : 0, tipp.toreAus ? tipp.toreAus : 0)">Übernehmen</button>
 </li>

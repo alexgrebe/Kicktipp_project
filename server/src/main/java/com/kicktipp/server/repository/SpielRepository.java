@@ -24,6 +24,6 @@ public interface SpielRepository extends CrudRepository<Spiel, Long> {
     @Query("update Spiel s set s.heimtore = :ht, s.auswaertstore = :at where s.id = :identifiyer")
     public void updateTore(@Param("ht") Integer heimtore, @Param("at") Integer auswaertstore, @Param("identifiyer") Long id);
 
-    @Query("SELECT s FROM Spiel s WHERE s.ligaFremdschlussel = :id AND s.datum >= :date")
-    public List<Spiel> findSpieleByDatumAndLiga(@Param("date")LocalDate date, @Param("id") Long id);
+    @Query("SELECT s FROM Spiel s WHERE s.ligaFremdschlussel = (SELECT t1.ligaID FROM Tipprunde t1 WHERE t1.id = :id) AND s.datum >= :date AND s.id NOT IN (SELECT t.spielID FROM Tipp t WHERE t.mitgliedID = :mitgliedID)")
+    public List<Spiel> findSpieleByDatumAndLiga(@Param("date")LocalDate date, @Param("id") Long id, @Param("mitgliedID")Long mitgliedID);
 }
