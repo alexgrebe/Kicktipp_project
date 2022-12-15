@@ -22,6 +22,7 @@ import { TipprundeComponent } from './tipprunde/tipprunde.component';
 import { FreundeComponent } from './freunde/freunde.component';
 import { ProfilComponent } from './profil/profil.component';
 import { TipprundeneinladungComponent } from './tipprundeneinladung/tipprundeneinladung.component';
+import { TippComponent } from './tipp/tipp.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { TipprundeneinladungComponent } from './tipprundeneinladung/tipprundenei
     FreundeComponent,
     ProfilComponent,
     TipprundeneinladungComponent,
+    TippComponent,
   ],
   imports: [
     BrowserModule,

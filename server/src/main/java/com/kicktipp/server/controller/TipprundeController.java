@@ -88,11 +88,11 @@ public class TipprundeController {
         }
         }
 
-    @PostMapping("/tippErstellen/{tipprundenID}")
+    @PostMapping("/tippErstellen")
     public ResponseEntity<String> createTipp(@CookieValue(value = "auth_token", required = false) String token, @RequestBody() Tipp tipp) {
         try{
             if (token == null || !authService.verifyToken(token) ||
-                    !(tipprundeService.getBenutzerIDByMitgliedID(tipp.getMitgliedID())==authService.findIdByAuthtoken(token)))
+                    !(tipprundeService.getBenutzerIDByMitgliedID(tipp.getMitgliedID()).equals(authService.findIdByAuthtoken(token))))
                 return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
             tipprundeService.createTipp(tipp);
                 return new ResponseEntity<>("", HttpStatus.ACCEPTED);

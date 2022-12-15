@@ -12,3 +12,6 @@
 <div *ngIf="checkIfBesitzer(mitglied.benutzerID ? mitglied.benutzerID : -1, tipprunde.besitzerID ? tipprunde.besitzerID : -2)">
     <a href="/tipprundenEinladung/{{tipprunde.id ? tipprunde.id : 0}}">Einladen</a>
 </div>
+<li *ngFor="let spiel of nochZuSpielendeSpiele">
+    <a href="/tipp/{{tipprunde.id ? tipprunde.id : 0}}/{{spiel.id}}">{{spiel.heimteam}} - {{spiel.auswaertsteam}}</a>
+</li>

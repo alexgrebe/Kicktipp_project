@@ -72,8 +72,8 @@ public class LigaService {
         return spielRepository.findAllByLigaFremdschlussel(id);
     }
 
-    public Iterable<Spiel> getGamesByDate(Date date) {
-        return spielRepository.findAllByDatum(date);
+    public List<Spiel> getGamesByDate(LocalDate date, Long id) {
+        return spielRepository.findSpieleByDatumAndLiga(date, id);
     }
 
     public void updateLeaguePicture() {

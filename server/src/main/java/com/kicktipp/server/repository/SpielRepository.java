@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -22,4 +23,7 @@ public interface SpielRepository extends CrudRepository<Spiel, Long> {
     @Modifying
     @Query("update Spiel s set s.heimtore = :ht, s.auswaertstore = :at where s.id = :identifiyer")
     public void updateTore(@Param("ht") Integer heimtore, @Param("at") Integer auswaertstore, @Param("identifiyer") Long id);
+
+    @Query("SELECT s FROM Spiel s WHERE s.ligaFremdschlussel = :id AND s.datum >= :date")
+    public List<Spiel> findSpieleByDatumAndLiga(@Param("date")LocalDate date, @Param("id") Long id);
 }

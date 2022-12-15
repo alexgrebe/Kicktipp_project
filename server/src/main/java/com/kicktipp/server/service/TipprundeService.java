@@ -61,7 +61,7 @@ public class TipprundeService {
     }
 
     public void createTipp(Tipp tipp) throws Exception {
-        if(spielRepo.findById(tipp.getSpielID()).get().getDatum().isAfter(configRepo.findAll().iterator().next().getSysTime())) throw new Exception("Spiel bereits vorbei!");
+        if(spielRepo.findById(tipp.getSpielID()).get().getDatum().isBefore(configRepo.findAll().iterator().next().getSysTime())) throw new Exception("Spiel bereits vorbei!");
         tipp.setId(null);
         tippRepo.save(tipp);
     }
