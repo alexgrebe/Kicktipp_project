@@ -2,3 +2,10 @@
 <li *ngFor="let mitglied of mitglieder">
     {{mitglied.name}} : {{mitglied.punkte}} 
 </li>
+<form #changeNameForm="ngForm" (ngSubmit)="changeNameSubmit()">
+    <div>
+        <label>Name ändern</label>
+        <input type="text" class="form-control" name="nameandern" id="nameandern" [(ngModel)]="name"> 
+    </div>
+    <button type="submit">Updaten</button>
+</form>

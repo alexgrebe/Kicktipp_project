@@ -14,6 +14,7 @@ import { TipprundecreateComponent } from './tipprundecreate/tipprundecreate.comp
 import { TipprundenlisteComponent } from './tipprundenliste/tipprundenliste.component';
 import { TipprundebeitretenComponent } from './tipprundebeitreten/tipprundebeitreten.component';
 import { TipprundeComponent } from './tipprunde/tipprunde.component';
+import { FreundeComponent } from './freunde/freunde.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
@@ -29,7 +30,8 @@ const routes: Routes = [
   {path: 'tipprundeerstellen', component: TipprundecreateComponent},
   {path: 'tipprundenanzeigen', component: TipprundenlisteComponent},
   {path: 'beitreten/:id', component: TipprundebeitretenComponent},
-  {path: 'tipprunde/:id', component: TipprundeComponent}
+  {path: 'tipprunde/:id', component: TipprundeComponent},
+  {path: 'soziales', component: FreundeComponent}
   ];
 
 @NgModule({

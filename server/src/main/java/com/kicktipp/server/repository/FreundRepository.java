@@ -16,7 +16,9 @@ public interface FreundRepository extends CrudRepository<Freundschaftsanfragen, 
     public List<Freundschaftsanfragen> findOffeneFreundschaftsanfragen(@Param("id") Long id);
 
 
+    @Transactional
+    @Modifying
     @Query("DELETE FROM Freundschaftsanfragen f WHERE " +
-            "(f.sender = : benutzerID AND f.empfanger = :freundID) OR (f.sender = :freundID AND f.empfanger = :benutzerID)")
+            "(f.sender = :benutzerID AND f.empfanger = :freundID) OR (f.sender = :freundID AND f.empfanger = :benutzerID)")
     public void deleteFreund(@Param("freundID") Long freundID, @Param("benutzerID") Long benutzerID);
 }

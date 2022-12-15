@@ -3,4 +3,5 @@ export class Mitglied{
     tipprundeID: number | undefined;
     benutzerID: number | undefined;
     punkte: number | undefined;
+    id: number | undefined;
 }

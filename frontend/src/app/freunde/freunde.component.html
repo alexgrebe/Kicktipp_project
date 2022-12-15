@@ -1,0 +1,5 @@
+<h1>Soziales</h1>
+<li *ngFor="let freund of freunde">
+    <div>{{freund.vorname}} {{freund.nachname}} <img style="width: 40px;" src="{{freund.profilepicturedata ? freund.profilepicturedata : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}"></div>
+    <button (click)="deleteFreunde(freund.id ? freund.id : 0)">Freund löschen</button>
+</li>

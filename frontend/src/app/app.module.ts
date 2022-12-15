@@ -19,6 +19,7 @@ import { TipprundecreateComponent } from './tipprundecreate/tipprundecreate.comp
 import { TipprundenlisteComponent } from './tipprundenliste/tipprundenliste.component';
 import { TipprundebeitretenComponent } from './tipprundebeitreten/tipprundebeitreten.component';
 import { TipprundeComponent } from './tipprunde/tipprunde.component';
+import { FreundeComponent } from './freunde/freunde.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { TipprundeComponent } from './tipprunde/tipprunde.component';
     TipprundenlisteComponent,
     TipprundebeitretenComponent,
     TipprundeComponent,
+    FreundeComponent,
   ],
   imports: [
     BrowserModule,

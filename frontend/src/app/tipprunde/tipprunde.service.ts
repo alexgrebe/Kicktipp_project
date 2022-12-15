@@ -15,4 +15,8 @@ export class TipprundeService {
   getMitgliederTabelle(tipprundenID: number) { return this.http.get<Mitglied[]>(this.url+"tipprunde/"+tipprundenID, {withCredentials: true})}
 
   getTipprundenInfo(tipprundenID: number) { return this.http.get<Tipprunde>(this.url+"getTipprundenInfo/"+tipprundenID, {withCredentials: true})}
+
+  getOwnDetails(tipprundenID: number) { return this.http.get<Mitglied>(this.url+"getOwnMitgliedDetails/"+tipprundenID, {withCredentials: true}) }
+
+  changeMitgliedName(name: string, mitgliedID: number) { return this.http.post(this.url+"changeMitgliedName/"+mitgliedID, name, {withCredentials: true, responseType: 'text'})}
 }
