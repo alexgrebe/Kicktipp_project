@@ -28,4 +28,14 @@ public class FreundService {
     public List<Benutzer> getFreunde(Long benutzerID) { return userRepository.getFreundeByID(benutzerID); }
 
     public List<Freundschaftsanfragen> offeneFreundschaftsanfragen(Long benutzerID) { return freundRepository.findOffeneFreundschaftsanfragen(benutzerID); }
+
+    public List<Benutzer> offeneFreunde(Long freundID) { return userRepository.findOffeneFreunde(freundID); }
+
+    public void anfrageAnnehmen(Long freundID, Long benutzerID) {
+        freundRepository.freundAnnehmen(freundID, benutzerID);
+    }
+
+    public List<Benutzer> getNutzerOhneFreunde(Long benutzerID) {
+        return userRepository.findNutzerOhneFreund(benutzerID);
+    }
 }

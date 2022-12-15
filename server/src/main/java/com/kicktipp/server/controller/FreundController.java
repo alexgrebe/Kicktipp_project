@@ -26,6 +26,7 @@ public class FreundController {
         try {
             if (token==null || !authService.verifyToken(token)) return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
             anfrage.setSender(authService.findIdByAuthtoken(token));
+            anfrage.setBestatigt(false);
             freundService.createFreundschaftsanfrage(anfrage);
             return new ResponseEntity<>("", HttpStatus.ACCEPTED);
         }
@@ -54,6 +55,43 @@ public class FreundController {
             return new ResponseEntity<>(freunde, HttpStatus.ACCEPTED);
         }
         catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/offeneFreundschaftsanfragen")
+    public ResponseEntity<List<Benutzer>> offeneFreunde(@CookieValue(value = "auth_token", required = false) String token) {
+        try{
+            if(token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(freundService.offeneFreunde(authService.findIdByAuthtoken(token)), HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/freundschaftsanfrageAnnehmen/{freundID}")
+    public ResponseEntity<String> freundAnnehmen(@CookieValue("auth_token")String token, @PathVariable Long freundID) {
+        try{
+            if(token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
+            freundService.anfrageAnnehmen(freundID, authService.findIdByAuthtoken(token));
+            return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/nutzerOhneFreunde")
+    public ResponseEntity<List<Benutzer>> nutzerOhneFreunde(@CookieValue(value = "auth_token", required = false) String token) {
+        try {
+            if(token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(freundService.getNutzerOhneFreunde(authService.findIdByAuthtoken(token)), HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }

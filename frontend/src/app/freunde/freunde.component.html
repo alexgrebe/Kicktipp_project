@@ -1,5 +1,20 @@
 <h1>Soziales</h1>
+<h2 *ngIf="checkLenOfFreunde()">Freunde</h2>
 <li *ngFor="let freund of freunde">
     <div>{{freund.vorname}} {{freund.nachname}} <img style="width: 40px;" src="{{freund.profilepicturedata ? freund.profilepicturedata : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}"></div>
     <button (click)="deleteFreunde(freund.id ? freund.id : 0)">Freund löschen</button>
 </li>
+<h2 *ngIf="checkLenOfOffeneFreunde()">Freundschaftsanfragen</h2>
+<li *ngFor="let freund of offeneFreundschaftsanfragen">
+    <div>{{freund.vorname}} {{freund.nachname}} <img style="width: 40px;" src="{{freund.profilepicturedata ? freund.profilepicturedata : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}"></div>
+    <button (click)="anfrageAnnehmen(freund.id ? freund.id : 0)">Annehmen</button>
+    <button (click)="deleteFreunde(freund.id ? freund.id : 0)">Ablehnen</button>
+</li>
+<h2 *ngIf="checkLenOfNutzer()">Andere Nutzer</h2>
+<input (input)="suchLeisteOnChange($event)" type="text">
+<ng-container *ngFor="let nutzer of nutzerOhneFreunde">
+    <div *ngIf="searchNutzerByName(nutzer)">
+    <div>{{nutzer.vorname}} {{nutzer.nachname}} <img style="width: 40px;" src="{{nutzer.profilepicturedata ? nutzer.profilepicturedata : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}"></div>
+    <button (click)="anfrageErstellen(nutzer.id ? nutzer.id : 0)">Als Freund hinzufügen</button>
+    </div>
+</ng-container>
