@@ -157,4 +157,13 @@ public class TipprundeService {
     public List<Tipprunde> getEigeneTipprunden(Long benutzerID) {
         return tipprundenRepo.findTipprundeByBesitzerid(benutzerID);
     }
+
+    public List<Benutzer> getNutzerNotInTipprunde(Long tipprundenID) {
+        List<Benutzer> users = userRepo.findNutzerNotInTipprunde(tipprundenID);
+        for (Benutzer user : users) {
+            user.setPasswort(null);
+            user.setAuthtoken(null);
+        }
+        return users;
+    }
 }

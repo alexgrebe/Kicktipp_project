@@ -1,0 +1,4 @@
+<li *ngFor="let user of nutzer">
+    {{user.vorname}} {{user.nachname}}
+    <button (click)="einladungSendenFunc(user.id ? user.id : 0)">Einladen</button>
+</li>

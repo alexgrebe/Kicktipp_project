@@ -1,6 +1,6 @@
 <h1>{{tipprunde.name}}</h1>
 <li *ngFor="let mitglied of mitglieder">
-    {{mitglied.name}} : {{mitglied.punkte}} 
+    <a href="/profil/{{mitglied.benutzerID}}">{{mitglied.name}} : {{mitglied.punkte}}</a>
 </li>
 <form #changeNameForm="ngForm" (ngSubmit)="changeNameSubmit()">
     <div>
@@ -9,3 +9,6 @@
     </div>
     <button type="submit">Updaten</button>
 </form>
+<div *ngIf="checkIfBesitzer(mitglied.benutzerID ? mitglied.benutzerID : -1, tipprunde.besitzerID ? tipprunde.besitzerID : -2)">
+    <a href="/tipprundenEinladung/{{tipprunde.id ? tipprunde.id : 0}}">Einladen</a>
+</div>

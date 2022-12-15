@@ -1,5 +1,6 @@
 package com.kicktipp.server.controller;
 
+import com.kicktipp.server.model.Benutzer;
 import com.kicktipp.server.model.Mitglied;
 import com.kicktipp.server.model.Tipp;
 import com.kicktipp.server.model.Tipprunde;
@@ -191,5 +192,18 @@ public class TipprundeController {
         catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/getNutzerNotInTipprunde/{id}")
+    public ResponseEntity<List<Benutzer>> getNutzerNotInTipprunde(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long id) {
+        try {
+            if(token==null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(tipprundeService.getNutzerNotInTipprunde(id), HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+        return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

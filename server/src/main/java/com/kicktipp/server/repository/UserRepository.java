@@ -44,4 +44,7 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
     @Query("SELECT b FROM Benutzer b WHERE (b.id NOT IN (SELECT f1.sender FROM Freundschaftsanfragen f1 WHERE f1.empfanger = :id)" +
             "AND b.id NOT IN (SELECT f2.empfanger FROM Freundschaftsanfragen f2 WHERE f2.sender = :id)) AND b.id != :id")
     public List<Benutzer> findNutzerOhneFreund(@Param("id") Long id);
+
+    @Query("SELECT b FROM Benutzer b WHERE b.id NOT IN (SELECT m.benutzerID FROM Mitglied m WHERE m.tipprundeID = :id)")
+    public List<Benutzer> findNutzerNotInTipprunde(@Param("id") Long id);
 }

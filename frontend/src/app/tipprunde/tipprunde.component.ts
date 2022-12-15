@@ -37,4 +37,8 @@ export class TipprundeComponent implements OnInit {
     }
   }
 
+  checkIfBesitzer(id1: number, id2: number) {
+    return id1===id2
+  }
+
 }

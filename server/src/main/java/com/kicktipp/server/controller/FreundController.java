@@ -95,4 +95,17 @@ public class FreundController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/getUserDetails/{id}")
+    public ResponseEntity<Benutzer> userDetails(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long id) {
+        try{
+            if(token == null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(freundService.getUserDetails(id), HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

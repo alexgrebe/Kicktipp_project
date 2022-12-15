@@ -38,4 +38,12 @@ public class FreundService {
     public List<Benutzer> getNutzerOhneFreunde(Long benutzerID) {
         return userRepository.findNutzerOhneFreund(benutzerID);
     }
+
+    public Benutzer getUserDetails(Long id) throws Exception{
+        Optional<Benutzer> user = userRepository.findById(id);
+        if(user.isEmpty()) throw new Exception();
+        user.get().setPasswort(null);
+        user.get().setAuthtoken(null);
+        return user.get();
+    }
 }
