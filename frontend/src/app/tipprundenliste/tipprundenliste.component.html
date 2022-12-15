@@ -1,12 +1,29 @@
-<p>Tipprunden beitreten</p>
-<li *ngFor="let tipprunde of tipprunden">
-    <a href="/beitreten/{{tipprunde.id}}">{{tipprunde.name}}</a>
-</li>
-<p>Tipprunde anzeigen</p>
-<li *ngFor="let tipprunde of meineTipprunden">
-    <a href="/tipprunde/{{tipprunde.id}}">{{tipprunde.name}}</a>
-</li>
-<p>Eigene Tipprunden</p>
-<li *ngFor="let tipprunde of eigeneTipprunden">
-    <a href="/tipprundeverwalten">{{tipprunde.name}}</a>
-</li>
+<div class="vh-100 d-flex align-items-center justify-content-center">
+  <div class="d-flex flex-column align-items-center card">
+
+    <h3>Tipprunden beitreten</h3>
+    <li *ngFor="let tipprunde of tipprunden">
+      <a href="/beitreten/{{tipprunde.id}}">
+        <button class="btn btn-primary m-2">{{tipprunde.name}}</button>
+      </a>
+    </li>
+
+      <hr/>
+
+    <h3>Tipprunden anzeigen</h3>
+    <li *ngFor="let tipprunde of meineTipprunden">
+      <a href="/tipprunde/{{tipprunde.id}}">
+        <button class="btn btn-primary m-2">{{tipprunde.name}}</button>
+      </a>
+    </li>
+
+      <hr/>
+
+    <h3>Eigene Tipprunden</h3>
+    <li *ngFor="let tipprunde of eigeneTipprunden">
+      <a href="/tipprundeverwalten">
+        <button class="btn btn-primary m-2">{{tipprunde.name}}</button>
+      </a>
+    </li>
+  </div>
+</div>
