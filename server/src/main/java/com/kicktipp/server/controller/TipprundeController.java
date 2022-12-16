@@ -134,7 +134,8 @@ public class TipprundeController {
     @PostMapping("/changeMitgliedName/{mitgliedID}")
     public ResponseEntity<String> changeMitgliedName(@CookieValue(value = "auth_token", required = false) String token, @RequestBody String name, @PathVariable Long mitgliedID) {
         try {
-            if (token == null || !authService.verifyToken(token) /*|| !(authService.findIdByAuthtoken(token)==tipprundeService.getBenutzerIDByMitgliedID(mitgliedID))*/)
+            Long benutzerIDFromMitgliedID = tipprundeService.getBenutzerIDByMitgliedID(mitgliedID);
+            if (token == null || !authService.verifyToken(token) || !(authService.findIdByAuthtoken(token).equals(benutzerIDFromMitgliedID)))
                 return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
            tipprundeService.changeMitgliedName(mitgliedID, name);
             return new ResponseEntity<>("", HttpStatus.ACCEPTED);

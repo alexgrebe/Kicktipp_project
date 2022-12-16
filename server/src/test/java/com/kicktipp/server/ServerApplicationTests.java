@@ -1,8 +1,10 @@
 package com.kicktipp.server;
 
 import com.kicktipp.server.model.Tipprunde;
+import com.kicktipp.server.repository.MitgliedRepository;
 import com.kicktipp.server.repository.TipprundeRepository;
 import com.kicktipp.server.service.LigaService;
+import com.kicktipp.server.service.TipprundeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,12 @@ class ServerApplicationTests {
 
     @Autowired
     TipprundeRepository repo;
+
+    @Autowired
+    MitgliedRepository mitgliedRepository;
+
+    @Autowired
+    TipprundeService tipprundeService;
 
     @Test
     void contextLoads() {
@@ -29,5 +37,17 @@ class ServerApplicationTests {
         for(Tipprunde tipprunde : tipprunden) {
             System.out.println(tipprunde.getName());
         }
+    }
+
+    @Test
+    void benutzerIDByIdTest() {
+        System.out.println(mitgliedRepository.findBenutzerIDById(2473L));
+        System.out.println(mitgliedRepository.findBenutzerIDById(126L));
+        System.out.println(mitgliedRepository.findBenutzerIDById(2465L));
+        System.out.println(mitgliedRepository.findBenutzerIDById(3358L));
+        System.out.println(mitgliedRepository.findBenutzerIDById(3387L));
+
+        System.out.println(tipprundeService.getBenutzerIDByMitgliedID(2473L));
+        System.out.println(tipprundeService.getBenutzerIDByMitgliedID(mitgliedRepository.findBenutzerIDById(3387L)));
     }
 }
