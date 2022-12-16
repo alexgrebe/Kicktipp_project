@@ -107,8 +107,9 @@ public class TipprundeController {
     @GetMapping("/sendInvite/{tipprundenID}/{empfangerID}")
     public ResponseEntity<String> inviteToTipprunde(@CookieValue(value = "auth_token", required = false) String token, @PathVariable("tipprundenID") Long tipprundenID, @PathVariable("empfangerID") Long empfangerID) {
         try{
+            Tipprunde rundezws = tipprundeService.getTipprundeById(tipprundenID);
             if(token == null || !authService.verifyToken(token) ||
-                    !(tipprundeService.getTipprundeById(tipprundenID).getBesitzerID()==authService.findIdByAuthtoken(token)))
+                    !(rundezws.getBesitzerID().equals(authService.findIdByAuthtoken(token))))
                 return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
             tipprundeService.sendInvite(tipprundenID, empfangerID);
             return new ResponseEntity<>("", HttpStatus.ACCEPTED);
