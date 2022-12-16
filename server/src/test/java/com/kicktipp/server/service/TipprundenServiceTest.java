@@ -31,8 +31,9 @@ public class TipprundenServiceTest {
         List<Tipprunde> liste = tipprundeService.getEigeneTipprunden(1L);
         for(Tipprunde item : liste) {
             if(item.getBesitzerID().equals(1L) && item.getName().equals("Testrunde")) {
-                assert(testRunde.getPasswort().equals(item.getPasswort()) && testRunde.getName().equals(item.getName()) &&
-                        testRunde.getLigaID().equals(item.getLigaID()));
+                assert(testRunde.getPasswort().equals(item.getPasswort())
+                        && testRunde.getName().equals(item.getName())
+                        && testRunde.getLigaID().equals(item.getLigaID()));
                 tipprundeRepository.deleteById(item.getId());
                 break;
             }
