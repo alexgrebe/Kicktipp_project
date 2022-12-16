@@ -1,27 +1,27 @@
 <form #tipprundecreateForm="ngForm" (ngSubmit)="createSubmit()">
 <div>
     <label>Name</label>
-    <input type="text" name="nameCreate" class="form-control" id="nameCreate" [(ngModel)]="tipprunde.name">
+    <input type="text" name="nameCreate" class="form-group" id="nameCreate" [(ngModel)]="tipprunde.name">
 </div>
 <div>
     <label>Ergebnisgewicht</label>
-    <input type="number" name="ergebnisCreate" class="form-control" id="ergebnisCreate" [(ngModel)]="tipprunde.ergebnisgewicht">
+    <input type="number" name="ergebnisCreate" class="form-group" id="ergebnisCreate" [(ngModel)]="tipprunde.ergebnisgewicht">
 </div>
 <div>
     <label>Tordifferenzgewicht</label>
-    <input type="number" name="tordiffCreate" class="form-control" id="tordiffCreate" [(ngModel)]="tipprunde.tordiffgewicht">
+    <input type="number" name="tordiffCreate" class="form-group" id="tordiffCreate" [(ngModel)]="tipprunde.tordiffgewicht">
 </div>
 <div>
     <label>Siegergewicht</label>
-    <input type="number" name="siegerCreate" class="form-control" id="siegerCreate" [(ngModel)]="tipprunde.siegergewicht">
+    <input type="number" name="siegerCreate" class="form-group" id="siegerCreate" [(ngModel)]="tipprunde.siegergewicht">
 </div>
 <div>
     <label>Privat</label>
-    <input type="checkbox" name="privatCreate" class="form-control" id="privatCreate" [(ngModel)]="tipprunde.privat">
+    <input type="checkbox" name="privatCreate" class="form-check-input" id="privatCreate" [(ngModel)]="tipprunde.privat">
 </div>
 <div>
     <label>Passwort</label>
-    <input type="password" name="passwortCreate" class="form-control" id="passwortCreate" [(ngModel)]="tipprunde.passwort">
+    <input type="password" name="passwortCreate" class="form-group" id="passwortCreate" [(ngModel)]="tipprunde.passwort">
 </div>
 <div>
     <label>Liga auswählen</label>
@@ -30,5 +30,5 @@
     </select>
   </div>
 
-<button type="submit">Erstellen</button>
+<button type="submit" class="btn btn-primary">Erstellen</button>
 </form>

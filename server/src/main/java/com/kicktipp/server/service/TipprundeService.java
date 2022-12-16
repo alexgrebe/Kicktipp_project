@@ -47,8 +47,6 @@ public class TipprundeService {
     }
 
     public List<Tipprunde> getTipprunden(Long benutzerID) {
-
-        System.out.println(benutzerID);
         return tipprundenRepo.findTipprunde(benutzerID);
     }
 
@@ -98,6 +96,24 @@ public class TipprundeService {
                     + spiel.get().getHeimteam() + " gegen " + spiel.get().getAuswaertsteam() + ", " + spiel.get().getHeimtore() + " zu " +
                     spiel.get().getAuswaertstore() + "endet.");
             mailSender.send(message);
+        }
+    }
+
+    public void shareTippInitial(Tipp tipp, Long benutzerID) throws Exception {
+        List<String> emails = userRepo.findFreundeEmailsById(benutzerID);
+        Optional<Benutzer> benutzer = userRepo.findById(benutzerID);
+        Optional<Spiel> spiel = spielRepo.findById(tipp.getSpielID());
+        if(benutzer.isEmpty() || spiel.isEmpty()) throw new Exception();
+        for(String email : emails) {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email);
+            message.setFrom("KicktippEmailGruppeG@gmail.com");
+            message.setSubject(benutzer.get().getVorname() + " hat einen Tipp mit dir geteilt");
+            message.setText(benutzer.get().getVorname() + " hat getippt, dass das Spiel, "
+                    + spiel.get().getHeimteam() + " gegen " + spiel.get().getAuswaertsteam() + ", " + spiel.get().getHeimtore() + " zu " +
+                    spiel.get().getAuswaertstore() + " endet.");
+            mailSender.send(message);
+            System.out.println("Gesendet an "+email);
         }
     }
 

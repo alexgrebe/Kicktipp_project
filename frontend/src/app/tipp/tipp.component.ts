@@ -16,6 +16,7 @@ export class TippComponent implements OnInit {
   otherTipps: Tipp[];
   tipp: Tipp;
   mitglied: Mitglied;
+  checkInvite: boolean = false;
 
   constructor(private service: TippService, private router: ActivatedRoute, private navigator: Router) { this.otherTipps = []; this.tipp = new Tipp(); this.mitglied = new Mitglied();}
 
@@ -37,7 +38,7 @@ export class TippComponent implements OnInit {
   tippErstellen() {
     this.tipp.spielID = this.spielid;
     this.tipp.mitgliedID = this.mitglied.id;
-    this.service.betOnGame(this.tipp).subscribe(data => {this.navigator.navigate(['tipprunde/'+this.tipprundenid])}, err => {alert(err)});
+    this.service.betOnGame(this.tipp, this.checkInvite).subscribe(data => {this.navigator.navigate(['tipprunde/'+this.tipprundenid])}, err => {alert(err)});
   }
 
   ubernehmenSubmit(toreHeim:number, toreAus:number) {

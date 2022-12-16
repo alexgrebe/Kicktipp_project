@@ -44,7 +44,6 @@ public class TipprundeController {
             return new ResponseEntity<>("", HttpStatus.CREATED);
         }
         catch(Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
@@ -58,7 +57,6 @@ public class TipprundeController {
             return new ResponseEntity<>(runden, HttpStatus.ACCEPTED);
         }
         catch(Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
@@ -90,12 +88,15 @@ public class TipprundeController {
         }
 
     @PostMapping("/tippErstellen")
-    public ResponseEntity<String> createTipp(@CookieValue(value = "auth_token", required = false) String token, @RequestBody() Tipp tipp) {
+    public ResponseEntity<String> createTipp(@CookieValue(value = "auth_token", required = false) String token, @RequestBody() Tipp tipp, @RequestParam Boolean invite) {
         try{
+            Long benutzerid = authService.findIdByAuthtoken(token);
+            System.out.println(invite);
             if (token == null || !authService.verifyToken(token) ||
-                    !(tipprundeService.getBenutzerIDByMitgliedID(tipp.getMitgliedID()).equals(authService.findIdByAuthtoken(token))))
+                    !(tipprundeService.getBenutzerIDByMitgliedID(tipp.getMitgliedID()).equals(benutzerid)))
                 return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
             tipprundeService.createTipp(tipp);
+            if(invite) tipprundeService.shareTippInitial(tipp, benutzerid);
                 return new ResponseEntity<>("", HttpStatus.ACCEPTED);
         }
         catch(Exception e) {
@@ -169,7 +170,8 @@ public class TipprundeController {
     @GetMapping("/getMyTipps/{mitgliedID}")
     public ResponseEntity<List<Tipp>> getMyTipps(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long mitgliedID) {
         try{
-            if(token==null || !authService.verifyToken(token) || !(authService.findIdByAuthtoken(token)==tipprundeService.getBenutzerIDByMitgliedID(mitgliedID)))
+            Long benutzerIDFromMitglied = tipprundeService.getBenutzerIDByMitgliedID(mitgliedID);
+            if(token==null || !authService.verifyToken(token) || !(authService.findIdByAuthtoken(token).equals(benutzerIDFromMitglied)))
                 return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
             return new ResponseEntity<>(tipprundeService.getMyTipps(mitgliedID), HttpStatus.ACCEPTED);
         }

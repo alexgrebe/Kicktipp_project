@@ -12,7 +12,7 @@ export class TippService {
 
   constructor(private http: HttpClient) { this.url = "http://localhost:8080/"}
 
-  betOnGame(tipp: Tipp) { return this.http.post(this.url+"tippErstellen/", tipp, {withCredentials: true, responseType: 'text'})}
+  betOnGame(tipp: Tipp, checkInvite: boolean) { return this.http.post(this.url+"tippErstellen?invite="+checkInvite, tipp, {withCredentials: true, responseType: 'text'})}
 
   getOtherTipps(spielid: number) { return this.http.get<Tipp[]>(this.url+"getMyTippsForGame/"+spielid, {withCredentials: true}) }
 

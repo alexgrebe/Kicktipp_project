@@ -1,13 +1,17 @@
 <form #tippForm="ngForm" (ngSubmit)="tippErstellen()">
     <div>
         <label>Tore Heimteam</label>
-        <input type="number" min="0" class="form-control" [(ngModel)]="tipp.toreHeim" name="heimtore">
+        <input type="number" min="0" class="form-group" [(ngModel)]="tipp.toreHeim" name="heimtore">
     </div>
     <div>
         <label>Tore Auswärtsteam</label>
-        <input type="number" min="0" class="form-control" [(ngModel)]="tipp.toreAus" name="austore">
+        <input type="number" min="0" class="form-group" [(ngModel)]="tipp.toreAus" name="austore">
     </div>
-    <button type="submit">Tippen</button>
+    <div>
+        <label>Mit Freunden teilen!</label>
+        <input type="checkbox" class="form-check-input" name="invitecheck" [(ngModel)]="checkInvite">
+    </div>
+    <button type="submit" class="btn btn-primary">Tippen</button>
 </form>
 <li *ngFor="let tipp of otherTipps">
     Tore Heimteam: {{tipp.toreHeim}} - {{tipp.toreAus}} :Auswärtsteam Tore

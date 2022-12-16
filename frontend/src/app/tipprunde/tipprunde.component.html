@@ -1,7 +1,9 @@
 <h1>{{tipprunde.name}}</h1>
-<li *ngFor="let mitglied of mitglieder">
-    <a href="/profil/{{mitglied.benutzerID}}">{{mitglied.name}} : {{mitglied.punkte}}</a>
+<ul class="list-group">
+<li *ngFor="let mitglied of mitglieder" class="list-group-item">
+    <a href="/profil/{{mitglied.benutzerID}}" class="list-group-item list-group-item-action">{{mitglied.name}} : {{mitglied.punkte}}</a>
 </li>
+</ul>
 <form #changeNameForm="ngForm" (ngSubmit)="changeNameSubmit()">
     <div>
         <label>Name ändern</label>
@@ -12,6 +14,8 @@
 <div *ngIf="checkIfBesitzer(mitglied.benutzerID ? mitglied.benutzerID : -1, tipprunde.besitzerID ? tipprunde.besitzerID : -2)">
     <a href="/tipprundenEinladung/{{tipprunde.id ? tipprunde.id : 0}}">Einladen</a>
 </div>
-<li *ngFor="let spiel of nochZuSpielendeSpiele">
-    <a href="/tipp/{{tipprunde.id ? tipprunde.id : 0}}/{{spiel.id}}">{{spiel.heimteam}} - {{spiel.auswaertsteam}}</a>
+<ul class="list-group">
+<li *ngFor="let spiel of nochZuSpielendeSpiele" class="list-group-item">
+    <a href="/tipp/{{tipprunde.id ? tipprunde.id : 0}}/{{spiel.id}}" class="list-group-item list-group-item-action">{{spiel.heimteam}} - {{spiel.auswaertsteam}}</a>
 </li>
+</ul>
