@@ -38,7 +38,9 @@ export class TipprundeComponent implements OnInit {
 
   changeNameSubmit() {
     if(this.name!==undefined && this.mitglied.id!==undefined) {
-      this.service.changeMitgliedName(this.name, this.mitglied.id).subscribe(data => {this.service.getMitgliederTabelle(this.id ? this.id : 0).subscribe(data => this.mitglieder = data)}, 
+      console.log(this.mitglied.id)
+      console.log(this.mitglied.benutzerID)
+      this.service.changeMitgliedName(this.name, this.mitglied.id).subscribe(data => {this.service.getMitgliederTabelle(this.id ? this.id : 0).subscribe(data => this.mitglieder = data)},
       err => {alert("Fehler!")})
     }
   }
