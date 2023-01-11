@@ -217,7 +217,8 @@ public class TipprundeController {
         try{
             if(token==null || !authService.verifyToken(token))
                 return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
-            return new ResponseEntity<>("Team 1", HttpStatus.ACCEPTED);
+            String hilfe = tipprundeService.tipphilfe(spielID);
+            return new ResponseEntity<>(hilfe, HttpStatus.ACCEPTED);
         }
         catch(Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
