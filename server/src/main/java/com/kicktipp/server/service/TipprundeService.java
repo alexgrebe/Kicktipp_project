@@ -183,4 +183,11 @@ public class TipprundeService {
         }
         return users;
     }
+
+    public String tipphilfe(Long spielID) throws Exception {
+        Optional<Spiel> spiel = spielRepo.findById(spielID);
+        if(spiel.isEmpty()) throw new Exception("Spiel existiert nicht!");
+        //TODO
+        return null;
+    }
 }

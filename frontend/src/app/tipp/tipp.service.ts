@@ -17,4 +17,6 @@ export class TippService {
   getOtherTipps(spielid: number) { return this.http.get<Tipp[]>(this.url+"getMyTippsForGame/"+spielid, {withCredentials: true}) }
 
   getOwnDetails(tipprundenID: number) { return this.http.get<Mitglied>(this.url+"getOwnMitgliedDetails/"+tipprundenID, {withCredentials: true})}
+
+  getTipphilfe(spielid: number) { return this.http.get(this.url+"tipphilfe/"+spielid, {withCredentials: true, responseType: 'text'}) }
 }

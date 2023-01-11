@@ -17,6 +17,7 @@ export class TippComponent implements OnInit {
   tipp: Tipp;
   mitglied: Mitglied;
   checkInvite: boolean = false;
+  tipphilfeTeam: string | undefined;
 
   constructor(private service: TippService, private router: ActivatedRoute, private navigator: Router) { this.otherTipps = []; this.tipp = new Tipp(); this.mitglied = new Mitglied();}
 
@@ -29,6 +30,7 @@ export class TippComponent implements OnInit {
     if(this.tipprundenid!==undefined && this.spielid!==undefined) {
     this.service.getOtherTipps(this.spielid).subscribe(data => {this.otherTipps = data;}, err => {alert("Fehler!")})
     this.service.getOwnDetails(this.tipprundenid).subscribe(data => {this.mitglied = data}, err => {alert("Fehler!")})
+    this.service.getTipphilfe(this.spielid).subscribe(data=> {this.tipphilfeTeam = data}, err => {alert("Fehler!")})
   }
     else{
       alert("Fehler!")

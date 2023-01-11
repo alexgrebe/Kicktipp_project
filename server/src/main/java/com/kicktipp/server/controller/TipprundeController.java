@@ -211,4 +211,16 @@ public class TipprundeController {
         }
 
     }
+
+    @GetMapping("/tipphilfe/{spielID}")
+    public ResponseEntity<String> getTipphilfe(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long spielID) {
+        try{
+            if(token==null || !authService.verifyToken(token))
+                return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Team 1", HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 }
