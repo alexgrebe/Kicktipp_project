@@ -9,4 +9,10 @@ public class WetteService {
 
     @Autowired
     private WetteRepository wetteRepository;
+
+    public void createWette() {}
+
+    public void zulassungEntscheiden() {}
+
+    public void wettzulassungsAnfrage() {}
 }
