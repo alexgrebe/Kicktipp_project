@@ -1,4 +1,5 @@
 <tr *ngFor="let game of games">
   <div>{{game.heimteam}} {{game.heimtore}}:{{game.auswaertstore}} {{game.auswaertsteam}} | Spieltag: {{game.spieltag}}
     | Datum: {{game.datum}}</div>
+  <button (click)="deleteSubmit(game.id)">Spiel löschen</button>
 </tr>

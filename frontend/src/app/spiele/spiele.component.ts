@@ -26,4 +26,10 @@ export class SpieleComponent implements OnInit {
     })
   }
 
+  deleteSubmit(id: number | undefined) {
+    if(id!==undefined)
+    this.service.deleteGame(id).subscribe(data=> { alert("Spiel gelöscht"); }, err => {alert("Fehler!")})
+    else alert("Fehler!")
+  }
+
 }
