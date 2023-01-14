@@ -18,7 +18,7 @@ public class Benutzer {
     public String passwort;
     public String authtoken;
     public String role;
-    public int geld;
+    public double geld;
     public boolean wetterlaubnis;
     @Column(unique = true)
     public String email;
@@ -97,11 +97,11 @@ public class Benutzer {
         this.profilepicturedata = profilbildId;
     }
 
-    public int getGeld() {
+    public double getGeld() {
         return geld;
     }
 
-    public void setGeld(int geld) {
+    public void setGeld(double geld) {
         this.geld = geld;
     }
 

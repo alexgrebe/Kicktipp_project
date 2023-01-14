@@ -37,7 +37,7 @@ public class WetteService {
     public void createWette(Wette wette, Benutzer b) throws Exception {
         if(b.getGeld()<wette.getEinsatz() || !b.isWetterlaubnis() ) throw new Exception("");
         List<Spiel> spiele = spielRepository.findAllGamesPlayedInALeagueBeforeDate(wette.getSpielID());
-
+        //TODO QUOTE
         wetteRepository.save(wette);
     }
 
@@ -65,5 +65,11 @@ public class WetteService {
         erlaubnis.setBenutzerID(id);
         wettErlaubnisRepository.save(erlaubnis);
 
+    }
+
+    public Wetterlaubnis getWettErlaubnis(Long benutzerID) {
+        Wetterlaubnis wetterlaubnis = wettErlaubnisRepository.findWetterlaubnisByBenutzerID(benutzerID);
+        wettErlaubnisRepository.deleteById(wetterlaubnis.getId());
+        return wetterlaubnis;
     }
 }

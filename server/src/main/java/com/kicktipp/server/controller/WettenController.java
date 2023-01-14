@@ -2,6 +2,7 @@ package com.kicktipp.server.controller;
 
 import com.kicktipp.server.model.Benutzer;
 import com.kicktipp.server.model.Wette;
+import com.kicktipp.server.model.Wetterlaubnis;
 import com.kicktipp.server.service.AuthService;
 import com.kicktipp.server.service.WetteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,28 @@ public class WettenController {
     }
 
     @GetMapping("/erlaubnis/{id}")
-    public ResponseEntity<String> erlaubnisAnnehmenAblehnen() {
-        return null;
+    public ResponseEntity<String> erlaubnisAnnehmenAblehnen(@CookieValue(value = "auth_token", required = false)String token, @PathVariable Long id, @RequestParam("entscheidung") boolean entscheidung ) {
+        try{
+            if(token==null || !authService.RoleByToken(token).equals("admin")) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            wetteService.zulassungEntscheiden(id, entscheidung);
+            return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
+
+    @GetMapping("/getErlaubnis")
+    public ResponseEntity<Wetterlaubnis> getErlaubnis(@CookieValue(value = "auth_token", required = false)String token) {
+        try{
+            if(token==null || !authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            Long benutzerID = authService.findIdByAuthtoken(token);
+            Wetterlaubnis erlaubnis = wetteService.getWettErlaubnis(benutzerID);
+            return new ResponseEntity<>(erlaubnis, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
