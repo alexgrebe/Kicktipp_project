@@ -8,11 +8,13 @@ import com.kicktipp.server.repository.SpielRepository;
 import com.kicktipp.server.repository.UserRepository;
 import com.kicktipp.server.repository.WettErlaubnisRepository;
 import com.kicktipp.server.repository.WetteRepository;
+import net.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,9 @@ public class WetteService {
 
     @Autowired
     private WettErlaubnisRepository wettErlaubnisRepository;
+
+    @Autowired
+    private ConfigService configService;
 
     @Autowired
     JavaMailSender mailSender;
@@ -52,7 +57,9 @@ public class WetteService {
     public void wettzulassungsAnfrage(Long id) throws Exception {
         List<Benutzer> admins = userRepository.findAdmins();
         Optional<Benutzer> benutzer = userRepository.findById(id);
+        LocalDate sysTime = configService.getSysTime();
         if(benutzer.isEmpty() || benutzer.get().isWetterlaubnis()) throw new Exception("");
+        if(java.time.temporal.ChronoUnit.DAYS.between(benutzer.get().getGeburtsdatum(), sysTime)<6570) throw new Exception("Unter 18");
         for(Benutzer admin : admins) {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(admin.getEmail());
@@ -69,6 +76,7 @@ public class WetteService {
 
     public Wetterlaubnis getWettErlaubnis(Long benutzerID) {
         Wetterlaubnis wetterlaubnis = wettErlaubnisRepository.findWetterlaubnisByBenutzerID(benutzerID);
+        if(!wetterlaubnis.isEntscheidung()) return null;
         wettErlaubnisRepository.deleteById(wetterlaubnis.getId());
         return wetterlaubnis;
     }
