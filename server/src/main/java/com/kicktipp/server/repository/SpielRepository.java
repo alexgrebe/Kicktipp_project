@@ -29,4 +29,8 @@ public interface SpielRepository extends CrudRepository<Spiel, Long> {
 
     @Query(value = "SELECT * FROM spiel s WHERE s.datum < :date AND (s.heimteam = :name OR s.auswaertsteam = :name) ORDER BY datum DESC LIMIT 3", nativeQuery = true)
     public List<Spiel> findLastThreeSpieleByTeamName(@Param("date")LocalDate date, @Param("name") String name);
+
+    @Query(value = "SELECT * FROM spiel s WHERE s.datum < (SELECT d.sysTime FROM configuration d LIMIT 1) " +
+            "AND s.ligaid IN (SELECT e.ligaid FROM spiel e WHERE e.id = :spielID))", nativeQuery = true)
+    public List<Spiel> findAllGamesPlayedInALeagueBeforeDate(@Param("spielID") Long spielID);
 }

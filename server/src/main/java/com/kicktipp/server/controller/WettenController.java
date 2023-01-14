@@ -30,4 +30,22 @@ public class WettenController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/erlaubnis")
+    public ResponseEntity<String> erlaubnisAnfrage(@CookieValue(value = "auth_token", required = false) String token) {
+        try{
+            if(token == null || authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            Long id = authService.findIdByAuthtoken(token);
+            wetteService.wettzulassungsAnfrage(id);
+            return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/erlaubnis/{id}")
+    public ResponseEntity<String> erlaubnisAnnehmenAblehnen() {
+        return null;
+    }
 }

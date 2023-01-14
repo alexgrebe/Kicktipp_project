@@ -17,6 +17,8 @@ public class UserService {
     }
 
     public Benutzer addUser(Benutzer benutzer) {
+        benutzer.setWetterlaubnis(false);
+        benutzer.setGeld(0);
         return repo.save(benutzer);
     }
 

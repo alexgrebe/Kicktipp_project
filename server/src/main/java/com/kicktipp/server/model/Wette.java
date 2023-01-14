@@ -16,6 +16,33 @@ public class Wette {
     public Long benutzerID;
     public int einsatz;
     public LocalDate datum;
+    public double quoteSieg;
+    public double quoteNiederlage;
+    public double quoteUnentschieden;
+
+    public double getQuoteSieg() {
+        return quoteSieg;
+    }
+
+    public void setQuoteSieg(double quoteSieg) {
+        this.quoteSieg = quoteSieg;
+    }
+
+    public double getQuoteNiederlage() {
+        return quoteNiederlage;
+    }
+
+    public void setQuoteNiederlage(double quoteNiederlage) {
+        this.quoteNiederlage = quoteNiederlage;
+    }
+
+    public double getQuoteUnentschieden() {
+        return quoteUnentschieden;
+    }
+
+    public void setQuoteUnentschieden(double quoteUnentschieden) {
+        this.quoteUnentschieden = quoteUnentschieden;
+    }
 
     public Long getId() {
         return id;
