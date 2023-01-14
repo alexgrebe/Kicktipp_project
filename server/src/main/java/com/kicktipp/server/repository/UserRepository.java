@@ -60,4 +60,9 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
     @Modifying
     @Query("UPDATE Benutzer b SET b.wetterlaubnis = :antwort WHERE b.id = :benutzerID")
     public void updateErlaubnis(@Param("antwort")boolean antwort, @Param("benutzerID")Long benutzerID);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE Benutzer b SET b.geld += :wert WHERE b.id = :benutzerID", nativeQuery = true)
+    public void updateGeld(@Param("benutzerID")Long benutzerID, @Param("wert")double wert);
 }

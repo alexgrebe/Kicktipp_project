@@ -1,13 +1,13 @@
 package com.kicktipp.server.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDate;
+import javax.persistence.*;
 
 @Entity
 public class Wette {
+
+    public enum Auswahl {
+        HEIM, AUSWAERTS, UNENTSCHIEDEN
+    }
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -15,35 +15,25 @@ public class Wette {
     public Long spielID;
     public Long benutzerID;
     public int einsatz;
-    public LocalDate datum;
-    public double quoteSieg;
-    public double quoteNiederlage;
-    public double quoteUnentschieden;
+    public double quote;
+    @Enumerated(EnumType.STRING)
+    public Auswahl auswahl;
 
-    public double getQuoteSieg() {
-        return quoteSieg;
+    public Auswahl getAuswahl() {
+        return auswahl;
     }
 
-    public void setQuoteSieg(double quoteSieg) {
-        this.quoteSieg = quoteSieg;
+    public void setAuswahl(Auswahl auswahl) {
+        this.auswahl = auswahl;
     }
 
-    public double getQuoteNiederlage() {
-        return quoteNiederlage;
+    public double getQuote() {
+        return quote;
     }
 
-    public void setQuoteNiederlage(double quoteNiederlage) {
-        this.quoteNiederlage = quoteNiederlage;
+    public void setQuote(double quote) {
+        this.quote = quote;
     }
-
-    public double getQuoteUnentschieden() {
-        return quoteUnentschieden;
-    }
-
-    public void setQuoteUnentschieden(double quoteUnentschieden) {
-        this.quoteUnentschieden = quoteUnentschieden;
-    }
-
     public Long getId() {
         return id;
     }
@@ -76,11 +66,4 @@ public class Wette {
         this.einsatz = einsatz;
     }
 
-    public LocalDate getDatum() {
-        return datum;
-    }
-
-    public void setDatum(LocalDate datum) {
-        this.datum = datum;
-    }
 }
