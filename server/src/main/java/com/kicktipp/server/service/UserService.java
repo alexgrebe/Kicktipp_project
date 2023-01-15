@@ -6,6 +6,8 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -29,4 +31,6 @@ public class UserService {
     public boolean validateEmail(String email) {
         return EmailValidator.getInstance().isValid(email);
     }
+
+    public Optional<Benutzer> getUserById(Long id) { return repo.findById(id); }
 }

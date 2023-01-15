@@ -23,6 +23,9 @@ import { FreundeComponent } from './freunde/freunde.component';
 import { ProfilComponent } from './profil/profil.component';
 import { TipprundeneinladungComponent } from './tipprundeneinladung/tipprundeneinladung.component';
 import { TippComponent } from './tipp/tipp.component';
+import { WettenComponent } from './wetten/wetten.component';
+import { WettenligaComponent } from './wettenliga/wettenliga.component';
+import { WettespielComponent } from './wettespiel/wettespiel.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +48,9 @@ import { TippComponent } from './tipp/tipp.component';
     ProfilComponent,
     TipprundeneinladungComponent,
     TippComponent,
+    WettenComponent,
+    WettenligaComponent,
+    WettespielComponent,
   ],
   imports: [
     BrowserModule,

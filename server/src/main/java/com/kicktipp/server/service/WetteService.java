@@ -1,9 +1,6 @@
 package com.kicktipp.server.service;
 
-import com.kicktipp.server.model.Benutzer;
-import com.kicktipp.server.model.Spiel;
-import com.kicktipp.server.model.Wette;
-import com.kicktipp.server.model.Wetterlaubnis;
+import com.kicktipp.server.model.*;
 import com.kicktipp.server.repository.SpielRepository;
 import com.kicktipp.server.repository.UserRepository;
 import com.kicktipp.server.repository.WettErlaubnisRepository;
@@ -14,9 +11,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class WetteService {
@@ -41,9 +39,41 @@ public class WetteService {
 
     public void createWette(Wette wette, Benutzer b) throws Exception {
         if(b.getGeld()<wette.getEinsatz() || !b.isWetterlaubnis() ) throw new Exception("");
-        List<Spiel> spiele = spielRepository.findAllGamesPlayedInALeagueBeforeDate(wette.getSpielID());
+        wette.setBenutzerID(b.getId());
+        Optional<Spiel> wettSpiel = spielRepository.findById(wette.getSpielID());
+        LocalDate date = configService.getSysTime();
+        if(wettSpiel.isEmpty() || wettSpiel.get().getDatum().isBefore(date)) throw new Exception("");
+        //List<Spiel> spiele = spielRepository.findAllGamesPlayedInALeagueBeforeDate(wette.getSpielID());
         //TODO QUOTE
         wetteRepository.save(wette);
+    }
+
+    public Quoten quoteBerechnen(Long spielID) {
+        Quoten quoten = new Quoten();
+        List<Spiel> spiele = spielRepository.findGamesInLeagueBySpielIDBeforeSysTime(spielID);
+        //List<Spiel> last5GamesHeim = spielRepository.findLast5GamesHome(spielID);
+        //List<Spiel> last5GamesAus = spielRepository.findLast5GamesHome(spielID);
+        HashMap<String, Integer> tabelle = new HashMap<>();
+        for(Spiel spiel : spiele) {
+            if(!tabelle.containsKey(spiel.getHeimteam())) tabelle.put(spiel.getHeimteam(), 0);
+            if(!tabelle.containsKey(spiel.getAuswaertsteam())) tabelle.put(spiel.getAuswaertsteam(), 0);
+            if(spiel.getHeimtore()>spiel.getAuswaertstore())
+                tabelle.put(spiel.getHeimteam(), tabelle.get(spiel.getHeimteam())+3);
+            if(spiel.getHeimtore()<spiel.getAuswaertstore())
+                tabelle.put(spiel.getAuswaertsteam(), tabelle.get(spiel.getAuswaertsteam())+3);
+            if(spiel.getHeimtore()==spiel.getAuswaertstore()) {
+                tabelle.put(spiel.getHeimteam(), tabelle.get(spiel.getHeimteam())+1);
+                tabelle.put(spiel.getAuswaertsteam(), tabelle.get(spiel.getAuswaertsteam())+1);
+            }
+        }
+        List<String> sortierteListe = tabelle.entrySet().stream().sorted(Comparator.comparing(Map.Entry::getValue, Comparator.reverseOrder())).map(Map.Entry::getKey).toList();
+        for(String out : sortierteListe) {
+            System.out.println(out);
+        }
+        for(Map.Entry<String, Integer> entry : tabelle.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+        return quoten;
     }
 
     public void zulassungEntscheiden(Long erlaubnisID, boolean ant) throws Exception{

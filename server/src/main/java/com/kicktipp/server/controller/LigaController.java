@@ -127,6 +127,18 @@ public class LigaController {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
+
+    @GetMapping("/offeneSpieleLiga/{ligaID}")
+    public ResponseEntity<List<Spiel>> offeneLigaSpiele(@CookieValue(value = "auth_token", required = false) String token, @PathVariable Long ligaID) {
+        try{
+            if(token ==null || !authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            List<Spiel> spiele = service.getGamesByDateLiga(ligaID);
+            return new ResponseEntity<>(spiele, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
     }
 
 

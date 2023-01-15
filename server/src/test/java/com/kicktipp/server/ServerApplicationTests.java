@@ -5,6 +5,7 @@ import com.kicktipp.server.repository.MitgliedRepository;
 import com.kicktipp.server.repository.TipprundeRepository;
 import com.kicktipp.server.service.LigaService;
 import com.kicktipp.server.service.TipprundeService;
+import com.kicktipp.server.service.WetteService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,9 @@ class ServerApplicationTests {
 
     @Autowired
     TipprundeService tipprundeService;
+
+    @Autowired
+    WetteService wetteService;
 
     @Test
     void contextLoads() {
@@ -49,5 +53,10 @@ class ServerApplicationTests {
 
         System.out.println(tipprundeService.getBenutzerIDByMitgliedID(2473L));
         System.out.println(tipprundeService.getBenutzerIDByMitgliedID(mitgliedRepository.findBenutzerIDById(3387L)));
+    }
+
+    @Test
+    void quoteBerechnen() {
+    wetteService.quoteBerechnen(3088L);
     }
 }

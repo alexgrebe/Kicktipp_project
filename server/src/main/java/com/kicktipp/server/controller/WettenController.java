@@ -1,6 +1,7 @@
 package com.kicktipp.server.controller;
 
 import com.kicktipp.server.model.Benutzer;
+import com.kicktipp.server.model.Quoten;
 import com.kicktipp.server.model.Wette;
 import com.kicktipp.server.model.Wetterlaubnis;
 import com.kicktipp.server.service.AuthService;
@@ -22,7 +23,7 @@ public class WettenController {
     @PostMapping("/createWette")
     public ResponseEntity<String> createWette(@CookieValue(value = "auth_token", required = false)String token, @RequestBody Wette wette) {
         try{
-        if(token == null || authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+        if(token == null || !authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         Benutzer b = authService.getUserDetailsByToken(token);
         wetteService.createWette(wette, b);
         return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
@@ -64,6 +65,21 @@ public class WettenController {
             Long benutzerID = authService.findIdByAuthtoken(token);
             Wetterlaubnis erlaubnis = wetteService.getWettErlaubnis(benutzerID);
             return new ResponseEntity<>(erlaubnis, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getQuotenForGame/{spielID}")
+    public ResponseEntity<Quoten> getQuoten(@CookieValue(value = "auth_token", required = false)String token, @PathVariable Long spielID) {
+        try{
+            if(token == null || !authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            Quoten quoten = new Quoten();
+            quoten.setHeim(1);
+            quoten.setAuswaerts(2);
+            quoten.setUnentschieden(3);
+            return new ResponseEntity<>(quoten, HttpStatus.ACCEPTED);
         }
         catch(Exception e) {
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

@@ -1,0 +1,11 @@
+<ng-container *ngIf="User?.wetterlaubnis">
+    <div>
+        <tr *ngFor="let liga of Ligen">
+          <td><a href="/wetteLiga/{{liga.id}}">Liganame: {{liga.name}}</a><img src="{{liga.logoID}}" style="width: 100px;">
+          </td>
+        </tr>
+      </div>
+</ng-container>
+<ng-container *ngIf="!User?.wetterlaubnis">
+<button (click)="erlaubnisAnfragen()">Erlaubnis anfragen</button>
+</ng-container>
