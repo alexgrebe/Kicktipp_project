@@ -110,4 +110,8 @@ public class WetteService {
         wettErlaubnisRepository.deleteById(wetterlaubnis.getId());
         return wetterlaubnis;
     }
+
+    public void addGeld(Long benutzerID, double geld) {
+        userRepository.updateGeld(benutzerID, geld);
+    }
 }

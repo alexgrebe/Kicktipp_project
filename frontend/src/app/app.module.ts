@@ -26,6 +26,7 @@ import { TippComponent } from './tipp/tipp.component';
 import { WettenComponent } from './wetten/wetten.component';
 import { WettenligaComponent } from './wettenliga/wettenliga.component';
 import { WettespielComponent } from './wettespiel/wettespiel.component';
+import { MinispielComponent } from './minispiel/minispiel.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { WettespielComponent } from './wettespiel/wettespiel.component';
     WettenComponent,
     WettenligaComponent,
     WettespielComponent,
+    MinispielComponent,
   ],
   imports: [
     BrowserModule,

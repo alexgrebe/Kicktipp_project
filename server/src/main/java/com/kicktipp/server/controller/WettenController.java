@@ -86,4 +86,16 @@ public class WettenController {
         }
     }
 
+    @GetMapping("/addGeld")
+    public ResponseEntity<String> addGeld(@CookieValue(value = "auth_token", required = false)String token, @RequestParam("geld") int geld) {
+        try{
+            if(token==null||!authService.verifyToken(token)) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            wetteService.addGeld(authService.findIdByAuthtoken(token), geld);
+            return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

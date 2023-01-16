@@ -63,6 +63,6 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE Benutzer b SET b.geld += :wert WHERE b.id = :benutzerID", nativeQuery = true)
+    @Query(value = "UPDATE benutzer b SET b.geld = :wert + b.geld WHERE b.id = :benutzerID", nativeQuery = true)
     public void updateGeld(@Param("benutzerID")Long benutzerID, @Param("wert")double wert);
 }
