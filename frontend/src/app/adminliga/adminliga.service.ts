@@ -31,4 +31,6 @@ export class AdminligaService {
   getLigen() {
     return this.http.get<Liga[]>(this.url + "getAllLeagues", {withCredentials: true})
   }
+
+  updateLiga(liga: Liga) { return this.http.post(this.url+"ligaUpdate", liga, {withCredentials: true, responseType: 'text'})}
 }

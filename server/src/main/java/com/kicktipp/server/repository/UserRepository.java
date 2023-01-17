@@ -47,4 +47,22 @@ public interface UserRepository extends CrudRepository<Benutzer, Long> {
 
     @Query("SELECT b FROM Benutzer b WHERE b.id NOT IN (SELECT m.benutzerID FROM Mitglied m WHERE m.tipprundeID = :id)")
     public List<Benutzer> findNutzerNotInTipprunde(@Param("id") Long id);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Benutzer b SET b.wetterlaubnis = true WHERE b.id = :id")
+    public void erlaubnisErteilen(@Param("id") Long id);
+
+    @Query("SELECT b FROM Benutzer b WHERE b.role = 'admin'")
+    public List<Benutzer> findAdmins();
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Benutzer b SET b.wetterlaubnis = :antwort WHERE b.id = :benutzerID")
+    public void updateErlaubnis(@Param("antwort")boolean antwort, @Param("benutzerID")Long benutzerID);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE benutzer b SET b.geld = :wert + b.geld WHERE b.id = :benutzerID", nativeQuery = true)
+    public void updateGeld(@Param("benutzerID")Long benutzerID, @Param("wert")double wert);
 }

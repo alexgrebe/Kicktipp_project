@@ -8,6 +8,8 @@ profilepicturedata: string | undefined;
 role: string | undefined;
 geburtsdatum: string | undefined;
 id: number | undefined;
+geld: number | undefined;
+wetterlaubnis: boolean | undefined;
 
   constructor(
 

@@ -29,4 +29,20 @@ public interface SpielRepository extends CrudRepository<Spiel, Long> {
 
     @Query(value = "SELECT * FROM spiel s WHERE s.datum < :date AND (s.heimteam = :name OR s.auswaertsteam = :name) ORDER BY datum DESC LIMIT 3", nativeQuery = true)
     public List<Spiel> findLastThreeSpieleByTeamName(@Param("date")LocalDate date, @Param("name") String name);
+
+    @Query(value = "SELECT * FROM spiel s WHERE s.datum > (SELECT d.sys_time FROM configuration d LIMIT 1) " +
+            "AND s.liga_fremdschlussel = :ligaID", nativeQuery = true)
+    public List<Spiel> findAllGamesPlayedInALeagueBeforeDate(@Param("ligaID") Long ligaID);
+
+    @Query(value = "SELECT * FROM spiel s WHERE s.liga_fremdschlussel IN (SELECT s1.liga_fremdschlussel FROM spiel s1 WHERE s1.id = :spielID)" +
+            "AND s.datum < (SELECT d.sys_time FROM configuration d LIMIT 1)", nativeQuery = true)
+    public List<Spiel> findGamesInLeagueBySpielIDBeforeSysTime(@Param("spielID")Long spielID);
+
+    @Query(value = "SELECT * FROM spiel s WHERE s.heimteam = (SELECT s1.heimteam FROM spiel s1 WHERE s1.id = :spielID LIMIT 1) " +
+            "AND s.datum = (SELECT d.sys_time FROM configuration d LIMIT 1) ORDER BY s.datum DESC LIMIT 5", nativeQuery = true)
+    public List<Spiel> findLast5GamesHome(@Param("spielID")Long spielID);
+
+    @Query(value = "SELECT * FROM spiel s WHERE s.auswaertsteam = (SELECT s1.auswaertsteam FROM spiel s1 WHERE s1.id = :spielID LIMIT 1) " +
+            "AND s.datum = (SELECT d.sys_time FROM configuration d LIMIT 1) ORDER BY s.datum DESC LIMIT 5", nativeQuery = true)
+    public List<Spiel> findLast5GamesAus(@Param("spielID")Long spielID);
 }

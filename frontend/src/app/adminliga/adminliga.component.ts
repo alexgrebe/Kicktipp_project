@@ -13,16 +13,23 @@ export class AdminligaComponent implements OnInit {
   liga: Liga;
   spiel: Spiel;
   reader: FileReader;
+  updateReader: FileReader;
   ligaId: number;
   ligen: Liga[];
+  updateLiga: Liga;
   CSVFile: File;
 
   constructor(private service: AdminligaService) {
+    this.updateLiga = new Liga();
     this.liga = new Liga();
     this.reader = new FileReader();
     this.reader.onloadend = () => {
       this.liga.logoID = this.reader.result + ""
     };
+    this.updateReader = new FileReader();
+    this.updateReader.onloadend = () => {
+      this.updateLiga.logoID = this.updateReader.result+""
+    }
     this.spiel = new Spiel();
     this.ligaId = 0;
     this.ligen = [];
@@ -70,8 +77,16 @@ export class AdminligaComponent implements OnInit {
     this.reader.readAsDataURL(e.target.files[0]);
   }
 
+  async updateLogoChange(e: any) {
+    this.updateReader.readAsDataURL(e.target.files[0]);
+  }
+
   setCSVFile(e: any) {
     this.CSVFile = e.target.files[0];
+  }
+
+  updateSubmit() {
+    this.service.updateLiga(this.updateLiga).subscribe(data => { alert("Geupdatet") }, err => {alert(err)})
   }
 
 }

@@ -73,8 +73,16 @@ public class LigaService {
     }
 
     public List<Spiel> getGamesByDate(LocalDate date, Long id, Long mitgliedID) {
-        System.out.println(mitgliedID +" "+date+" "+id);
         return spielRepository.findSpieleByDatumAndLiga(date, id, mitgliedID);
+    }
+
+    public List<Spiel> getGamesByDateLiga(Long ligaID) {
+        List<Spiel> spiele = spielRepository.findAllGamesPlayedInALeagueBeforeDate(ligaID);
+        for(Spiel spiel : spiele) {
+        spiel.setHeimtore(null);
+        spiel.setAuswaertstore(null);
+        }
+        return spiele;
     }
 
     public void updateLeaguePicture() {

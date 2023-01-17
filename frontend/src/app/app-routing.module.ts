@@ -18,6 +18,10 @@ import { FreundeComponent } from './freunde/freunde.component';
 import { ProfilComponent } from './profil/profil.component';
 import { TipprundeneinladungComponent } from './tipprundeneinladung/tipprundeneinladung.component';
 import { TippComponent } from './tipp/tipp.component';
+import { WettenComponent } from './wetten/wetten.component';
+import { WettenligaComponent } from './wettenliga/wettenliga.component';
+import { WettespielComponent } from './wettespiel/wettespiel.component';
+import { MinispielComponent } from './minispiel/minispiel.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
@@ -37,7 +41,11 @@ const routes: Routes = [
   {path: 'soziales', component: FreundeComponent},
   {path: 'profil/:id', component: ProfilComponent},
   {path: 'tipprundenEinladung/:id', component: TipprundeneinladungComponent},
-  {path: 'tipp/:id/:spielid', component: TippComponent}
+  {path: 'tipp/:id/:spielid', component: TippComponent},
+  {path: 'wetten', component: WettenComponent},
+  {path: 'wetteLiga/:id', component: WettenligaComponent},
+  {path: 'wetteSpiel/:id', component: WettespielComponent},
+  {path: 'minispiel', component: MinispielComponent}
   ];
 
 @NgModule({

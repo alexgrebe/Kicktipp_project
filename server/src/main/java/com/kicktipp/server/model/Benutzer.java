@@ -18,6 +18,8 @@ public class Benutzer {
     public String passwort;
     public String authtoken;
     public String role;
+    public double geld;
+    public boolean wetterlaubnis;
     @Column(unique = true)
     public String email;
     @Lob
@@ -93,5 +95,21 @@ public class Benutzer {
 
     public void setProfilepicturedata(String profilbildId) {
         this.profilepicturedata = profilbildId;
+    }
+
+    public double getGeld() {
+        return geld;
+    }
+
+    public void setGeld(double geld) {
+        this.geld = geld;
+    }
+
+    public boolean isWetterlaubnis() {
+        return wetterlaubnis;
+    }
+
+    public void setWetterlaubnis(boolean wetterlaubnis) {
+        this.wetterlaubnis = wetterlaubnis;
     }
 }

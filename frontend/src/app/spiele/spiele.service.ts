@@ -11,10 +11,14 @@ export class SpieleService {
   url: string;
 
   constructor(private http: HttpClient) {
-    this.url = "http://localhost:8080/getAllGamesByLeague/"
+    this.url = "http://localhost:8080/"
   }
 
   getAllGames(id: number): Observable<Spiel[]> {
-    return this.http.get<Spiel[]>(this.url + id, {withCredentials: true})
+    return this.http.get<Spiel[]>(this.url + "getAllGamesByLeague/" + id, {withCredentials: true})
+  }
+
+  deleteGame(spielID: number) {
+    return this.http.get(this.url+"deleteGame/"+spielID, {withCredentials: true, responseType: 'text'})
   }
 }
