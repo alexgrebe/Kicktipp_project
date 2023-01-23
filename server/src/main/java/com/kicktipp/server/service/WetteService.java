@@ -148,12 +148,23 @@ public class WetteService {
 
     public Wetterlaubnis getWettErlaubnis(Long benutzerID) {
         Wetterlaubnis wetterlaubnis = wettErlaubnisRepository.findWetterlaubnisByBenutzerID(benutzerID);
-        if(!wetterlaubnis.isEntscheidung()) return null;
+        if(!wetterlaubnis.isEntscheidung()) return wetterlaubnis;
         wettErlaubnisRepository.deleteById(wetterlaubnis.getId());
         return wetterlaubnis;
     }
 
     public void addGeld(Long benutzerID, double geld) {
         userRepository.updateGeld(benutzerID, geld);
+    }
+
+    public List<Benutzer> alleOfeneEntscheidungen() {
+        return userRepository.findAllErlaubnisse();
+    }
+
+    public void entscheidungWetterlaubnis(Long benutzerID, boolean entscheidung) {
+        if(entscheidung) userRepository.erlaubnisErteilen(benutzerID);
+        Wetterlaubnis erlaubnis = wettErlaubnisRepository.findWetterlaubnisByBenutzerID(benutzerID);
+        erlaubnis.setEntscheidung(true);
+        wettErlaubnisRepository.save(erlaubnis);
     }
 }

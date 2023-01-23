@@ -1,0 +1,5 @@
+<div *ngFor="let user of offene">
+    {{user.vorname}} {{user.nachname}}
+    <button (click)="entscheidungSubmit(true, user.id ? user.id : 0)">Annehmen</button>
+    <button (click)="entscheidungSubmit(false, user.id ? user.id : 0)">Ablehnen</button>
+</div>

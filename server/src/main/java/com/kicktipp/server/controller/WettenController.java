@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = {"http://localhost:4200", "http://localhost:80", "http://localhost"}, allowCredentials = "true")
@@ -95,6 +96,34 @@ public class WettenController {
         }
         catch(Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("/getAllErlaubnis")
+    public ResponseEntity<List<Benutzer>> erlaubnisAnfragen(@CookieValue(value = "auth_token", required = false) String token) {
+        try{
+            if(token==null || !authService.RoleByToken(token).equals("admin")) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            List<Benutzer> benutzer = wetteService.alleOfeneEntscheidungen();
+            for(Benutzer user : benutzer) {
+                user.setPasswort(null);
+                user.setProfilepicturedata(null);
+            }
+            return new ResponseEntity<>(benutzer, HttpStatus.ACCEPTED);
+        }
+        catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping("entscheidungByBenutzer/{id}")
+    public ResponseEntity<String> erlaubnisBenutzerAnAb(@CookieValue(value = "auth_token", required = false)String token, @PathVariable Long id, @RequestParam("entscheidung")boolean entscheidung) {
+        try{
+            if(token == null || !authService.RoleByToken(token).equals("admin")) return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+            wetteService.entscheidungWetterlaubnis(id, entscheidung);
+            return new ResponseEntity<>(null, HttpStatus.ACCEPTED);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 

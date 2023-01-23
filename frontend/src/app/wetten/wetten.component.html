@@ -6,6 +6,12 @@
         </tr>
       </div>
 </ng-container>
-<ng-container *ngIf="!User?.wetterlaubnis">
+<ng-container *ngIf="User!==undefined && !User?.wetterlaubnis && wettEntscheidung===undefined">
 <button (click)="erlaubnisAnfragen()">Erlaubnis anfragen</button>
+</ng-container>
+<ng-container *ngIf="wettEntscheidung!==undefined && !wettEntscheidung?.entscheidung">
+Auf Entscheidung warten
+</ng-container>
+<ng-container *ngIf="wettEntscheidung!==undefined && wettEntscheidung?.entscheidung">
+{{User?.wetterlaubnis ? "Erlaubnis angenommen" : "Erlaubnis abgelehnt"}}
 </ng-container>
