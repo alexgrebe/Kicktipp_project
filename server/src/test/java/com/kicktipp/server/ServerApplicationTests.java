@@ -55,8 +55,4 @@ class ServerApplicationTests {
         System.out.println(tipprundeService.getBenutzerIDByMitgliedID(mitgliedRepository.findBenutzerIDById(3387L)));
     }
 
-    @Test
-    void quoteBerechnen() {
-    wetteService.quoteBerechnen(3088L);
-    }
 }

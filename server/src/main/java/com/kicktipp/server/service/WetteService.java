@@ -43,16 +43,23 @@ public class WetteService {
         Optional<Spiel> wettSpiel = spielRepository.findById(wette.getSpielID());
         LocalDate date = configService.getSysTime();
         if(wettSpiel.isEmpty() || wettSpiel.get().getDatum().isBefore(date)) throw new Exception("");
-        //List<Spiel> spiele = spielRepository.findAllGamesPlayedInALeagueBeforeDate(wette.getSpielID());
-        //TODO QUOTE
+        Quoten quote = quoteBerechnen(wettSpiel.get());
+        if(Wette.Auswahl.HEIM==wette.getAuswahl()) wette.setQuote(quote.getHeim());
+        if(Wette.Auswahl.AUSWAERTS==wette.getAuswahl()) wette.setQuote(quote.getAuswaerts());
+        if(Wette.Auswahl.UNENTSCHIEDEN==wette.getAuswahl()) wette.setQuote(quote.getUnentschieden());
+        b.setGeld(b.getGeld()-wette.getEinsatz());
+        userRepository.save(b);
+        System.out.println(wette.getQuote());
         wetteRepository.save(wette);
     }
 
-    public Quoten quoteBerechnen(Long spielID) {
+    public Quoten quoteBerechnen(Spiel spielQuote) {
         Quoten quoten = new Quoten();
-        List<Spiel> spiele = spielRepository.findGamesInLeagueBySpielIDBeforeSysTime(spielID);
-        //List<Spiel> last5GamesHeim = spielRepository.findLast5GamesHome(spielID);
-        //List<Spiel> last5GamesAus = spielRepository.findLast5GamesHome(spielID);
+        double team1 = 1;
+        double team2 = 1;
+        List<Spiel> spiele = spielRepository.findGamesInLeagueBySpielIDBeforeSysTime(spielQuote.getId());
+        List<Spiel> last5GamesHeim = spielRepository.findLast5GamesHome(spielQuote.getId());
+        List<Spiel> last5GamesAus = spielRepository.findLast5GamesAus(spielQuote.getId());
         HashMap<String, Integer> tabelle = new HashMap<>();
         for(Spiel spiel : spiele) {
             if(!tabelle.containsKey(spiel.getHeimteam())) tabelle.put(spiel.getHeimteam(), 0);
@@ -73,6 +80,41 @@ public class WetteService {
         for(Map.Entry<String, Integer> entry : tabelle.entrySet()) {
             System.out.println(entry.getKey() + " : " + entry.getValue());
         }
+
+        for(int i=0; i<sortierteListe.size(); i++) {
+            if(spielQuote.getHeimteam().equals(sortierteListe.get(i))) team1 += sortierteListe.size()-i;
+            if(spielQuote.getAuswaertsteam().equals(sortierteListe.get(i))) team2 += sortierteListe.size()-i;
+        }
+
+        for(Spiel spiel : last5GamesHeim) {
+            int tore;
+            int toreGegner;
+
+            if(spiel.getHeimteam().equals(spielQuote.getHeimteam())) {tore=spiel.getHeimtore(); toreGegner=spiel.getAuswaertstore();
+            if(tore==toreGegner) team1+=1;
+            if(tore>toreGegner) team1+=3;
+            }
+            else {toreGegner=spiel.getHeimtore(); tore=spiel.getAuswaertstore();
+                if(tore==toreGegner) team1+=1;
+                if(tore<toreGegner) team1+=3;}
+        }
+
+        for(Spiel spiel : last5GamesAus) {
+            int tore;
+            int toreGegner;
+
+            if(spiel.getHeimteam().equals(spielQuote.getHeimteam())) {tore=spiel.getHeimtore(); toreGegner=spiel.getAuswaertstore();
+                if(tore==toreGegner) team2+=1;
+                if(tore>toreGegner) team2+=3;
+            }
+            else {toreGegner=spiel.getHeimtore(); tore=spiel.getAuswaertstore();
+                if(tore==toreGegner) team2+=1;
+                if(tore<toreGegner) team2+=3;}
+        }
+
+        quoten.setHeim(1.0 +  team1/ team2);
+        quoten.setAuswaerts(1.0 + team2 / team1);
+        quoten.setUnentschieden((quoten.getAuswaerts()+quoten.getHeim())/2);
         return quoten;
     }
 

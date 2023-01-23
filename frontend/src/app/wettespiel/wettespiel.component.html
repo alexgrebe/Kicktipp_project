@@ -1,10 +1,15 @@
+<div>Geld: {{user.geld}}</div>
 <form #wettenForm="ngForm" (ngSubmit)="wetteSubmit()">
     <div>
-        <select [(ngModel)]="wette.auswahl" name="selectwette">
+        <select [(ngModel)]="wette.auswahl" name="selectwette" required>
             <option value="HEIM">Heimmannschaft gewinnt(Quote: {{quoten.heim}})</option>
             <option value="AUSWAERTS">Auswärtsmannschaft gewinnt(Quote: {{quoten.auswaerts}})</option>
             <option value="UNENTSCHIEDEN">Unentschieden(Quote: {{quoten.unentschieden}})</option>
         </select>
+    </div>
+    <div>
+        <label>Einsatz</label>
+        <input type="number" name="einsatzWette" [(ngModel)]="wette.einsatz">
     </div>
 <button type="submit">Wetten</button>
 </form>
