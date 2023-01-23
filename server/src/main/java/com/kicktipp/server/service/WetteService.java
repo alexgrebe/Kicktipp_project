@@ -137,7 +137,7 @@ public class WetteService {
             message.setTo(admin.getEmail());
             message.setFrom("KicktippEmailGruppeG@gmail.com");
             message.setSubject("Wetterlaubnisanfrage von " + benutzer.get().getEmail());
-            message.setText("http://localhost/");
+            message.setText("Anfrage kann im System angenommen/abgelehnt werden");
             mailSender.send(message);
         }
         Wetterlaubnis erlaubnis = new Wetterlaubnis();
