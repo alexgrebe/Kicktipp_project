@@ -1,7 +1,10 @@
 package com.kicktipp.server;
 
+import com.kicktipp.server.model.Quoten;
+import com.kicktipp.server.model.Spiel;
 import com.kicktipp.server.model.Tipprunde;
 import com.kicktipp.server.repository.MitgliedRepository;
+import com.kicktipp.server.repository.SpielRepository;
 import com.kicktipp.server.repository.TipprundeRepository;
 import com.kicktipp.server.service.LigaService;
 import com.kicktipp.server.service.TipprundeService;
@@ -18,6 +21,9 @@ class ServerApplicationTests {
 
     @Autowired
     TipprundeRepository repo;
+
+    @Autowired
+    SpielRepository spielRepository;
 
     @Autowired
     MitgliedRepository mitgliedRepository;
@@ -53,6 +59,15 @@ class ServerApplicationTests {
 
         System.out.println(tipprundeService.getBenutzerIDByMitgliedID(2473L));
         System.out.println(tipprundeService.getBenutzerIDByMitgliedID(mitgliedRepository.findBenutzerIDById(3387L)));
+    }
+
+    @Test
+    void checkQuote() {
+        Iterable<Spiel> spiele = spielRepository.findAll();
+        Quoten quote = wetteService.quoteBerechnen(spiele.iterator().next());
+        assert(quote.getHeim()>=1);
+        assert(quote.getAuswaerts()>=1);
+        assert(quote.getUnentschieden()>=1);
     }
 
 }
