@@ -1,7 +1,7 @@
 <div class="vh-100 d-flex align-items-center justify-content-center mt-0">
   <div class="d-flex flex-column align-items-center card">
 
-    <h3>Soziales</h3>
+    <h3 style="margin-top: 200px;">Soziales</h3>
     <h4 *ngIf="checkLenOfFreunde()">Freunde</h4>
     <ul class="list-group">
       <li class="list-group-item" *ngFor="let freund of freunde">
@@ -10,6 +10,7 @@
           'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png'}}">
         </div>
         <button (click)="deleteFreunde(freund.id ? freund.id : 0)">Freund löschen</button>
+        <a href="chatPrivat/{{freund.id}}">Chat</a>
       </li>
     </ul>
     <h4 *ngIf="checkLenOfOffeneFreunde()">Freundschaftsanfragen</h4>

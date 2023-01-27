@@ -1,4 +1,5 @@
 <h1>{{tipprunde.name}}</h1>
+<a href="/chatTipprunde/{{id}}">Chat</a>
 <ul class="list-group">
 <li *ngFor="let mitglied of mitglieder" class="list-group-item">
     <a href="/profil/{{mitglied.benutzerID}}" class="list-group-item list-group-item-action">{{mitglied.name}} : {{mitglied.punkte}}</a>
