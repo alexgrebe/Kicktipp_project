@@ -11,10 +11,19 @@ public class Nachicht {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long id;
-    public Long ChatId;
+    public Long chatId;
 
-    public long time;
+    public Long time;
     public Long benutzerID;
+    public String Content;
+
+    public String getContent() {
+        return Content;
+    }
+
+    public void setContent(String content) {
+        Content = content;
+    }
 
     public Long getId() {
         return id;
@@ -40,10 +49,10 @@ public class Nachicht {
         return benutzerID;
     }
     public Long getChatId() {
-        return ChatId;
+        return chatId;
     }
 
     public void setChatId(Long chatId) {
-        ChatId = chatId;
+        this.chatId = chatId;
     }
 }
