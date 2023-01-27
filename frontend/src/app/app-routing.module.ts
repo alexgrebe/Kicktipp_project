@@ -22,6 +22,7 @@ import { WettenComponent } from './wetten/wetten.component';
 import { WettenligaComponent } from './wettenliga/wettenliga.component';
 import { WettespielComponent } from './wettespiel/wettespiel.component';
 import { MinispielComponent } from './minispiel/minispiel.component';
+import { ChatComponent } from './chat/chat.component';
 import { WettenadminComponent } from './wettenadmin/wettenadmin.component';
 
 const routes: Routes = [
@@ -47,6 +48,8 @@ const routes: Routes = [
   {path: 'wetteLiga/:id', component: WettenligaComponent},
   {path: 'wetteSpiel/:id', component: WettespielComponent},
   {path: 'minispiel', component: MinispielComponent},
+  {path: 'chatTipprunde/:tipprundeId', component: ChatComponent},
+  {path: 'chatPrivat/:userId', component: ChatComponent},
   {path: 'wettenadmin', component: WettenadminComponent}
   ];
 

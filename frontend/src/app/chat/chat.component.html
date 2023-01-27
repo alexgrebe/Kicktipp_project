@@ -1,0 +1,7 @@
+<form #addLigaForm='ngForm' (ngSubmit)="reloadData()">
+    <div>
+      <label>Nachicht</label>
+      <input [(ngModel)]="sNachicht" class="form-control" name="liganame" type="text">
+    </div>
+    <button type="submit">Senden</button>
+</form>
