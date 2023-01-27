@@ -23,6 +23,7 @@ import { WettenligaComponent } from './wettenliga/wettenliga.component';
 import { WettespielComponent } from './wettespiel/wettespiel.component';
 import { MinispielComponent } from './minispiel/minispiel.component';
 import { ChatComponent } from './chat/chat.component';
+import { WettenadminComponent } from './wettenadmin/wettenadmin.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent},
@@ -48,7 +49,8 @@ const routes: Routes = [
   {path: 'wetteSpiel/:id', component: WettespielComponent},
   {path: 'minispiel', component: MinispielComponent},
   {path: 'chatTipprunde/:tipprundeId', component: ChatComponent},
-  {path: 'chatPrivat/:userId', component: ChatComponent}
+  {path: 'chatPrivat/:userId', component: ChatComponent},
+  {path: 'wettenadmin', component: WettenadminComponent}
   ];
 
 @NgModule({

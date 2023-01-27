@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Benutzer } from '../Models/Benutzer';
 import { Liga } from '../Models/Liga';
+import { Wetterlaubnis } from '../Models/Wetterlaubnis';
 
 @Injectable({
   providedIn: 'root'
@@ -17,4 +18,6 @@ export class WettenService {
   getLeagues() { return this.http.get<Liga[]>(this.url+"getAllLeagues", {withCredentials: true}) }
 
   erlaubnisAnfrage() { return this.http.get(this.url+"erlaubnis", {withCredentials: true, responseType: 'text'})}
+
+  getErlaubnis() { return this.http.get<Wetterlaubnis>(this.url+"getErlaubnis", {withCredentials: true}) }
 }

@@ -185,7 +185,7 @@ public class TipprundeService {
     }
 
     public String tipphilfe(Long spielID) throws Exception {
-        double team1Wert = 0.1;
+        double team1Wert = 0;
         double team2Wert = 0;
         Optional<Spiel> spiel = spielRepo.findById(spielID);
         if(spiel.isEmpty()) throw new Exception("Spiel existiert nicht!");
@@ -199,7 +199,8 @@ public class TipprundeService {
             if(s.getHeimteam().equals(spiel.get().getAuswaertsteam())) team2Wert += s.getHeimtore();
             else { team2Wert += s.getAuswaertstore(); }
         }
-        if(team1Wert>team2Wert) { return spiel.get().getHeimteam(); }
-        else { return spiel.get().getAuswaertsteam(); }
+        String retString = spiel.get().getHeimteam() + " " + (int)(team1Wert+0.1/team1.size()+0.1) +" : " + (int)(team2Wert+0.1/team2.size()+0.1) + " " + spiel.get().getAuswaertsteam();
+
+        return retString;
     }
 }

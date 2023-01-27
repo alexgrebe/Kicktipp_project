@@ -28,6 +28,7 @@ import { WettenligaComponent } from './wettenliga/wettenliga.component';
 import { WettespielComponent } from './wettespiel/wettespiel.component';
 import { MinispielComponent } from './minispiel/minispiel.component';
 import { ChatComponent } from './chat/chat.component';
+import { WettenadminComponent } from './wettenadmin/wettenadmin.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ChatComponent } from './chat/chat.component';
     WettespielComponent,
     MinispielComponent,
     ChatComponent,
+    WettenadminComponent
   ],
   imports: [
     BrowserModule,

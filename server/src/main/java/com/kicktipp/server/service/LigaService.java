@@ -118,4 +118,6 @@ public class LigaService {
     }
 
     public void updateLiga(Liga liga) { ligaRepository.save(liga); }
+
+    public Optional<Spiel> getSpiel(Long id) {return spielRepository.findById(id);}
 }
