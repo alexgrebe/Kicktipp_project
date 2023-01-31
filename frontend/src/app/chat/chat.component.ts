@@ -31,23 +31,17 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.params.subscribe(data => {this.tipprundeId = data['tipprundeId']; 
-                                          this.tipprundeId = data['userId']; 
+                                          this.userId = data['userId'];
+                                          this.getChat();
+                                          
   }, 
     err => {alert("Fehler!")});
 
-    this.getChat();
-
-    interval(1000).subscribe(x => {
-      var tempLastMessageTime: number = Number(this.lastMessageTime) ;
-      console.log(this.lastMessageTime);
-      this.service.getLastMessageTime().subscribe(data => {this.lastMessageTime = data.time}, err => {alert("Fehler! Seite neu laden")}); 
-      console.log("sdfasdfgasdf1231231");
-      if (this.sendNachicht.time === tempLastMessageTime) {
-        console.log("sdfasdfgasdf");
-        this.reloadData();
-        window.location.reload();
-      }
-  });
+    setInterval(() => {
+      if (this.router.snapshot.url[0].toString()==="chatTipprunde")
+      this.service.getTipprundeChatMessages(this.tipprundeId).subscribe(data => {this.nachichten = data})
+      else this.service.getPrivateChatMessages(this.userId).subscribe(data => {this.nachichten = data})
+    }, 1000)
   }
 
 
@@ -68,10 +62,8 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log(this.sendNachicht);
-    console.log(this.chat)
+    this.sendNachicht.chatId = this.chat.id;
     this.service.sendMessage(this.sendNachicht).subscribe(data => {
-      console.log(data)
     },
     err => {
       alert(err)
