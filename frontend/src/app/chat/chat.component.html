@@ -1,7 +1,15 @@
-<form #addLigaForm='ngForm' (ngSubmit)="reloadData()">
+<form #addLigaForm='ngForm' (ngSubmit)="sendMessage()">
     <div>
       <label>Nachicht</label>
-      <input [(ngModel)]="sNachicht" class="form-control" name="liganame" type="text">
+      <input [(ngModel)]="sendNachicht.Content" class="form-control" name="Nachicht" type="text">
     </div>
     <button type="submit">Senden</button>
 </form>
+
+<div class="">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let nachicht of nachichten">
+      <h1>{{nachicht.benutzerID}} {{nachicht.Content}}</h1>
+    </li>
+  </ul>
+</div>
