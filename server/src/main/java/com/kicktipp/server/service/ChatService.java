@@ -55,11 +55,16 @@ public class ChatService {
         return chat.findChatByTipprundeID(tipprundeId);
     }
     public Nachicht getLastMessageTime() {
-        Nachicht n = nachichten.findTopByOrderByTimeDesc();
-        n.setContent("");
-        n.setBenutzerID(null);
-        n.setId(null);
-        return n;
+        try {
+            Nachicht n = nachichten.findTopByOrderByTimeDesc();
+            n.setContent("");
+            n.setBenutzerID(null);
+            n.setId(null);
+            return n;
+        } catch (Exception e) {
+            return new Nachicht();
+        }
+
     }
 
     public void sendMessage(Nachicht message) {

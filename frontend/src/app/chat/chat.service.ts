@@ -19,7 +19,7 @@ export class ChatService {
       {withCredentials: true})
   }
 
-  getPrivateChat(userId: number, friendId: number) {
+  getPrivateChat(friendId: number) {
     return this.http.get<Chat>(
       this.url + "getPrivateChat/" + friendId,
       {withCredentials: true})
